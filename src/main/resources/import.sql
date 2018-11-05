@@ -1,6 +1,6 @@
-INSERT INTO users(firstname,lastname,username,password) VALUES ('Satoshi','Nakamoto','sato$hi','sifra1');
-INSERT INTO users(firstname,lastname,username,password) VALUES ('Kaz','Hirai','kaz','sifra1');
-INSERT INTO users(firstname,lastname,username,password) VALUES ('Gavin', 'Andresen','gav','sifra1');
+INSERT INTO users(firstname,lastname,username,password, usertype) VALUES ('Satoshi','Nakamoto','sato$hi','sifra1','admin');
+INSERT INTO users(firstname,lastname,username,password, usertype) VALUES ('Kaz','Hirai','kaz','sifra1','regular');
+INSERT INTO users(firstname,lastname,username,password, usertype) VALUES ('Gavin', 'Andresen','gav','sifra1', 'regular');
 
 INSERT INTO languages(name) VALUES ('English');
 INSERT INTO languages(name) VALUES ('French');

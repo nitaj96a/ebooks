@@ -1,5 +1,6 @@
 package com.n96a.ebooks.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,9 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -30,16 +33,18 @@ public class User {
 	@Column(name = "username", columnDefinition = "VARCHAR(10)", length = 10, unique = true, nullable = false)
 	private String username; // varchar(10) ??
 
+	@JsonIgnore
 	@Column(name = "password", columnDefinition = "VARCHAR(10)", length = 10, unique = false, nullable = false)
 	private String password; // varchar(10) ??
 
-	@Column(name = "type", columnDefinition = "VARCHAR(30)", length = 30, unique = false, nullable = true)
+	@Column(name = "usertype", columnDefinition = "VARCHAR(30)", length = 30, unique = false, nullable = true)
 	private String type; // varchar(30)
 
 	@ManyToOne // User 0..n -> 0..1 Category
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // User 1..1 -> 0..n Ebook
 	private Set<Ebook> ebooks = new HashSet<Ebook>();
 
