@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "languages")
 public class Language implements Serializable{
@@ -24,6 +26,7 @@ public class Language implements Serializable{
 	@Column(name = "name", columnDefinition = "VARCHAR(30)", length = 30, unique = true, nullable = false)
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "language") // Language 1..1 -> 0..n Ebook //collection of ebooks;
 	private Set<Ebook> ebooks = new HashSet<Ebook>();
 

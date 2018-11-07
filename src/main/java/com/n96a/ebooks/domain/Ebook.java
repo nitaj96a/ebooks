@@ -11,9 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "ebooks")
-public class Ebook implements Serializable{
+public class Ebook implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -33,6 +35,9 @@ public class Ebook implements Serializable{
 	@Column(name = "filename", columnDefinition = "VARCHAR(200)", length = 200, unique = true, nullable = false)
 	private String filename;
 
+	@Column(name = "thumbnailpath", columnDefinition = "VARCHAR(200)", length = 200, unique = true, nullable = false)
+	private String thumbnailPath;
+
 	@Column(name = "MIME", columnDefinition = "VARCHAR(100)", length = 100, unique = false, nullable = true)
 	private String MIME;
 
@@ -40,11 +45,13 @@ public class Ebook implements Serializable{
 	@JoinColumn(name = "language_id", referencedColumnName = "id")
 	private Language language;
 
+	
 	@ManyToOne // Ebook 0..n -> 1..1 Category // Why not make a book belong in multiple
 				// categories?
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 
+	@JsonIgnore
 	@ManyToOne // Ebook 0..n -> 1..1 User
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
@@ -66,6 +73,19 @@ public class Ebook implements Serializable{
 	}
 
 	public Ebook(Integer id, String title, String author, String keywords, Integer publicationYear, String filename,
+			String thumbnailPath, String mIME) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.keywords = keywords;
+		this.publicationYear = publicationYear;
+		this.filename = filename;
+		this.thumbnailPath = thumbnailPath;
+		MIME = mIME;
+	}
+
+	public Ebook(Integer id, String title, String author, String keywords, Integer publicationYear, String filename,
 			String mIME, Language language, Category category, User user) {
 		super();
 		this.id = id;
@@ -74,6 +94,22 @@ public class Ebook implements Serializable{
 		this.keywords = keywords;
 		this.publicationYear = publicationYear;
 		this.filename = filename;
+		MIME = mIME;
+		this.language = language;
+		this.category = category;
+		this.user = user;
+	}
+
+	public Ebook(Integer id, String title, String author, String keywords, Integer publicationYear, String filename,
+			String thumbnailPath, String mIME, Language language, Category category, User user) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.keywords = keywords;
+		this.publicationYear = publicationYear;
+		this.filename = filename;
+		this.thumbnailPath = thumbnailPath;
 		MIME = mIME;
 		this.language = language;
 		this.category = category;
@@ -128,6 +164,14 @@ public class Ebook implements Serializable{
 		this.filename = filename;
 	}
 
+	public String getThumbnailPath() {
+		return thumbnailPath;
+	}
+
+	public void setThumbnailPath(String thumbnailPath) {
+		this.thumbnailPath = thumbnailPath;
+	}
+
 	public String getMIME() {
 		return MIME;
 	}
@@ -163,8 +207,8 @@ public class Ebook implements Serializable{
 	@Override
 	public String toString() {
 		return "Ebook [id=" + id + ", title=" + title + ", author=" + author + ", keywords=" + keywords
-				+ ", publicationYear=" + publicationYear + ", filename=" + filename + ", MIME=" + MIME + ", language="
-				+ language + ", category=" + category + ", user=" + user + "]";
+				+ ", publicationYear=" + publicationYear + ", filename=" + filename + ", thumbnailPath=" + thumbnailPath
+				+ ", MIME=" + MIME + ", language=" + language + ", category=" + category + ", user=" + user + "]";
 	}
 
 }

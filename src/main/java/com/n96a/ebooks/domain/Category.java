@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categories")
 public class Category implements Serializable{
@@ -23,9 +25,11 @@ public class Category implements Serializable{
 	@Column(length = 30, unique = true, nullable = false)
 	private String name; // varchar(30)
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category") // Category 0..1 -> 0..n User
 	private Set<User> users = new HashSet<User>();
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category") // Category 1..1 -> 0..n Ebook // why not ManyToMany ?
 	private Set<Ebook> ebooks = new HashSet<Ebook>();
 
