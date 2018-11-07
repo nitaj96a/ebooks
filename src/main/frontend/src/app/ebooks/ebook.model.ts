@@ -5,7 +5,7 @@ export class Ebook {
     public publicationYear: number;
     public keywords: string;
     public thumbnailPath: string;
-    public MIME: string;
+    public mime: string;
 
     constructor(
         title: string,
@@ -13,13 +13,13 @@ export class Ebook {
         publicationYear: number,
         keywords: string,
         thumbnailPath: string,
-        MIME: string
+        mime: string
     ) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
         this.keywords = keywords;
         this.thumbnailPath = thumbnailPath;
-        this.MIME = MIME;
+        this.mime = mime;
     }
 }

@@ -2,4 +2,16 @@
 body {
     background-image: url("assets/images/png/what-the-hex.png");
     /* margin-bottom: 60px; Margin bottom by footer height */
+    
+}
+body,html {
+    height: 100%;
+}
+
+#root {
+    display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
 }

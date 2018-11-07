@@ -28,6 +28,7 @@ import { UserService } from './users/user.service';
 import { EbookService } from './ebooks/ebook.service';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { EbooksAddComponent } from './ebooks/ebooks-add/ebooks-add.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     CategoriesAddComponent,
     CategoriesSearchComponent,
     EbooksComponent,
-    EbooksListComponent
+    EbooksListComponent,
+    EbooksAddComponent
   ],
   imports: [
     BrowserModule,

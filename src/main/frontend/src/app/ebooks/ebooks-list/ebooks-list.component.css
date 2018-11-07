@@ -1,3 +1,12 @@
 ul {
  margin-bottom: 0;
 }
+
+li {
+    margin-bottom: 12px;
+    border: 1px solid blue;
+    padding: 5px;
+}
+.flex-fill {
+    flex:1;
+}
