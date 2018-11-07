@@ -1,0 +1,11 @@
+<ul class="list-unstyled">
+    <li *ngFor="let ebook of ebooks" class="media">
+        <img width="120px" class="mr-3 thumbnail" src="http://localhost:8080/ebook-thumbnails/{{ebook.thumbnailPath}}" alt="Book cover">
+        <div class="media-body">
+          <h5 class="mt-0 mb-1">{{ebook.title}}</h5>
+          <p>{{ebook.author}}, {{ebook.publicationYear}}</p>
+          <p>{{ebook.keywords}}</p>
+          <button class="btn btn-success">Download</button>
+        </div>
+      </li>
+</ul>
