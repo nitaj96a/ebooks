@@ -1,37 +1,37 @@
 <div class="row justify-content-center">
     <h4>Add an Ebook</h4>
 </div>
-<form>
+<form (ngSubmit)="onSubmit($event)">
     <div class="form-group">
-        <label for="exampleFormControlInput1">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <label for="inputTitle">Title</label>
+        <input type="text" class="form-control" id="inputTitle" placeholder="">
     </div>
     <div class="form-group">
-        <label for="exampleFormControlSelect1">Example select</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
+        <label for="inputAuthor">Author</label>
+        <input type="text" class="form-control" id="inputAuthor" placeholder="">
     </div>
     <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
+        <label for="inputYear">Publication Year</label>
+        <input type="text" class="form-control" id="inputYear" placeholder="">
     </div>
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="inputCategory">Category</label>
+            <select class="form-control" id="inputCategory">
+              <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
+            </select>
+          </div>
+    <div class="form-group">
+        <label for="inputKeywords">Keywords</label>
+        <input type="text" class="form-control" id="inputKeywordsr" placeholder="">
     </div>
     <div class="form-group">
-        <label for="exampleFormControlFile1">Example file input</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        <label for="inputFile">Ebook file</label>
+        <input type="file" class="form-control-file " id="inputFile">
     </div>
+    <div class="form-group">
+        <label for="inputThumbnail">Ebook thumbnail</label>
+        <input type="file"  class="form-control-file " id="inputThumbnail">
+    </div>
+     <!-- <img id='img-upload' [src]="imageSrc"/> -->
+    <input type="submit" class="btn btn-success btn-lg" value="Submit">
 </form>

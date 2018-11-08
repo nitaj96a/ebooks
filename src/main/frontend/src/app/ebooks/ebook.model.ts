@@ -1,3 +1,5 @@
+import {Category} from "../categories/category.model";
+
 export class Ebook {
     public id: number;
     public title: string;
@@ -6,6 +8,7 @@ export class Ebook {
     public keywords: string;
     public thumbnailPath: string;
     public mime: string;
+    public category: Category;
 
     constructor(
         title: string,
@@ -13,7 +16,8 @@ export class Ebook {
         publicationYear: number,
         keywords: string,
         thumbnailPath: string,
-        mime: string
+        mime: string,
+        category: Category
     ) {
         this.title = title;
         this.author = author;
@@ -21,5 +25,6 @@ export class Ebook {
         this.keywords = keywords;
         this.thumbnailPath = thumbnailPath;
         this.mime = mime;
+        this.category = category;
     }
 }

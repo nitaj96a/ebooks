@@ -30,6 +30,9 @@ import { EbookService } from './ebooks/ebook.service';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { EbooksAddComponent } from './ebooks/ebooks-add/ebooks-add.component';
 
+import {CategoryService} from './categories/category.service';
+import { EbooksSearchComponent } from './ebooks/ebooks-search/ebooks-search.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,8 @@ import { EbooksAddComponent } from './ebooks/ebooks-add/ebooks-add.component';
     CategoriesSearchComponent,
     EbooksComponent,
     EbooksListComponent,
-    EbooksAddComponent
+    EbooksAddComponent,
+    EbooksSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,7 @@ import { EbooksAddComponent } from './ebooks/ebooks-add/ebooks-add.component';
     HttpModule,
     CollapseModule.forRoot()
   ],
-  providers: [UserService, EbookService],
+  providers: [UserService, EbookService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

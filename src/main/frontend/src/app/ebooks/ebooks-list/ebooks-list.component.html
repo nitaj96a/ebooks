@@ -1,14 +1,18 @@
-<div class="row flex-fill d-flex">
+<div class="row flex-fill d-flex justify-content-center">
     <ul class="list-unstyled">
         <li *ngFor="let ebook of ebooks" class="media">
             <img width="120px" class="mr-3 thumbnail" src="http://localhost:8080/ebook-thumbnails/{{ebook.thumbnailPath}}"
                 alt="Book cover">
             <div class="media-body">
-                <h5 class="mt-0 mb-1">{{ebook.title}}</h5>
-                <p>{{ebook.author}}, {{ebook.publicationYear}}</p>
-                <p>{{ebook.keywords}}</p>
-                <p>{{ebook.mime}}</p>
-                <button class="btn btn-success">Download</button>
+                <h4 class="mt-0 mb-1">{{ebook.title}}</h4>
+                <p>{{ebook.author}}, {{ebook.publicationYear}}. <span class="badge badge-info">{{ebook.category.name}}</span></p> 
+                <p>Keywords: {{ebook.keywords}}</p>
+                <p>MIME type: {{ebook.mime}}</p>
+
+                <button class="btn btn-success btn-lg align-content-center" (click)="download($event)"  >
+                    <img src="../../../assets/images/svg/download-button.svg" class="d-inline-block " width="25px" height="25px" alt=""> Download
+                </button>
+
             </div>
         </li>
     </ul>

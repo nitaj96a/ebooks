@@ -13,4 +13,9 @@ export class EbookService {
     getEbooks() {
         return this.http.get("/api/ebooks").pipe(map(response => response.json()));
     }
+
+    addBook(ebook: Ebook) {
+        return this.http.post("/api/ebooks", ebook).pipe(map(response => response.json()));
+    }
+
 }

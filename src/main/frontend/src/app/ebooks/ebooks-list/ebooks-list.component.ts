@@ -21,4 +21,8 @@ export class EbooksListComponent implements OnInit {
                 (error) => console.log(error)
             )
     }
+
+    getCategoryById(id: number) {
+        console.log(id);
+    }
 }
