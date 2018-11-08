@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-ebooks-search',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EbooksSearchComponent implements OnInit {
 
+  searchEbookForm: FormGroup;
+
   constructor() { }
 
   ngOnInit() {
+
+    this.searchEbookForm = new FormGroup({
+      
+    });
   }
 
 }

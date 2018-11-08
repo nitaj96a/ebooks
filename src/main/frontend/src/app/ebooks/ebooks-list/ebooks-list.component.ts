@@ -25,4 +25,9 @@ export class EbooksListComponent implements OnInit {
     getCategoryById(id: number) {
         console.log(id);
     }
+
+    download(idStr: string) {
+        let id = Number(idStr);
+        this.ebookService.downloadEbookFile(id);
+    }
 }

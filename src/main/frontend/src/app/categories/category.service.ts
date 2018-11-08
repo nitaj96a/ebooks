@@ -12,4 +12,7 @@ export class CategoryService {
         return this.http.get("/api/categories").pipe(map(response => response.json()));
     }
     
+    getCategoryById(id: number) {
+        return this.http.get("/api/categories/"+id).pipe(map(response => response.json()));
+    }
 }

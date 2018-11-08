@@ -9,8 +9,8 @@
                 <p>Keywords: {{ebook.keywords}}</p>
                 <p>MIME type: {{ebook.mime}}</p>
 
-                <button class="btn btn-success btn-lg align-content-center" (click)="download($event)"  >
-                    <img src="../../../assets/images/svg/download-button.svg" class="d-inline-block " width="25px" height="25px" alt=""> Download
+                <button class="btn btn-success btn-lg align-content-center" (click)="download([ebook.id])"  >
+                    <img src="http://localhost:8080/images/svg/download-button.svg" class="d-inline-block " width="25px" height="25px" alt=""> Download
                 </button>
 
             </div>

@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy-conf.json",
-    "build": "ng build",
+    "build": "ng build --prod",
     "postbuild": "npm run deploy",
     "predeploy": "",
-    "deploy": "copyfiles -f dist/** ../resources/static",
+    "deploy": "copyfiles -f dist/** ../resources/static & copyfiles -u 2 src/assets/images/** ../resources/static",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,6 +26,7 @@
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
+    "file-saver": "^2.0.0-rc.4",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^3.1.1",
     "rxjs": "~6.3.3",

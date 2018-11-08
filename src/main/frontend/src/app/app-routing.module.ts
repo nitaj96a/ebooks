@@ -7,7 +7,9 @@ import {EbooksAddComponent} from "./ebooks/ebooks-add/ebooks-add.component";
 const routes: Routes = [
     {path: 'users', component: UsersComponent},
     {path: 'ebooks', component: EbooksComponent},
-    {path: 'ebooks/add', component: EbooksAddComponent}
+    {path: 'ebooks/add', component: EbooksAddComponent},
+    {path: '', component: EbooksComponent},
+    
 ];
 
 @NgModule({

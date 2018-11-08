@@ -1,37 +1,37 @@
 <div class="row justify-content-center">
     <h4>Add an Ebook</h4>
 </div>
-<form (ngSubmit)="onSubmit($event)">
+<form [formGroup]="addEbookForm" (ngSubmit)="onSubmit()" >
     <div class="form-group">
         <label for="inputTitle">Title</label>
-        <input type="text" class="form-control" id="inputTitle" placeholder="">
+        <input formControlName="inputTitle" type="text" class="form-control" id="inputTitle" placeholder="">
     </div>
     <div class="form-group">
         <label for="inputAuthor">Author</label>
-        <input type="text" class="form-control" id="inputAuthor" placeholder="">
+        <input formControlName="inputAuthor" type="text" class="form-control" id="inputAuthor" placeholder="">
     </div>
     <div class="form-group">
         <label for="inputYear">Publication Year</label>
-        <input type="text" class="form-control" id="inputYear" placeholder="">
+        <input formControlName="inputYear" type="number" class="form-control" id="inputYear" placeholder="">
     </div>
     <div class="form-group">
             <label for="inputCategory">Category</label>
-            <select class="form-control" id="inputCategory">
+            <select formControlName="inputCategory" class="form-control" id="inputCategory">
               <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
             </select>
           </div>
     <div class="form-group">
         <label for="inputKeywords">Keywords</label>
-        <input type="text" class="form-control" id="inputKeywordsr" placeholder="">
+        <input formControlName="inputKeywords" type="text" class="form-control" id="inputKeywordsr" placeholder="">
     </div>
     <div class="form-group">
         <label for="inputFile">Ebook file</label>
-        <input type="file" class="form-control-file " id="inputFile">
+        <input formControlName="inputFile" type="file" class="form-control-file " id="inputFile">
     </div>
     <div class="form-group">
         <label for="inputThumbnail">Ebook thumbnail</label>
-        <input type="file"  class="form-control-file " id="inputThumbnail">
+        <input formControlName="inputThumbnail" type="file"  class="form-control-file " id="inputThumbnail">
     </div>
      <!-- <img id='img-upload' [src]="imageSrc"/> -->
-    <input type="submit" class="btn btn-success btn-lg" value="Submit">
+    <button type="submit" class="btn btn-success btn-lg">Submit</button>
 </form>

@@ -7,6 +7,7 @@ export class Ebook {
     public publicationYear: number;
     public keywords: string;
     public thumbnailPath: string;
+    public filename: string;
     public mime: string;
     public category: Category;
 
@@ -14,10 +15,12 @@ export class Ebook {
         title: string,
         author: string,
         publicationYear: number,
+        category: Category,
         keywords: string,
+        filename: string,
         thumbnailPath: string,
         mime: string,
-        category: Category
+        
     ) {
         this.title = title;
         this.author = author;
@@ -26,5 +29,6 @@ export class Ebook {
         this.thumbnailPath = thumbnailPath;
         this.mime = mime;
         this.category = category;
+        this.filename = filename;
     }
 }

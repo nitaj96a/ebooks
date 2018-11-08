@@ -32,6 +32,7 @@ import { EbooksAddComponent } from './ebooks/ebooks-add/ebooks-add.component';
 
 import {CategoryService} from './categories/category.service';
 import { EbooksSearchComponent } from './ebooks/ebooks-search/ebooks-search.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { EbooksSearchComponent } from './ebooks/ebooks-search/ebooks-search.comp
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [UserService, EbookService, CategoryService],
   bootstrap: [AppComponent]
