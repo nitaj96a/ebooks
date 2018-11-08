@@ -208,7 +208,7 @@ public class Ebook implements Serializable {
 	public String toString() {
 		return "Ebook [id=" + id + ", title=" + title + ", author=" + author + ", keywords=" + keywords
 				+ ", publicationYear=" + publicationYear + ", filename=" + filename + ", thumbnailPath=" + thumbnailPath
-				+ ", MIME=" + MIME + ", language=" + language + ", category=" + category + ", user=" + user + "]";
+				+ ", MIME=" + MIME + ", language=" + language.getName() + ", category=" + category.getName() + ", user=" + user.getUsername() + "]";
 	}
 
 }

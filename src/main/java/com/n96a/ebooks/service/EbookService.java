@@ -22,8 +22,7 @@ public class EbookService implements EbookServiceInterface {
 
 	@Override
 	public Ebook findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return ebookRepository.getOne(id);
 	}
 
 	@Override
