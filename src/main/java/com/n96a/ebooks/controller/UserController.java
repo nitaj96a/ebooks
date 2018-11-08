@@ -13,18 +13,17 @@ import com.n96a.ebooks.domain.User;
 import com.n96a.ebooks.service.UserServiceInterface;
 
 @RestController
-@RequestMapping(value="/api/users")
+@RequestMapping(value = "/api/users")
 public class UserController {
 
 	@Autowired
 	private UserServiceInterface userService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<User>> getAllUsers(){
+	public ResponseEntity<List<User>> getAllUsers() {
 		List<User> users = userService.findAll();
-		
+
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-		
-		
+
 	}
 }

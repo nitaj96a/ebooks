@@ -51,7 +51,7 @@ public class Ebook implements Serializable {
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 
-	@JsonIgnore
+	@JsonIgnore // @JsonIgnoreProperty()
 	@ManyToOne // Ebook 0..n -> 1..1 User
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;

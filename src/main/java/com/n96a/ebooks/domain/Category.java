@@ -25,7 +25,7 @@ public class Category implements Serializable{
 	@Column(length = 30, unique = true, nullable = false)
 	private String name; // varchar(30)
 
-	@JsonIgnore
+	@JsonIgnore // @JsonIgnoreProperty(...)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category") // Category 0..1 -> 0..n User
 	private Set<User> users = new HashSet<User>();
 
