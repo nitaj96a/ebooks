@@ -31,6 +31,13 @@ public class EbookController {
 
 		return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = { "{id}", "/{id}" }) // decide on a type
+	public ResponseEntity<Ebook> getUserById(@PathVariable("id") Integer id) {
+		Ebook ebook = ebookService.findOne(id);
+
+		return new ResponseEntity<Ebook>(ebook, HttpStatus.OK);
+	}
 
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<Ebook> create(@RequestBody Ebook ebook) {

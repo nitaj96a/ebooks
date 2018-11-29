@@ -17,8 +17,7 @@ public class UserService implements UserServiceInterface {
 	
 	@Override
 	public User findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getOne(id);
 	}
 
 	@Override

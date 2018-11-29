@@ -16,6 +16,7 @@ public class CategoryService implements CategoryServiceInterface {
 
 	@Override
 	public Category findOne(Integer id) {
+		System.out.println("Service: id="+id);
 		return categoryRepository.getOne(id);
 	}
 

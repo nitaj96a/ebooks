@@ -20,6 +20,7 @@ export class EbookService {
     }
 
     downloadEbookFile(id: number, mime: string) {
+        console.log(mime)
         const headers = new Headers();
         headers.append('Accept', mime);
         return this.http.get("/api/ebooks/"+id+"/file", {headers: headers})

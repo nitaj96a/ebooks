@@ -26,8 +26,8 @@ export class EbooksListComponent implements OnInit {
         console.log(id);
     }
 
-    download(idStr: string) {
+    download(idStr: string, mime: string) {
         let id = Number(idStr);
-        this.ebookService.downloadEbookFile(id);
+        this.ebookService.downloadEbookFile(id, mime);
     }
 }

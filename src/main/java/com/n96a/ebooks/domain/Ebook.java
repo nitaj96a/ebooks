@@ -12,9 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "ebooks")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ebook implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +53,7 @@ public class Ebook implements Serializable {
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 
-	@JsonIgnore // @JsonIgnoreProperty()
+	@JsonIgnoreProperties({"ebooks","firstName","lastName", "type", "category"})
 	@ManyToOne // Ebook 0..n -> 1..1 User
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;

@@ -63,6 +63,7 @@ public class FileController {
 		return ResponseEntity.ok()
 				.contentType(MediaType.parseMediaType(contentType))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename()+ "\"")
+				.header(HttpHeaders.CONTENT_TYPE, ebook.getMIME() +";charset=utf-8")
 				.body(resource);
 		
 	}
