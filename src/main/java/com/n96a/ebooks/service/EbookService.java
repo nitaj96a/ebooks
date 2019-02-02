@@ -12,48 +12,50 @@ import com.n96a.ebooks.repository.EbookRepository;
 @Service
 public class EbookService implements EbookServiceInterface {
 
-	@Autowired
-	EbookRepository ebookRepository;
+    @Autowired
+    EbookRepository ebookRepository;
 
-	@Override
-	public List<Ebook> findAll() {
-		return ebookRepository.findAll();
-	}
+    @Override
+    public List<Ebook> findAll() {
+        return ebookRepository.findAll();
+    }
 
-	@Override
-	public Ebook findOne(Integer id) {
-		return ebookRepository.getOne(id);
-	}
+    @Override
+    public Ebook findOne(Integer id) {
+        return ebookRepository.getOne(id);
+    }
 
-	@Override
-	public Ebook create(Ebook ebook) {
-		Ebook savedEbook = ebookRepository.save(ebook);
-		return savedEbook;
-	}
-	
-	@Override
-	public void remove(Integer id) {
-		ebookRepository.deleteById(id);
-	}
+    @Override
+    public Ebook create(Ebook ebook) {
+        Ebook savedEbook = ebookRepository.save(ebook);
+        return savedEbook;
+    }
 
-	@Override
-	public List<Ebook> findByUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void remove(Integer id) {
+        ebookRepository.deleteById(id);
+    }
 
-	@Override
-	public Ebook update(Ebook ebook) {
-		Ebook savedEbook = ebookRepository.save(ebook);
-		return savedEbook;
-	}
+    @Override
+    public List<Ebook> findByUser(User user) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Ebook partialUpdate(Ebook ebook) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
+    @Override
+    public Ebook update(Ebook ebook) {
+        Ebook savedEbook = ebookRepository.save(ebook);
+        return savedEbook;
+    }
+
+    @Override
+    public Ebook partialUpdate(Ebook ebook) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Ebook findByFilename(String filename) {
+        return ebookRepository.findByFilename(filename);
+    }
 }

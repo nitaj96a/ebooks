@@ -16,21 +16,21 @@ import com.n96a.ebooks.service.CategoryServiceInterface;
 @RestController
 public class CategoryController {
 
-	@Autowired
-	private CategoryServiceInterface categoryService;
+    @Autowired
+    private CategoryServiceInterface categoryService;
 
-	@GetMapping(value = "/api/categories")
-	public ResponseEntity<List<Category>> getAllCategories() {
-		List<Category> categories = categoryService.findAll();
+    @GetMapping(value = "/api/categories")
+    public ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> categories = categoryService.findAll();
 
-		return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "api/categories/{id}", produces="application/json")
-	public ResponseEntity<Category> getCategoryById(@PathVariable("id") Integer id) {
-		System.out.println("Controller: id =" + id);
-		Category category = categoryService.findOne(id);
-		
-		return new ResponseEntity<Category>(category, HttpStatus.OK);
-	}
+        return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "api/categories/{id}", produces = "application/json")
+    public ResponseEntity<Category> getCategoryById(@PathVariable("id") Integer id) {
+        System.out.println("Controller: id =" + id);
+        Category category = categoryService.findOne(id);
+
+        return new ResponseEntity<Category>(category, HttpStatus.OK);
+    }
 }

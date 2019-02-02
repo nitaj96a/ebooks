@@ -11,20 +11,18 @@ import com.n96a.ebooks.repository.LanguageRepository;
 @Service
 public class LanguageService implements LanguageServiceInterface {
 
-	@Autowired
-	LanguageRepository languageRepository;
-	
-	@Override
-	public List<Language> findAll() {
-		return languageRepository.findAll();
-	}
+    @Autowired
+    LanguageRepository languageRepository;
 
-	@Override
-	public Language findOne(Integer id) {
-		return languageRepository.getOne(id);
-	}
-	
-	
-	
+    @Override
+    public List<Language> findAll() {
+        return languageRepository.findAll();
+    }
+
+    @Override
+    public Language findOne(Integer id) {
+        return languageRepository.getOne(id);
+    }
+
 
 }

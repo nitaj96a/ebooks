@@ -12,19 +12,18 @@ import com.n96a.ebooks.repository.UserRepository;
 @Service
 public class UserService implements UserServiceInterface {
 
-	@Autowired
-	UserRepository userRepository;
-	
-	@Override
-	public User findOne(Integer id) {
-		return userRepository.getOne(id);
-	}
+    @Autowired
+    UserRepository userRepository;
 
-	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
+    @Override
+    public User findOne(Integer id) {
+        return userRepository.getOne(id);
+    }
 
-	
-	
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+
 }

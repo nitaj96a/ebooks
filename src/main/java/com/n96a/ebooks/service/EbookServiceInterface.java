@@ -7,18 +7,20 @@ import com.n96a.ebooks.domain.User;
 
 public interface EbookServiceInterface {
 
-	Ebook findOne(Integer id);
+    Ebook findOne(Integer id);
 
-	Ebook create(Ebook ebook);
-	
-	Ebook update(Ebook ebook);
-	
-	Ebook partialUpdate(Ebook ebook);
+    Ebook create(Ebook ebook);
 
-	void remove(Integer id);
+    Ebook update(Ebook ebook);
 
-	List<Ebook> findAll();
-	
-	List<Ebook> findByUser(User user);
+    Ebook partialUpdate(Ebook ebook);
+
+    void remove(Integer id);
+
+    List<Ebook> findAll();
+
+    List<Ebook> findByUser(User user);
+
+    Ebook findByFilename(String filename);
 
 }

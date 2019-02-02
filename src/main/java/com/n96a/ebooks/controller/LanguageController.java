@@ -16,21 +16,21 @@ import com.n96a.ebooks.service.LanguageServiceInterface;
 @RestController
 @RequestMapping(value = "/api/languages")
 public class LanguageController {
-	
-	@Autowired
-	private LanguageServiceInterface languageService;
-	
-	@GetMapping
-	public ResponseEntity<List<Language>> getAllLanguages(){
-		List<Language> languages = languageService.findAll();
-		
-		return new ResponseEntity<List<Language>>(languages, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Language> getLanguageById(@PathVariable("id") Integer id) {
-		Language lang = languageService.findOne(id);
-		return new ResponseEntity<Language>(lang, HttpStatus.OK);
-	}
+
+    @Autowired
+    private LanguageServiceInterface languageService;
+
+    @GetMapping
+    public ResponseEntity<List<Language>> getAllLanguages() {
+        List<Language> languages = languageService.findAll();
+
+        return new ResponseEntity<List<Language>>(languages, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Language> getLanguageById(@PathVariable("id") Integer id) {
+        Language lang = languageService.findOne(id);
+        return new ResponseEntity<Language>(lang, HttpStatus.OK);
+    }
 
 }

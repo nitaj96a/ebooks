@@ -5,9 +5,9 @@ import java.util.List;
 import com.n96a.ebooks.domain.User;
 
 public interface UserServiceInterface {
-	
-	User findOne(Integer id);
-	
-	List<User> findAll();
-	
+
+    User findOne(Integer id);
+
+    List<User> findAll();
+
 }

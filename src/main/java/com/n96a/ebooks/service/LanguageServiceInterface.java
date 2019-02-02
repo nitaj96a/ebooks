@@ -6,8 +6,8 @@ import com.n96a.ebooks.domain.Language;
 
 public interface LanguageServiceInterface {
 
-	Language findOne(Integer id);
-	
-	List<Language> findAll();
-	
+    Language findOne(Integer id);
+
+    List<Language> findAll();
+
 }
