@@ -14,8 +14,15 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 export class EbooksAddComponent implements OnInit {
     categories: Category[] = [];
     addEbookForm: FormGroup;
+    uploadFileForm: FormGroup;
     ebook: Ebook;
     category: Category;
+
+    fileSelected: boolean;
+    uploadedFile: boolean;
+    file: File;
+    filename: String;
+
 
     public imagePath;
     imgURL: any;
@@ -28,23 +35,12 @@ export class EbooksAddComponent implements OnInit {
     }
 
     preview(files: FileList) {
-        // if (event.target.files && event.target.files[0]) {
-        //     var reader = new FileReader();
-      
-        //     reader.readAsDataURL(event.target.files[0]); // read file as data url
-      
-        //     reader.onload = (event) => { // called once readAsDataURL is completed
-        //         this.imgURL = reader.result;
-        //         console.log(this.imgURL);
-        //     }
-        // }
-        //   }
-        console.log(files);
+        //console.log(files);
         if (files.length === 0) 
             return;
 
         var mimeType = files[0].type;
-        console.log(mimeType);
+        //console.log(mimeType);
         if(mimeType.match(/image\/*/) == null) {
             this.message = "Only images are supported.";
             return;
@@ -52,18 +48,18 @@ export class EbooksAddComponent implements OnInit {
 
         var reader = new FileReader();
         this.imagePath = files;
-        console.log(this.imagePath);
+        //console.log(this.imagePath);
         reader.readAsDataURL(files[0]);
         reader.onload = (_event) => {
             this.imgURL = reader.result;
-            //this.imgURL = this.imagePath;
-            console.log(this.imgURL);
+            //console.log(this.imgURL);
         }
     }
 
     ngOnInit() {
         this.categoryService.getCategories().subscribe(
             (categories: any[]) => {
+                //console.log(categories);
                 this.categories = categories;
             },
             error => console.log(error)
@@ -75,17 +71,43 @@ export class EbooksAddComponent implements OnInit {
             inputYear: new FormControl(null),
             inputCategory: new FormControl(),
             inputKeywords: new FormControl(),
-            inputFile: new FormControl(),
             inputThumbnail: new FormControl()
         });
+
+        this.uploadFileForm = new FormGroup({
+            inputFile: new FormControl(),
+        });
+    }
+
+    ebookFileChange(event) { 
+        this.fileSelected = true;
+        let fileList: FileList = event.target.files;
+        let file: File = fileList[0];
+        this.file = file;
+        console.log(this.file);
+        // if(event.target.files.length > 0) {
+        //     let file = event.target.files[0];
+        //     this.uploadFileForm.get('inputFile').setValue(file);
+        // }
+    }
+
+    uploadFile() {
+        console.log(this.file);
+        this.ebookService.uploadEbookFile(this.file)
+            .subscribe((filename: String) => {
+                this.filename = filename;
+            },
+            (error) => console.log(error)
+        );
+        this.uploadedFile = true;
     }
 
     onSubmit() {
 
-        let title: string = this.addEbookForm.controls.inputYear.value;
+        let title: string = this.addEbookForm.controls.inputTitle.value;
         let author: string = this.addEbookForm.controls.inputAuthor.value;
         let year: number = Number(this.addEbookForm.controls.inputYear.value);
-        let categoryId = Number(this.addEbookForm.controls.inputCategory.value);
+        let categoryId = Number(this.addEbookForm.controls.inputCategory.value + 1);
         let keywords: string = this.addEbookForm.controls.inputKeywords.value;
         let filename: string = this.addEbookForm.controls.inputFile.value;
         let thumbnailPath = this.addEbookForm.controls.inputThumbnail.value;

@@ -1,5 +1,5 @@
 ul {
- margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 li {
@@ -7,8 +7,9 @@ li {
     border: 1px solid gray;
     padding: 5px;
 }
+
 .flex-fill {
-    flex:1;
+    flex: 1;
 }
 
 a {

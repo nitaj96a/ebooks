@@ -1,6 +1,7 @@
 package com.n96a.ebooks.lucene.indexing.handlers;
 
 import com.n96a.ebooks.lucene.model.IndexUnit;
+import com.n96a.ebooks.service.EbookServiceInterface;
 import org.apache.lucene.document.DateTools;
 import org.apache.pdfbox.io.RandomAccessFile;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -8,6 +9,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,16 +18,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+//@Component
 public class PDFHandler extends DocumentHandler {
+
+   // @Autowired
+    //private IndexUnit iu;
 
     @Override
     public IndexUnit getIndexUnit(File file) {
         IndexUnit indexUnit = new IndexUnit();
+
         try {
             PDFParser parser = new PDFParser(new RandomAccessFile(file, "r"));
             parser.parse();
             String text = getText(parser);
             indexUnit.setText(text);
+            //iu.setText(text);
 
             // metadata stuff
 
@@ -34,25 +43,33 @@ public class PDFHandler extends DocumentHandler {
 
             String title = ""+ info.getTitle();
             indexUnit.setTitle(title);
+            //iu.setTitle(title);
+            String author = ""+ info.getAuthor();
+            indexUnit.setAuthor(author);
+            //iu.setAuthor(author);
 
             String keywords = ""+ info.getKeywords();
             if(keywords != null){
-                String[] splitKeywords = keywords.split(" ");
+                String[] splitKeywords = keywords.split(", ");
                 indexUnit.setKeywords(new ArrayList<String>(Arrays.asList(splitKeywords)));
+                //iu.setKeywords(new ArrayList<String>(Arrays.asList(splitKeywords)));
             }
 
             indexUnit.setFilename(file.getCanonicalPath());
+            //iu.setFilename(file.getCanonicalPath());
 
 
 
-            String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
-            indexUnit.setFiledate(modificationDate);
+            //String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
+            //indexUnit.setFiledate(modificationDate);
+            //iu.setFiledate(modificationDate);
 
             pdf.close();
         } catch (IOException ioe) {
             System.out.println("Error ");
         }
         return indexUnit;
+        //return iu;
     }
 
     public String getText(File file){

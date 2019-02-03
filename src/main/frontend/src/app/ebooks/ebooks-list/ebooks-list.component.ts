@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { Ebook } from "../ebook.model";
-import { EbookService } from "../ebook.service";
+import {Component, OnInit} from "@angular/core";
+import {Ebook} from "../ebook.model";
+import {EbookService} from "../ebook.service";
 
 @Component({
     selector: "app-ebooks-list",
@@ -10,7 +10,8 @@ import { EbookService } from "../ebook.service";
 export class EbooksListComponent implements OnInit {
     ebooks: Ebook[] = [];
 
-    constructor(private ebookService: EbookService) {}
+    constructor(private ebookService: EbookService) {
+    }
 
     ngOnInit() {
         this.ebookService.getEbooks()

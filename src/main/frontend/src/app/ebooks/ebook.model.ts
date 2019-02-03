@@ -20,7 +20,6 @@ export class Ebook {
         filename: string,
         thumbnailPath: string,
         mime: string,
-        
     ) {
         this.title = title;
         this.author = author;

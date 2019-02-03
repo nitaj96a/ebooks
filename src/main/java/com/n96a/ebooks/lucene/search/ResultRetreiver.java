@@ -6,6 +6,7 @@ import com.n96a.ebooks.lucene.indexing.handlers.PDFHandler;
 import com.n96a.ebooks.lucene.indexing.handlers.TextDocHandler;
 import com.n96a.ebooks.lucene.model.RequiredHighlight;
 import com.n96a.ebooks.lucene.model.ResultData;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.search.IndexSearcher;
@@ -60,7 +61,7 @@ public class ResultRetreiver {
             Document doc;
             Highlighter hl;
             SerbianAnalyzer sa = new SerbianAnalyzer();
-
+            StandardAnalyzer stda = new StandardAnalyzer();
             for (ScoreDoc sd : hits) {
                 doc = indexSearcher.doc(sd.doc);
                 String[] allKeywords = doc.getValues("keyword");
@@ -77,6 +78,7 @@ public class ResultRetreiver {
                     hl = new Highlighter(new QueryScorer(query, reader, rh.getFieldName()));
                     try {
                         highlight += hl.getBestFragment(sa, rh.getFieldName(),"" + getDocumentText(location));
+                        //highlight += hl.getBestFragment(stda, rh.getFieldName(),"" + getDocumentText(location));
                     } catch (InvalidTokenOffsetsException e) {
 
                     }

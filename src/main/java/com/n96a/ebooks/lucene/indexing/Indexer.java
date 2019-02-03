@@ -9,6 +9,8 @@ import org.apache.lucene.index.*;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +18,12 @@ import java.nio.file.FileSystems;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//@Component
 public class Indexer {
+
+
+   // @Autowired
+    //private PDFHandler handler;
 
     private Directory indexDir;
     private IndexWriter indexWriter;
@@ -50,7 +57,7 @@ public class Indexer {
         this(ResourceBundle.getBundle("application").getString("index"), restart);
     }
 
-    private Indexer() {this(false);}
+    private Indexer() {this(true);}
 
     public Directory getIndexDir() {
         return indexDir;
@@ -140,7 +147,7 @@ public class Indexer {
             for(File newFile : files){
                 if(newFile.isFile()){
                     filename = newFile.getName();
-                    handler = getHandler(filename);
+                    handler = getHandler(filename); // aplikacija radi samo sa .pdf fajlovima
                     if(handler == null){
                         System.out.println("Can't do it");
                         continue;

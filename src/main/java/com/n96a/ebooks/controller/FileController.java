@@ -10,11 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.n96a.ebooks.domain.Ebook;
@@ -23,12 +19,9 @@ import com.n96a.ebooks.service.FileStorageService;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
-@RestController
+@RestController()
 public class FileController {
 
     //private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -39,9 +32,19 @@ public class FileController {
     @Autowired
     private EbookServiceInterface ebookService;
 
-    @PostMapping("/api/ebooks/file")
-    public ResponseEntity<String> uploadEbook(@RequestParam("file") MultipartFile file) {
+//    @Autowired
+//    private Indexer indexer;
+
+    @CrossOrigin()
+    @PostMapping(value = "/api/ebooks/file", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<String> uploadEbook(@RequestParam("file") MultipartFile file) {
+        System.out.println("in uploadEbook");
         String fileName = fileStorageService.saveEbookFile(file);
+        File savedFile = fileStorageService.getFile(fileName);
+        long start = new Date().getTime();
+        int numIndexed = Indexer.getInstance().index(savedFile);
+        long end = new Date().getTime();
+
         return new ResponseEntity<String>(fileName, HttpStatus.OK);
     }
 
@@ -50,6 +53,7 @@ public class FileController {
         File dataDir = fileStorageService.getEbookFilesLocation().toFile();
         long start = new Date().getTime();
         int numIndexed = Indexer.getInstance().index(dataDir);
+        //int numIndexed = indexer.getInstance().index(dataDir);
         long end = new Date().getTime();
 
         String text = "Indexing " + numIndexed + " files took "
@@ -58,8 +62,8 @@ public class FileController {
         return new ResponseEntity<String>(text, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/api/ebooks/{id}/file", params = {"id"})
-    public ResponseEntity<String> uploadFileForEbook(@RequestParam("file") MultipartFile file, @PathVariable("id") Integer id) {
+    @PostMapping(value = "/api/ebooks/{id}/file")
+    public ResponseEntity<String> uploadFileForEbook(@RequestBody MultipartFile file, @PathVariable("id") Integer id) {
         String fileName = fileStorageService.saveEbookFile(file);
         Ebook ebook = ebookService.findOne(id);
         ebook.setFilename(fileName);
