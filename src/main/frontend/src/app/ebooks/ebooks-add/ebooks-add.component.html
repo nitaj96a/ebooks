@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <h4>Add an Ebook</h4>
 </div>
-<form [formGroup]="addEbookForm" (ngSubmit)="onSubmit()" >
+<form [formGroup]="addEbookForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="inputTitle">Title</label>
         <input formControlName="inputTitle" type="text" class="form-control" id="inputTitle" placeholder="">
@@ -15,11 +15,11 @@
         <input formControlName="inputYear" type="number" class="form-control" id="inputYear" placeholder="">
     </div>
     <div class="form-group">
-            <label for="inputCategory">Category</label>
-            <select formControlName="inputCategory" class="form-control" id="inputCategory">
-              <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
-            </select>
-          </div>
+        <label for="inputCategory">Category</label>
+        <select formControlName="inputCategory" class="form-control" id="inputCategory">
+            <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
+        </select>
+    </div>
     <div class="form-group">
         <label for="inputKeywords">Keywords</label>
         <input formControlName="inputKeywords" type="text" class="form-control" id="inputKeywordsr" placeholder="">
@@ -30,8 +30,10 @@
     </div>
     <div class="form-group">
         <label for="inputThumbnail">Ebook thumbnail</label>
-        <input formControlName="inputThumbnail" type="file"  class="form-control-file " id="inputThumbnail">
+        <span style="color:red;" *ngIf="message">{{message}}</span>
+        <input #file accept="image/*" (change)="preview(file.files)" formControlName="inputThumbnail" type="file" class="form-control-file " id="inputThumbnail">
+        <img [src]="imgURL" height="250" *ngIf="imgURL">
     </div>
-     <!-- <img id='img-upload' [src]="imageSrc"/> -->
+    <!-- <img id='img-upload' [src]="imageSrc"/> -->
     <button type="submit" class="btn btn-success btn-lg">Submit</button>
 </form>
