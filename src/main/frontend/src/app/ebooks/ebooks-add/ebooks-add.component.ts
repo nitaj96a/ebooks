@@ -96,6 +96,7 @@ export class EbooksAddComponent implements OnInit {
         this.ebookService.uploadEbookFile(this.file)
             .subscribe((filename: String) => {
                 this.filename = filename;
+                console.log(this.filename);
             },
             (error) => console.log(error)
         );

@@ -1,10 +1,11 @@
-<div class="row flex-fill d-flex justify-content-center">
-    <ul class="list-unstyled">
-        <li *ngFor="let ebook of ebooks" class="media">
-            <img width="120px" class="mr-3 thumbnail"
+<ul class="list-unstyled mt-3">
+        <!-- <ng-container *ngFor="let ebook of ebooks;let i = index"> -->
+        <li class="card" *ngFor="let ebook of ebooks">
+            <img class="mr-3 thumbnail "
+                 width="160px"
                  src="http://localhost:8080/ebook-thumbnails/{{ebook.thumbnailPath}}"
                  alt="Book cover">
-            <div class="media-body">
+            <div class="media-body card-body">
                 <h4 class="mt-0 mb-1">{{ebook.title}}</h4>
                 <p>{{ebook.author}}, {{ebook.publicationYear}}. <span class="badge badge-info"> <a class="text-white"
                                                                                                    [routerLink]="[ '/ebooks/category/'+ ebook.id ]">{{ebook.category.name}}</a></span>
@@ -12,13 +13,15 @@
                 <p>Keywords: {{ebook.keywords}}</p>
                 <p>MIME type: {{ebook.mime}}</p>
 
-                <button class="btn btn-success btn-lg align-content-center"
-                        (click)="download([ebook.id], [ebook.mime])">
-                    <img src="http://localhost:8080/images/svg/download-button.svg" class="d-inline-block " width="25px"
-                         height="25px" alt=""> Download
-                </button>
-
+                <div class="card-footer">
+                    <button class="btn btn-success btn-lg align-content-center"
+                            (click)="download([ebook.id], [ebook.mime])">
+                        <img src="http://localhost:8080/images/svg/download-button.svg" class="d-inline-block " width="25px"
+                            height="25px" alt=""> Download
+                    </button>
+                </div>
             </div>
         </li>
-    </ul>
-</div>
+<!-- </ng-container> -->
+</ul>  
+

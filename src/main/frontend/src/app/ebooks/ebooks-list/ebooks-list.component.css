@@ -4,7 +4,7 @@ ul {
 
 li {
     margin-bottom: 12px;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     padding: 5px;
 }
 
@@ -15,3 +15,6 @@ li {
 a {
     text-decoration: none;
 }
+
+/* #ebook-list > div:nth-of-type(3n+1) {
+} */
