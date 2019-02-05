@@ -1,18 +1,11 @@
 package com.n96a.ebooks.lucene.model;
 
-import com.n96a.ebooks.domain.Ebook;
-import com.n96a.ebooks.service.EbookService;
-import com.n96a.ebooks.service.EbookServiceInterface;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 

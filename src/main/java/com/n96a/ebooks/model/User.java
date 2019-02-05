@@ -1,27 +1,20 @@
-package com.n96a.ebooks.domain;
+package com.n96a.ebooks.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,11 +29,17 @@ public class User implements Serializable {
     private String username; // varchar(10) ??
 
     @JsonIgnore
-    @Column(name = "password", columnDefinition = "VARCHAR(10)", length = 10, unique = false, nullable = false)
+    @Column(name = "password", unique = false, nullable = false)
     private String password; // varchar(10) ??
 
     @Column(name = "usertype", columnDefinition = "VARCHAR(30)", length = 30, unique = false, nullable = true)
     private String type; // varchar(30)
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "last_password_reset_date")
+    private Timestamp lastPasswordResetDate;
 
     @ManyToOne // User 0..n -> 0..1 Category
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -49,6 +48,12 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // User 1..1 -> 0..n Ebook
     private Set<Ebook> ebooks = new HashSet<Ebook>();
+
+    @ManyToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
 
     public User() {
         super();
@@ -114,6 +119,8 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
+        Timestamp now = new Timestamp(new Date().getTime());
+        this.setLastPasswordResetDate(now);
         this.password = password;
     }
 
@@ -135,6 +142,42 @@ public class User implements Serializable {
 
     public Set<Ebook> getEbooks() {
         return ebooks;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public Timestamp getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
     @Override

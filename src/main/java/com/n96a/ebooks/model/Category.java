@@ -1,4 +1,4 @@
-package com.n96a.ebooks.domain;
+package com.n96a.ebooks.model;
 
 import java.io.Serializable;
 import java.util.HashSet;

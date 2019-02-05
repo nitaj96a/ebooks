@@ -2,7 +2,7 @@ package com.n96a.ebooks.service;
 
 import java.util.List;
 
-import com.n96a.ebooks.domain.Category;
+import com.n96a.ebooks.model.Category;
 
 public interface CategoryServiceInterface {
 

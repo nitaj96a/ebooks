@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.n96a.ebooks.domain.Ebook;
-import com.n96a.ebooks.domain.User;
+import com.n96a.ebooks.model.Ebook;
+import com.n96a.ebooks.model.User;
 import com.n96a.ebooks.repository.EbookRepository;
 
 @Service

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.n96a.ebooks.domain.User;
+import com.n96a.ebooks.model.User;
 import com.n96a.ebooks.repository.UserRepository;
 
 
@@ -14,6 +14,11 @@ public class UserService implements UserServiceInterface {
 
     @Autowired
     UserRepository userRepository;
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
     @Override
     public User findOne(Integer id) {

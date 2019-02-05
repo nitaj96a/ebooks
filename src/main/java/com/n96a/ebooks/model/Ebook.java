@@ -1,4 +1,4 @@
-package com.n96a.ebooks.domain;
+package com.n96a.ebooks.model;
 
 import java.io.Serializable;
 
@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity

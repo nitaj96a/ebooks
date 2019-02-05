@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.n96a.ebooks.lucene.model.IndexUnit;
 import com.n96a.ebooks.lucene.indexing.Indexer;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.n96a.ebooks.domain.Ebook;
+import com.n96a.ebooks.model.Ebook;
 import com.n96a.ebooks.service.EbookServiceInterface;
 import com.n96a.ebooks.service.FileStorageService;
 
@@ -37,7 +38,7 @@ public class FileController {
 
     @CrossOrigin()
     @PostMapping(value = "/api/ebooks/file", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<String> uploadEbook(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadEbook(@RequestParam("file") MultipartFile file) {
         System.out.println("in uploadEbook");
         String fileName = fileStorageService.saveEbookFile(file);
         File savedFile = fileStorageService.getFile(fileName);
@@ -45,7 +46,7 @@ public class FileController {
         int numIndexed = Indexer.getInstance().index(savedFile);
         long end = new Date().getTime();
 
-        return new ResponseEntity<String>(fileName, HttpStatus.OK);
+        return new ResponseEntity<String>(JSONParser.quote(fileName), HttpStatus.OK);
     }
 
     @GetMapping("/api/reindex")

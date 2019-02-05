@@ -2,8 +2,8 @@ package com.n96a.ebooks.service;
 
 import java.util.List;
 
-import com.n96a.ebooks.domain.Ebook;
-import com.n96a.ebooks.domain.User;
+import com.n96a.ebooks.model.Ebook;
+import com.n96a.ebooks.model.User;
 
 public interface EbookServiceInterface {
 

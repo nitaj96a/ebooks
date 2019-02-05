@@ -7,10 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.n96a.ebooks.domain.Category;
+import com.n96a.ebooks.model.Category;
 import com.n96a.ebooks.service.CategoryServiceInterface;
 
 @RestController
