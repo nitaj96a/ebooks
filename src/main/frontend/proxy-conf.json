@@ -1,12 +1,18 @@
 {
     "/api": {
-        "target": "http://localhost:8080/",
+        "target": "https://localhost:8443/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/ebook-thumbnails": {
-        "target": "http://localhost:8080/",
+        "target": "https://localhost:8443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/auth": {
+        "target": "https://localhost:8443/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
