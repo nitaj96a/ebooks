@@ -1,24 +1,23 @@
 package com.n96a.ebooks.controller;
 
-import com.n96a.ebooks.common.DeviceProvider;
+import com.n96a.ebooks.DTO.UserDTO;
 import com.n96a.ebooks.model.User;
 import com.n96a.ebooks.model.UserTokenState;
 import com.n96a.ebooks.security.TokenHelper;
 import com.n96a.ebooks.security.auth.JwtAuthenticationRequest;
 import com.n96a.ebooks.service.CustomUserDetailsService;
+import com.n96a.ebooks.service.UserService;
+import com.n96a.ebooks.service.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mobile.device.Device;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.MediaType;
 
@@ -43,28 +42,29 @@ public class AuthenticationController {
     private CustomUserDetailsService userDetailsService;
 
     @Autowired
-    private DeviceProvider deviceProvider;
+    private UserServiceInterface userService;
 
+    @CrossOrigin()
     @PostMapping(value = "/login")
-    public ResponseEntity<?> createAuthenticationToken(
+    public ResponseEntity<UserDTO> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest,
-            HttpServletResponse response,
-            Device device
+            HttpServletResponse response
     ) throws AuthenticationException, IOException {
+
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
-                        authenticationRequest.getPassword()
-                )
+                        authenticationRequest.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = (User) authentication.getPrincipal();
-        String jws = tokenHelper.generateToken(user.getUsername(), device);
-        long expiresIn = tokenHelper.getExpiresIn(device);
+        String jws = tokenHelper.generateToken(user.getUsername());
+        System.out.println(jws);
+        UserDTO userDTO = new UserDTO(user, jws);
 
-        return ResponseEntity.ok(new UserTokenState(jws, expiresIn));
+        return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/refresh")
@@ -75,12 +75,11 @@ public class AuthenticationController {
     ) {
         String authToken = tokenHelper.getToken(request);
 
-        Device device = deviceProvider.getCurrentDevice(request);
 
         if (authToken != null && principal != null) {
 
-            String refreshedToken = tokenHelper.refreshToken(authToken, device);
-            long expiresIn = tokenHelper.getExpiresIn(device);
+            String refreshedToken = tokenHelper.refreshToken(authToken);
+            long expiresIn = tokenHelper.getExpiresIn();
 
             return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn));
 

@@ -58,10 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/**","/api/ebooks", "/", "/auth/login","/api/users", "/h2-console").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
         http.csrf().disable();
+        http.httpBasic().disable();
     }
 
     @Override
@@ -73,7 +74,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/favicon.ico",
                 "/**/*.html",
                 "/**/*.css",
-                "/**/*.js"
+                "/**/*.js",
+                "/api/ebooks",
+                "/ebook-thumbnails/*.jpg",
+                "/ebook-thumbnails/*.png",
+                "/ebook-thumbnails/*.jpeg",
+                "/ebook-thumbnails/*.jfif",
+                "/images/**/*.*"
         );
     }
 }

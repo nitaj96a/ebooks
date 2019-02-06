@@ -11,10 +11,10 @@ INSERT INTO AUTHORITY (id, name) VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 2);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 2);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 2);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (5, 2);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 1);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (5, 1);
 
 INSERT INTO languages(name) VALUES ('English');
 INSERT INTO languages(name) VALUES ('Serbian');
