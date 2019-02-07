@@ -68,7 +68,7 @@ export class EbookService {
         let filename = parts[1].split('=')[1];
         filename = filename.split("\"")[1];
         console.log("filename: " + filename);
-        const file = new File([response._body], filename, {type: mime});
+        const file = new File([response.body], filename, {type: mime});
         console.log(file);
         saveAs(file);
     }
