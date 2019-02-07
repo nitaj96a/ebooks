@@ -10,10 +10,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         var currentUser: User = this.authenticationService.currentUserValue;
-        console.log('interceptor current user: '+ currentUser);
+        //console.log('interceptor current user: '+ currentUser);
         var currentUser: User = this.authenticationService.currentUserValueHack();
-        console.log('interceptor current user hack: '+ currentUser);
-        console.log(currentUser);
+        //console.log('interceptor current user hack: '+ currentUser);
+        //console.log(currentUser);
         if (currentUser && currentUser.token) {
             //request.headers.append("Authorization", `Bearer ${currentUser.token}`)
             request = request.clone({
@@ -22,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
                 }
             });
         }
-        console.log(request.headers)
+        //console.log(request.headers)
         return next.handle(request);
     }
 }

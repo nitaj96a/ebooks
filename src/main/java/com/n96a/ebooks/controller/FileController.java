@@ -79,6 +79,7 @@ public class FileController {
         return new ResponseEntity<String>(fileName, HttpStatus.OK);
     }
 
+    @CrossOrigin()
     @GetMapping("/api/ebooks/{id}/file")
     public ResponseEntity<Resource> downloadEbook(@PathVariable("id") Integer id, HttpServletRequest request) {
         Ebook ebook = ebookService.findOne(id);

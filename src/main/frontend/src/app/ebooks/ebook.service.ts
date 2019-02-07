@@ -1,32 +1,48 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import {Ebook} from "./ebook.model";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {saveAs} from 'file-saver';
 import { httpFactory } from "@angular/http/src/http_module";
 
 @Injectable()
 export class EbookService {
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
 
     }
 
     getEbooks() {
-        return this.http.get("/api/ebooks").pipe(map(response => response.json()));
+        return this.http.get<Ebook[]>("/api/ebooks")//.pipe(map(response => response.json()));
     }
 
     addEbook(ebook: Ebook) {
-        return this.http.post("/api/ebooks", ebook).pipe(map(response => response.json()));
+        return this.http.post<Ebook>("/api/ebooks", ebook)//.pipe(map(response => response.json()));
     }
 
     downloadEbookFile(id: number, mime: string) {
-        console.log(mime)
-        const headers = new Headers();
-        headers.append('Accept', mime);
-        return this.http.get("/api/ebooks/" + id + "/file", {headers: headers})
-            .toPromise()
-            .then(response => this.saveToFileSystem(response, mime));
+        //console.log(mime)
+        const headers = new HttpHeaders({
+            'Accept': mime
+        });
+        //headers.append('Accept', mime);
+        //this.saveToFileSystem(this.http.get("/api/ebooks/" + id + "/file").subscribe(), mime)//, {headers: headers})
+        //var response = this.http.get("/api/ebooks/" + id + "/file", {observe: 'response', headers: headers});//.subscribe(response => this.saveToFileSystem(response, mime));//, {headers: headers})
+        // var file = this.http.get("/api/ebooks/" + id + "/file", {headers: headers, responseType: 'blob'})
+        //     .pipe(
+        //         tap(
+        //             data => console.log(data),
+        //             error => console.log(error)
+        //             )
+        //         );
+        // console.log()
+        // file.subscribe(data => this.saveToFileSystem2(data))//, {headers: headers})
+        this.http.get("/api/ebooks/" + id + "/file", {observe: 'response', headers: headers, responseType: 'blob'})
+            .subscribe(data => this.saveToFileSystem(data, mime));
+        //console.log(response);
+            // .toPromise()
+            // .then(response => this.saveToFileSystem(response, mime));
     }
 
     uploadEbookFile(file: File) {
@@ -38,7 +54,7 @@ export class EbookService {
         formdata.append('file', file);
         formdata.set('file', file);
         console.log(formdata.getAll);
-        return this.http.post("/api/ebooks/file", formdata).pipe(map(response => response.json()));
+        return this.http.post<any>("/api/ebooks/file", formdata)//.pipe(map(response => response.json()));
     }
 
     uploadEbookThumbnail() {
@@ -46,6 +62,7 @@ export class EbookService {
     }
 
     private saveToFileSystem(response, mime) {
+        console.log(response);
         const contentDispositionHeader: string = response.headers.get('Content-Disposition');
         const parts: string[] = contentDispositionHeader.split(';');
         let filename = parts[1].split('=')[1];
