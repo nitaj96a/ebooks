@@ -39,6 +39,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { AuthGuard } from './auth/_guards/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { EbooksEditComponent } from './ebooks/ebooks-edit/ebooks-edit.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
         EbooksListComponent,
         EbooksAddComponent,
         EbooksSearchComponent,
-        LoginComponent
+        LoginComponent,
+        EbooksEditComponent
     ],
     imports: [
         BrowserModule,

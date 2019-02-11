@@ -56,7 +56,7 @@ public class SearchController {
              CategoryDTO catDTO = new CategoryDTO(ebook.getCategory());
              UserDTO userDTO = new UserDTO(ebook.getUser());
              String highlight = rd.getHighlight();
-             EbookDTO ebookDTO = new EbookDTO(ebook, langDTO, catDTO, userDTO, highlight);
+             EbookDTO ebookDTO = new EbookDTO(ebook, langDTO, ebook.getCategory(), userDTO, highlight);
              ebookDTOs.add(ebookDTO);
          }
          return new ResponseEntity<List<EbookDTO>>(ebookDTOs, HttpStatus.OK);

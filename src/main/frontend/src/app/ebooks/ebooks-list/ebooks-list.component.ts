@@ -1,3 +1,5 @@
+import { User } from './../../users/user.model';
+import { AuthenticationService } from './../../auth/_services/authentication.service';
 import {Component, OnInit} from "@angular/core";
 import {Ebook} from "../ebook.model";
 import {EbookService} from "../ebook.service";
@@ -9,8 +11,10 @@ import {EbookService} from "../ebook.service";
 })
 export class EbooksListComponent implements OnInit {
     ebooks: Ebook[] = [];
+    currentUser: User;
 
-    constructor(private ebookService: EbookService) {
+    constructor(private ebookService: EbookService, private authenticationService: AuthenticationService,) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     ngOnInit() {

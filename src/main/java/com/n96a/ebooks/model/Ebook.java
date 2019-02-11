@@ -27,7 +27,7 @@ public class Ebook implements Serializable {
     @Column(name = "author", columnDefinition = "VARCHAR(120)", length = 120, unique = false, nullable = false)
     private String author;
 
-    @Column(name = "keywords", columnDefinition = "VARCHAR(120)", length = 120, unique = false, nullable = true)
+    @Column(name = "keywords", columnDefinition = "VARCHAR(200)", length = 200, unique = false, nullable = true)
     // csvstring?
     private String keywords;
 
@@ -37,7 +37,7 @@ public class Ebook implements Serializable {
     @Column(name = "filename", columnDefinition = "VARCHAR(200)", length = 200, unique = true, nullable = false)
     private String filename;
 
-    @Column(name = "thumbnailpath", columnDefinition = "VARCHAR(200)", length = 200, unique = true, nullable = false)
+    @Column(name = "thumbnailpath", columnDefinition = "VARCHAR(200)", length = 200, unique = false, nullable = false)
     private String thumbnailPath;
 
     @Column(name = "MIME", columnDefinition = "VARCHAR(100)", length = 100, unique = false, nullable = true)
@@ -206,11 +206,20 @@ public class Ebook implements Serializable {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Ebook [id=" + id + ", title=" + title + ", author=" + author + ", keywords=" + keywords
-                + ", publicationYear=" + publicationYear + ", filename=" + filename + ", thumbnailPath=" + thumbnailPath
-                + ", MIME=" + MIME + ", language=" + language.getName() + ", category=" + category.getName() + ", user=" + user.getUsername() + "]";
-    }
-
+//    @Override
+//    public String toString() {
+//        return "Ebook{" +
+//                "id=" + id +
+//                ", title='" + title + '\'' +
+//                ", author='" + author + '\'' +
+//                ", keywords='" + keywords + '\'' +
+//                ", publicationYear=" + publicationYear +
+//                ", filename='" + filename + '\'' +
+//                ", thumbnailPath='" + thumbnailPath + '\'' +
+//                ", MIME='" + MIME + '\'' +
+//                ", language=" + language +
+//                ", category=" + category +
+//                ", user=" + user +
+//                '}';
+//    }
 }

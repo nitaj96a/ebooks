@@ -1,5 +1,6 @@
 package com.n96a.ebooks.lucene.indexing;
 
+import com.n96a.ebooks.DTO.EbookDTO;
 import com.n96a.ebooks.lucene.indexing.handlers.DocumentHandler;
 import com.n96a.ebooks.lucene.indexing.handlers.PDFHandler;
 import com.n96a.ebooks.lucene.indexing.handlers.TextDocHandler;
@@ -131,6 +132,17 @@ public class Indexer {
         } catch (IOException ioe) {
             throw new IllegalArgumentException("Index dir is wrong");
         }
+    }
+
+    public Document getMetadataDoc(File file) {
+        String filename = null;
+        DocumentHandler handler = null;
+        filename = file.getName();
+        handler = getHandler(filename);
+        IndexUnit iu = handler.getIndexUnit(file);
+        Document doc = iu.getLuceneDocument();
+
+        return doc;
     }
 
     public int index(File file) {

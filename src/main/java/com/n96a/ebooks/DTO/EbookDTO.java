@@ -1,5 +1,6 @@
 package com.n96a.ebooks.DTO;
 
+import com.n96a.ebooks.model.Category;
 import com.n96a.ebooks.model.Ebook;
 
 public class EbookDTO {
@@ -12,11 +13,14 @@ public class EbookDTO {
     private String thumbnailPath;
     private String mime;
     private LanguageDTO languageDTO;
-    private CategoryDTO categoryDTO;
+    private Category category;
     private UserDTO userDTO;
     private String highlight;
 
-    public EbookDTO(Integer id, String title, String author, String keywords, Integer publicationYear, String filename, String thumbnailPath, String mIME, LanguageDTO languageDTO, CategoryDTO categoryDTO, UserDTO userDTO, String highlight) {
+    public EbookDTO() {
+
+    }
+    public EbookDTO(Integer id, String title, String author, String keywords, Integer publicationYear, String filename, String thumbnailPath, String mIME, LanguageDTO languageDTO, Category category, UserDTO userDTO, String highlight) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -26,16 +30,28 @@ public class EbookDTO {
         this.thumbnailPath = thumbnailPath;
         this.mime = mIME;
         this.languageDTO = languageDTO;
-        this.categoryDTO = categoryDTO;
+        this.category = category;
         this.userDTO = userDTO;
         this.highlight = highlight;
     }
 
     public EbookDTO(Ebook ebook) {
-
+//        this(ebook.getId(),
+//                ebook.getTitle(),
+//                ebook.getAuthor(),
+//                ebook.getKeywords(),
+//                ebook.getPublicationYear(),
+//                ebook.getFilename(),
+//                ebook.getThumbnailPath(),
+//                ebook.getMIME(),
+//                lang,
+//                cat,
+//                user,
+//                ""
+//        )
     }
 
-    public EbookDTO(Ebook ebook, LanguageDTO languageDTO, CategoryDTO categoryDTO, UserDTO userDTO, String highlight) {
+    public EbookDTO(Ebook ebook, LanguageDTO languageDTO, Category category, UserDTO userDTO, String highlight) {
         this(
                 ebook.getId(),
                 ebook.getTitle(),
@@ -46,7 +62,7 @@ public class EbookDTO {
                 ebook.getThumbnailPath(),
                 ebook.getMIME(),
                 languageDTO,
-                categoryDTO,
+                category,
                 userDTO,
                 highlight
         );
@@ -124,12 +140,12 @@ public class EbookDTO {
         this.languageDTO = languageDTO;
     }
 
-    public CategoryDTO getCategoryDTO() {
-        return categoryDTO;
+    public Category getCategoryDTO() {
+        return category;
     }
 
-    public void setCategoryDTO(CategoryDTO categoryDTO) {
-        this.categoryDTO = categoryDTO;
+    public void setCategoryDTO(Category categoryDTO) {
+        this.category = categoryDTO;
     }
 
     public UserDTO getUserDTO() {
@@ -146,5 +162,23 @@ public class EbookDTO {
 
     public void setHighlight(String highlight) {
         this.highlight = highlight;
+    }
+
+    @Override
+    public String toString() {
+        return "EbookDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", publicationYear=" + publicationYear +
+                ", filename='" + filename + '\'' +
+                ", thumbnailPath='" + thumbnailPath + '\'' +
+                ", mime='" + mime + '\'' +
+                ", languageDTO=" + languageDTO +
+                ", category=" + category +
+                ", userDTO=" + userDTO +
+                ", highlight='" + highlight + '\'' +
+                '}';
     }
 }

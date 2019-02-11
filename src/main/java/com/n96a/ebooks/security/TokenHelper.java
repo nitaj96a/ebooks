@@ -21,7 +21,7 @@ public class TokenHelper {
     @Value("moja_tajna")
     private String SECRET;
 
-    @Value("300")
+    @Value("3600") //vrednost u ms koja se kasnije mnozi sa 1000 i daje sekunde
     private int EXPIRES_IN;
 
     @Value("Authorization")

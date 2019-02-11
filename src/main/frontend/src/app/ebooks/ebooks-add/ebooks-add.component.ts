@@ -5,6 +5,7 @@ import {EbookService} from "../ebook.service";
 import {Category} from "./../../categories/category.model";
 import {CategoryService} from "./../../categories/category.service";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-ebooks-add",
@@ -17,7 +18,6 @@ export class EbooksAddComponent implements OnInit {
     uploadFileForm: FormGroup;
     ebook: Ebook;
     category: Category;
-
     fileSelected: boolean;
     uploadedFile: boolean;
     file: File;
@@ -30,7 +30,8 @@ export class EbooksAddComponent implements OnInit {
 
     constructor(
         private ebookService: EbookService,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private router: Router
     ) {
     }
 
@@ -74,6 +75,7 @@ export class EbooksAddComponent implements OnInit {
             inputThumbnail: new FormControl()
         });
 
+
         this.uploadFileForm = new FormGroup({
             inputFile: new FormControl(),
         });
@@ -94,13 +96,19 @@ export class EbooksAddComponent implements OnInit {
     uploadFile() {
         console.log(this.file);
         this.ebookService.uploadEbookFile(this.file)
-            .subscribe((filename: String) => {
-                this.filename = filename;
+            .subscribe((ebook: Ebook) => {
+                this.ebook = ebook;
+                this.filename = ebook.filename;
                 console.log(this.filename);
+                console.log(this.ebook);
+                this.uploadedFile = true;
+                this.addEbookForm.controls.inputTitle.setValue(ebook.title);
+                this.addEbookForm.controls.inputAuthor.setValue(ebook.author);
+                this.addEbookForm.controls.inputKeywords.setValue(ebook.keywords);
             },
             (error) => console.log(error)
         );
-        this.uploadedFile = true;
+        
     }
 
     onSubmit() {
@@ -108,9 +116,10 @@ export class EbooksAddComponent implements OnInit {
         let title: string = this.addEbookForm.controls.inputTitle.value;
         let author: string = this.addEbookForm.controls.inputAuthor.value;
         let year: number = Number(this.addEbookForm.controls.inputYear.value);
-        let categoryId = Number(this.addEbookForm.controls.inputCategory.value + 1);
+        let categoryId = Number(this.addEbookForm.controls.inputCategory.value);
+        console.log("chosen category id: "+ categoryId);
         let keywords: string = this.addEbookForm.controls.inputKeywords.value;
-        let filename: string = this.addEbookForm.controls.inputFile.value;
+        let filename: string = this.uploadFileForm.controls.inputFile.value;
         let thumbnailPath = this.addEbookForm.controls.inputThumbnail.value;
 
         //start uploading files
@@ -129,7 +138,13 @@ export class EbooksAddComponent implements OnInit {
                         .subscribe(
                             (ebook: any) => {
                                 this.ebook = ebook;
+                                console.log(ebook);
                                 // redirect to ebook page >
+                                // this.ebookService.indexEbook(ebook.id).subscribe(
+                                //     (res: any) => {
+                                        this.router.navigate(['']);
+                                    // }
+                                //);
                             },
                             (error) => console.log(error)
                         );

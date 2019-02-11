@@ -18,7 +18,8 @@ public class IndexUnit {
     private String title;
     private String text;
     private String author;
-    private List<String> keywords = new ArrayList<>();
+    //private List<String> keywords = new ArrayList<>();
+    private String keywords;
     private String filename;
     private String filedate;
     private String language;
@@ -50,11 +51,11 @@ public class IndexUnit {
         this.author = author;
     }
 
-    public List<String> getKeywords() {
+    public String getKeywords() {
         return keywords;
     }
 
-    public void setKeywords(List<String> keywords) {
+    public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
 
@@ -91,9 +92,10 @@ public class IndexUnit {
         document.add(new TextField("title", title, Field.Store.YES));
         document.add(new TextField("text", text, Field.Store.YES));
         document.add(new TextField("author", author, Field.Store.YES));
-        for (String keyword: keywords) {
-            document.add(new TextField("keyword", keyword, Field.Store.YES));
-        }
+        document.add(new TextField("keywords", keywords, Field.Store.YES));
+//        for (String keyword: keywords) {
+//            document.add(new TextField("keyword", keyword, Field.Store.YES));
+//        }
 
         //document.add(new TextField("filedate", filedate, Field.Store.YES));
 

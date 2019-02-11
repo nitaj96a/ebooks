@@ -13,12 +13,21 @@ export class EbookService {
 
     }
 
+    getEbook(id: Number) {
+        return this.http.get<Ebook>('api/ebooks/'+id)
+    }
+
     getEbooks() {
         return this.http.get<Ebook[]>("/api/ebooks")//.pipe(map(response => response.json()));
     }
 
     addEbook(ebook: Ebook) {
+        console.log(ebook);
         return this.http.post<Ebook>("/api/ebooks", ebook)//.pipe(map(response => response.json()));
+    }
+
+    indexEbook(id: Number) {
+        return this.http.get<Boolean>("/api/ebooks/"+id+"/index")
     }
 
     downloadEbookFile(id: number, mime: string) {
@@ -57,9 +66,22 @@ export class EbookService {
         return this.http.post<any>("/api/ebooks/file", formdata)//.pipe(map(response => response.json()));
     }
 
+    reuploadEbookFile(file: File, id: Number) {
+        let formdata: FormData = new FormData();
+        let headers = new Headers();
+        console.log(file);
+        formdata.append('file', file);
+        //formdata.append('ebook', ebook);
+        formdata.set('file', file);
+        console.log(formdata.getAll);
+        return this.http.post<any>("/api/ebooks/"+ id + "/file", formdata)//.pipe(map(response => response.json()));
+    }
+
     uploadEbookThumbnail() {
 
     }
+
+    
 
     private saveToFileSystem(response, mime) {
         console.log(response);

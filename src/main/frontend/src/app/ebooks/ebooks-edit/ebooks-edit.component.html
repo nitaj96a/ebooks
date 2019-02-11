@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+  <h4 class="display-4">Edit an Ebook</h4>
+</div>
+<form [formGroup]="editEbookForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="inputFile"class=".font-weight-bold">Ebook file <small>current: </small><span id="currentFilenameSpan">{{ebook.filename}}</span></label>
+        <input #file formControlName="inputFile" (change)="ebookFileChange($event)" accept=".pdf" type="file" class="form-control-file " id="inputFile">
+        <!-- <input #file formControlName="inputFile" (change)="angular.element(this).scope().ebookFileChange(this)" accept=".pdf" type="file" class="form-control-file " id="inputFile"> -->
+        <button [disabled]="!fileSelected"  type="button" class="btn btn-success btn-lg" (click)="uploadFile()">Upload File</button>  
+    </div>
+      <div class="form-group">
+          <label for="inputTitle"class=".font-weight-bold">Title</label>
+          <input formControlName="inputTitle" type="text" class="form-control" id="inputTitle" placeholder="">
+      </div>
+      <div class="form-group">
+          <label for="inputAuthor"class=".font-weight-bold">Author</label>
+          <input formControlName="inputAuthor" type="text" class="form-control" id="inputAuthor" placeholder="">
+      </div>
+      <div class="form-group">
+          <label for="inputYear" class=".font-weight-bold">Publication Year</label>
+          <input formControlName="inputYear" type="number" class="form-control" id="inputYear" placeholder="Enter year">
+      </div>
+      <div class="form-group">
+          <label for="inputCategory"class=".font-weight-bold">Category</label>
+          <select formControlName="inputCategory" class="form-control" id="inputCategory">
+              <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option> 
+          </select>
+      </div>
+      <div class="form-group">
+          <label for="inputKeywords"class=".font-weight-bold">Keywords</label>
+          <input formControlName="inputKeywords" type="text" class="form-control" id="inputKeywords" placeholder="Enter keywords">
+      </div>
+      <div class="form-group">
+          <label for="inputThumbnail"class=".font-weight-bold">Ebook thumbnail <small>current: </small><span id="currentThumbnailSpan">{{ebook.thumbnailPath}}</span></label>
+          <span style="color:red;" *ngIf="message">{{message}}</span>
+          <input #file accept="image/*" (change)="preview(file.files)" formControlName="inputThumbnail" type="file" class="form-control-file " id="inputThumbnail">
+          <img [src]="['https://localhost:8443/ebook-thumbnails/' + ebook.thumbnailPath]" height="250">
+      </div>
+      
+     <button [disabled]="fileSelected && !uploadedFile" type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>

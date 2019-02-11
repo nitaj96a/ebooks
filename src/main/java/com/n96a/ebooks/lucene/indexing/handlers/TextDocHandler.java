@@ -25,7 +25,7 @@ public class TextDocHandler extends DocumentHandler {
 
             String secondLine = reader.readLine();
             String [] keywords = secondLine.split(",");
-            indexUnit.setKeywords(new ArrayList<String>(Arrays.asList(keywords)));
+            //indexUnit.setKeywords(new ArrayList<String>(Arrays.asList(keywords)));
 
             String fullText = "";
             while (true) {

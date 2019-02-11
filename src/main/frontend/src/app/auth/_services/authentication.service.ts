@@ -15,15 +15,15 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    console.log(JSON.parse(localStorage.getItem('currentUser')));
+    //console.log(JSON.parse(localStorage.getItem('currentUser')));
     var userTry = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(`current user subject: ${this.currentUserSubject}`);
+    //console.log(`current user subject: ${this.currentUserSubject}`);
     this.currentUser = this.currentUserSubject.asObservable();
     this.currentUserHack = userTry;
   }
 
   public get currentUserValue(): User {
-    console.log(this.currentUserSubject.value)
+    //console.log(this.currentUserSubject.value)
     return this.currentUserSubject.value;
   }
 

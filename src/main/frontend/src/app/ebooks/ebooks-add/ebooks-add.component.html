@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="uploadFileForm">
     <div class="form-group" *ngIf="!uploadedFile">
-        <label for="inputFile">Ebook file</label>
+        <label for="inputFile"class=".font-weight-bold">Ebook file</label>
         <input #file formControlName="inputFile" (change)="ebookFileChange($event)" accept=".pdf" type="file" class="form-control-file " id="inputFile">
         <!-- <input #file formControlName="inputFile" (change)="angular.element(this).scope().ebookFileChange(this)" accept=".pdf" type="file" class="form-control-file " id="inputFile"> -->
     
@@ -15,29 +15,31 @@
 <form [formGroup]="addEbookForm" (ngSubmit)="onSubmit()" *ngIf="uploadedFile">
     <div id="afterFileUploadFinished" >
         <div class="form-group">
-            <label for="inputTitle">Title</label>
+            <label for="inputTitle"class=".font-weight-bold">Title</label>
             <input formControlName="inputTitle" type="text" class="form-control" id="inputTitle" placeholder="">
         </div>
         <div class="form-group">
-            <label for="inputAuthor">Author</label>
+            <label for="inputAuthor"class=".font-weight-bold">Author</label>
             <input formControlName="inputAuthor" type="text" class="form-control" id="inputAuthor" placeholder="">
         </div>
         <div class="form-group">
-            <label for="inputYear">Publication Year</label>
-            <input formControlName="inputYear" type="number" class="form-control" id="inputYear" placeholder="">
+            <label for="inputYear" class=".font-weight-bold">Publication Year</label>
+            <input formControlName="inputYear" type="number" class="form-control" id="inputYear" placeholder="Enter year">
         </div>
         <div class="form-group">
-            <label for="inputCategory">Category</label>
+            <label for="inputCategory"class=".font-weight-bold">Category</label>
             <select formControlName="inputCategory" class="form-control" id="inputCategory">
+                <option [ngValue]="null" disabled selected hidden>Select category</option>
                 <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
+                
             </select>
         </div>
         <div class="form-group">
-            <label for="inputKeywords">Keywords</label>
-            <input formControlName="inputKeywords" type="text" class="form-control" id="inputKeywordsr" placeholder="">
+            <label for="inputKeywords"class=".font-weight-bold">Keywords</label>
+            <input formControlName="inputKeywords" type="text" class="form-control" id="inputKeywords" placeholder="Enter keywords">
         </div>
         <div class="form-group">
-            <label for="inputThumbnail">Ebook thumbnail</label>
+            <label for="inputThumbnail"class=".font-weight-bold">Ebook thumbnail</label>
             <span style="color:red;" *ngIf="message">{{message}}</span>
             <input #file accept="image/*" (change)="preview(file.files)" formControlName="inputThumbnail" type="file" class="form-control-file " id="inputThumbnail">
             <img [src]="imgURL" height="250" *ngIf="imgURL">

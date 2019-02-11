@@ -37,25 +37,31 @@ public class PDFHandler extends DocumentHandler {
 
             // metadata stuff
 
-                PDDocument pdf = parser.getPDDocument();
+            PDDocument pdf = parser.getPDDocument();
 
             PDDocumentInformation info = pdf.getDocumentInformation();
-
             String title = ""+ info.getTitle();
             indexUnit.setTitle(title);
+            System.out.println("title: "+ title);
             //iu.setTitle(title);
             String author = ""+ info.getAuthor();
+            System.out.println("author: "+ author);
             indexUnit.setAuthor(author);
             //iu.setAuthor(author);
 
             String keywords = ""+ info.getKeywords();
-            if(keywords != null){
-                String[] splitKeywords = keywords.split(", ");
-                indexUnit.setKeywords(new ArrayList<String>(Arrays.asList(splitKeywords)));
-                //iu.setKeywords(new ArrayList<String>(Arrays.asList(splitKeywords)));
-            }
+            System.out.println("keywords: "+ keywords);
+//            if(keywords != null){
+//                String[] splitKeywords = keywords.split(", ");
+//                indexUnit.setKeywords(new ArrayList<String>(Arrays.asList(splitKeywords)));
+//                //iu.setKeywords(new ArrayList<String>(Arrays.asList(splitKeywords)));
+//            }
+            indexUnit.setKeywords(keywords);
 
-            indexUnit.setFilename(file.getCanonicalPath());
+            String[] paths = file.getCanonicalPath().split("\\\\");
+            String filenameFinal = paths[paths.length-1];
+            indexUnit.setFilename(filenameFinal);
+            System.out.println(filenameFinal);
             //iu.setFilename(file.getCanonicalPath());
 
 

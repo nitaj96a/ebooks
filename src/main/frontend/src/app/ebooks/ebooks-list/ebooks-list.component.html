@@ -6,9 +6,9 @@
                  src="https://localhost:8443/ebook-thumbnails/{{ebook.thumbnailPath}}"
                  alt="Book cover">
             <div class="media-body">
-                <h4 class="mt-0 mb-1">{{ebook.title}}</h4>
+                <h4 class="mt-0 mb-1">{{ebook.title}} <span class="badge badge-primary"><a *ngIf="currentUser && currentUser.type == 'admin'" class="text-white" [routerLink]="['/ebooks/edit', ebook.id]">edit</a></span></h4>
                 <p>{{ebook.author}}, {{ebook.publicationYear}}. <span class="badge badge-info"> <a class="text-white"
-                                                                                                   [routerLink]="[ '/ebooks/category/'+ ebook.id ]">{{ebook.category.name}}</a></span>
+                                                                                                   [routerLink]="[ '/ebooks/category/'+ ebook.category.id ]">{{ebook.category.name}}</a></span>
                 </p>
                 <p>Keywords: {{ebook.keywords}}</p>
                 <p>MIME type: {{ebook.mime}}</p>
