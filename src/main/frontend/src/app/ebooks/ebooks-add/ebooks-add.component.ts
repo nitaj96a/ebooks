@@ -6,6 +6,7 @@ import {Category} from "./../../categories/category.model";
 import {CategoryService} from "./../../categories/category.service";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: "app-ebooks-add",
@@ -21,6 +22,7 @@ export class EbooksAddComponent implements OnInit {
     fileSelected: boolean;
     uploadedFile: boolean;
     file: File;
+    imgFile: File;
     filename: String;
 
 
@@ -31,7 +33,8 @@ export class EbooksAddComponent implements OnInit {
     constructor(
         private ebookService: EbookService,
         private categoryService: CategoryService,
-        private router: Router
+        private router: Router,
+        private http: HttpClient,
     ) {
     }
 
@@ -50,6 +53,7 @@ export class EbooksAddComponent implements OnInit {
         var reader = new FileReader();
         this.imagePath = files;
         //console.log(this.imagePath);
+        this.imgFile = files[0];
         reader.readAsDataURL(files[0]);
         reader.onload = (_event) => {
             this.imgURL = reader.result;
@@ -108,7 +112,6 @@ export class EbooksAddComponent implements OnInit {
             },
             (error) => console.log(error)
         );
-        
     }
 
     onSubmit() {
@@ -117,10 +120,14 @@ export class EbooksAddComponent implements OnInit {
         let author: string = this.addEbookForm.controls.inputAuthor.value;
         let year: number = Number(this.addEbookForm.controls.inputYear.value);
         let categoryId = Number(this.addEbookForm.controls.inputCategory.value);
+        this.category = this.categories.filter(x => x.id == categoryId)[0];
         console.log("chosen category id: "+ categoryId);
         let keywords: string = this.addEbookForm.controls.inputKeywords.value;
         let filename: string = this.uploadFileForm.controls.inputFile.value;
+        filename = filename.split('\\')[2];
+        //filename.s //strip(C:\fakepath\)
         let thumbnailPath = this.addEbookForm.controls.inputThumbnail.value;
+        thumbnailPath = thumbnailPath.split('\\')[2];
 
         //start uploading files
 
@@ -128,33 +135,42 @@ export class EbooksAddComponent implements OnInit {
         //make a proper mime type string on the backend.. or have some type of enum here
         let mime = filename.split('.').pop();
 
-        this.categoryService.getCategoryById(categoryId)
+        // this.categoryService.getCategoryById(categoryId)
+        //     .subscribe(
+        //         (category: any) => {
+        //             this.category = category;
+        //             let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime);
+        //             console.log(ebook);
+        //             this.ebookService.addEbook(ebook)
+        //                 .subscribe(
+        //                     (ebook: any) => {
+        //                         this.ebook = ebook;
+        //                         console.log(ebook);
+        //                         this.ebookService.indexEbook(ebook.id);
+        //                         this.router.navigate(['ebooks']);
+        //                     },
+        //                     (error) => console.log(error)
+        //                 );
+        //         },
+        //         (error) => console.log(error)
+        //     );
+        const formData = new FormData();
+        formData.append('imgFile', this.imgFile);
+        this.http.post('/api/ebooks/thumbnail', formData).subscribe();
+        let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime);
+        console.log(ebook);
+        this.ebookService.addEbook(ebook)
             .subscribe(
-                (category: any) => {
-                    this.category = category;
-                    let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime);
+                (ebook: any) => {
+                    this.ebook = ebook;
                     console.log(ebook);
-                    this.ebookService.addEbook(ebook)
-                        .subscribe(
-                            (ebook: any) => {
-                                this.ebook = ebook;
-                                console.log(ebook);
-                                // redirect to ebook page >
-                                // this.ebookService.indexEbook(ebook.id).subscribe(
-                                //     (res: any) => {
-                                        this.router.navigate(['']);
-                                    // }
-                                //);
-                            },
-                            (error) => console.log(error)
-                        );
+                    this.ebookService.indexEbook(ebook.id).subscribe();
+                    this.router.navigate(['ebooks']);
                 },
                 (error) => console.log(error)
             );
-
-
         //save the book 
-        console.log(this.addEbookForm)
+        console.log(this.addEbookForm);
 
     }
 }

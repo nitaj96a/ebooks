@@ -23,6 +23,9 @@ export class EbooksEditComponent implements OnInit {
   file: File;
   filename: String;
   uploadedFile: boolean;
+  imgFile: File;
+
+  imgURL: any;
 
   constructor(
     private ebookService: EbookService,
@@ -45,7 +48,8 @@ export class EbooksEditComponent implements OnInit {
       inputYear: new FormControl(null),
       inputCategory: new FormControl(),
       inputKeywords: new FormControl(),
-      inputThumbnail: new FormControl() 
+      inputThumbnail: new FormControl(),
+      inputFile: new FormControl(),
     });
 
     this.route.params.subscribe(params => {
@@ -62,6 +66,7 @@ export class EbooksEditComponent implements OnInit {
         this.editEbookForm.controls.inputYear.setValue(this.ebook.publicationYear);
         this.editEbookForm.controls.inputKeywords.setValue(this.ebook.keywords);
         //this.editEbookForm.controls.inputThumbnail.setValue(this.ebook.thumbnailPath);
+        this.imgURL = 'http://localhost:8080/ebook-thumbnails/' + this.ebook.thumbnailPath;
         this.editEbookForm.controls.inputCategory.setValue(this.ebook.category);
         this.editEbookForm.controls.inputCategory.setValue(this.ebook.category.id);
       },
@@ -99,8 +104,38 @@ uploadFile() {
       },
       (error) => console.log(error)
   );
-  
 }
 
+  preview(files: FileList) {
+    console.log('in change');
+    console.log(files);
+    var reader = new FileReader();
 
+    this.imgFile = files[0];
+    console.log(this.imgFile);
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+      console.log(this.imgURL);
+    }
+
+  }
+
+  onSubmit() {
+    let title: string = this.editEbookForm.controls.inputTitle.value;
+    let author: string = this.editEbookForm.controls.inputAuthor.value;
+    let year: number = Number(this.editEbookForm.controls.inputYear.value);
+    let categoryId = Number(this.editEbookForm.controls.inputCategory.value);
+    this.category = this.categories.filter(x => x.id == categoryId)[0];
+    console.log("chosen category id: "+ categoryId);
+    let keywords: string = this.editEbookForm.controls.inputKeywords.value;
+    let filename: string = this.editEbookForm.controls.inputFile.value;
+    filename = filename.split('\\')[2];
+    //filename.s //strip(C:\fakepath\)
+    let thumbnailPath = this.editEbookForm.controls.inputThumbnail.value;
+    thumbnailPath = thumbnailPath.split('\\')[2];
+
+    //start uploading files
+
+  }
 }

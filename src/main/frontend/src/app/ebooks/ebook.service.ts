@@ -62,7 +62,7 @@ export class EbookService {
         //console.log(headers);
         formdata.append('file', file);
         formdata.set('file', file);
-        console.log(formdata.getAll);
+        //console.log(formdata.getAll);
         return this.http.post<any>("/api/ebooks/file", formdata)//.pipe(map(response => response.json()));
     }
 
@@ -81,8 +81,6 @@ export class EbookService {
 
     }
 
-    
-
     private saveToFileSystem(response, mime) {
         console.log(response);
         const contentDispositionHeader: string = response.headers.get('Content-Disposition');
@@ -93,5 +91,10 @@ export class EbookService {
         const file = new File([response.body], filename, {type: mime});
         console.log(file);
         saveAs(file);
+    }
+
+    deleteEbook(id: number) {
+        console.log('in e-service');
+        return this.http.delete<any>('/api/ebooks/' + id).pipe();
     }
 }

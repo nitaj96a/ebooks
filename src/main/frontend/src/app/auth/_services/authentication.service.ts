@@ -49,4 +49,8 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
+
+  isAdmin() {
+    return this.currentUserSubject.value.type == 'admin' ? true : false;
+  }
 }

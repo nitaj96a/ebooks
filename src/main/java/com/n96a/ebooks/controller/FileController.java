@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+@CrossOrigin()
 @RestController()
 public class FileController {
 
@@ -46,6 +47,7 @@ public class FileController {
     @PostMapping(value = "/api/ebooks/file", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EbookDTO> uploadEbookAndGetMetadata(@RequestParam("file") MultipartFile file) {
         System.out.println("in uploadEbook");
+        System.out.println(file);
         String fileName = fileStorageService.saveEbookFile(file);
         System.out.println(fileName);
         File savedFile = fileStorageService.getFile(fileName);
@@ -101,8 +103,9 @@ public class FileController {
         return new ResponseEntity<EbookDTO>(ebookDTO, HttpStatus.OK);
     }
 
+    @CrossOrigin()
     @PostMapping("/api/ebooks/thumbnail")
-    public ResponseEntity<String> uploadThumbnail(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadThumbnail(@RequestParam("imgFile") MultipartFile file) {
         String fileName = fileStorageService.saveThumbnailFile(file);
         return new ResponseEntity<String>(fileName, HttpStatus.OK);
     }

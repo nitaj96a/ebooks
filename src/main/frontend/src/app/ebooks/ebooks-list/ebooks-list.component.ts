@@ -35,4 +35,15 @@ export class EbooksListComponent implements OnInit {
         let id = Number(idStr);
         this.ebookService.downloadEbookFile(id, mime);
     }
+
+    delete(id: number) {
+        console.log('in delete ' + id);
+        return this.ebookService.deleteEbook(id).subscribe(() => {
+            for (let i = 0; i < this.ebooks.length; i++) {
+                if (this.ebooks[i].id === id) {
+                  this.ebooks.splice(i, 1);
+                }
+              }
+        });
+    }
 }

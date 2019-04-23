@@ -6,12 +6,19 @@ import {UsersComponent} from "./users/users.component";
 import {EbooksComponent} from "./ebooks/ebooks.component";
 import {EbooksAddComponent} from "./ebooks/ebooks-add/ebooks-add.component";
 import { EbooksEditComponent } from './ebooks/ebooks-edit/ebooks-edit.component';
+import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
+import { CategoriesAddComponent } from './categories/categories-add/categories-add.component';
+import { CategoriesEditComponent } from './categories/categories-edit/categories-edit.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 const routes: Routes = [
     {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
     {path: 'ebooks', component: EbooksComponent},
     {path: 'ebooks/add', component: EbooksAddComponent , canActivate: [AuthGuard]},
     {path: 'ebooks/edit/:id', component: EbooksEditComponent , canActivate: [AuthGuard]},
+    {path: 'categories', component: CategoriesComponent , canActivate: [AuthGuard]},
+    {path: 'categories/add', component: CategoriesAddComponent , canActivate: [AuthGuard]},
+    {path: 'categories/edit/:id', component: CategoriesEditComponent , canActivate: [AuthGuard]},
     {path: '', component: EbooksComponent},
     {path: 'login', component: LoginComponent},
     {path: '**', redirectTo: ''}

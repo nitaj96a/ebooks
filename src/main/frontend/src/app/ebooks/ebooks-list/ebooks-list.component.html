@@ -3,10 +3,12 @@
     <ul class="list-unstyled">
         <li *ngFor="let ebook of ebooks" class="media">
             <img width="120px" class="mr-3 thumbnail"
-                 src="https://localhost:8443/ebook-thumbnails/{{ebook.thumbnailPath}}"
+                 src="http://localhost:8080/ebook-thumbnails/{{ebook.thumbnailPath}}"
                  alt="Book cover">
             <div class="media-body">
-                <h4 class="mt-0 mb-1">{{ebook.title}} <span class="badge badge-primary"><a *ngIf="currentUser && currentUser.type == 'admin'" class="text-white" [routerLink]="['/ebooks/edit', ebook.id]">edit</a></span></h4>
+                <h4 class="mt-0 mb-1">{{ebook.title}} 
+                    <span class="badge badge-primary"><a *ngIf="currentUser && currentUser.type == 'admin'" class="text-white" [routerLink]="['/ebooks/edit', ebook.id]">edit</a></span> &nbsp;
+                    <span class="badge badge-danger"><a *ngIf="currentUser && currentUser.type == 'admin'" style="cursor: pointer" class="text-white" (click)="delete(ebook.id)">delete</a></span> </h4>
                 <p>{{ebook.author}}, {{ebook.publicationYear}}. <span class="badge badge-info"> <a class="text-white"
                                                                                                    [routerLink]="[ '/ebooks/category/'+ ebook.category.id ]">{{ebook.category.name}}</a></span>
                 </p>
@@ -15,7 +17,7 @@
 
                 <button class="btn btn-success btn-lg align-content-center"
                         (click)="download([ebook.id], [ebook.mime])">
-                    <img src="https://localhost:8443/images/svg/download-button.svg" class="d-inline-block " width="25px"
+                    <img src="http://localhost:8080/images/svg/download-button.svg" class="d-inline-block " width="25px"
                          height="25px" alt=""> Download
                 </button>
 
