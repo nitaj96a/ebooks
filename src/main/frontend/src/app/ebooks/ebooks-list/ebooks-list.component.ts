@@ -13,7 +13,7 @@ export class EbooksListComponent implements OnInit {
     ebooks: Ebook[] = [];
     currentUser: User;
     images: Map<number, any> = new Map<number, any>();
-    imagesToShow: any[] = [];
+    imagesToShow: Map<number, any> = new Map<number, any>();
 
     constructor(private ebookService: EbookService, private authenticationService: AuthenticationService,) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -24,29 +24,29 @@ export class EbooksListComponent implements OnInit {
             .subscribe(
                 (ebooks: any[]) => {
                     this.ebooks = ebooks;
-                    this.downloadCovers();
                 },
                 (error) => console.log(error),
                 () => {
-                    console.log(this.images);
-                }
+                    this.downloadCovers();
+                },
             );
     }
 
     downloadCovers() {
         this.ebooks.forEach(ebook => {
             this.ebookService.downloadEbookThumbnail(ebook.id).subscribe(thumb => {
-                this.createImageFromBlob(thumb);
-                console.log(thumb);
-                this.images.set(ebook.id, thumb);
+                this.createImageFromBlob(thumb, ebook.id);
+                //console.log(thumb);
+                //this.images.set(ebook.id, thumb);
             });
         });
     }
 
-    createImageFromBlob(image: Blob) {
+    createImageFromBlob(image: Blob, id: number) {
         let reader = new FileReader();
         reader.addEventListener("load", () => {
-            this.imagesToShow.push(reader.result);
+            this.imagesToShow.set(id, reader.result);
+            //console.log(this.imagesToShow);
         });
 
         if (image) {
