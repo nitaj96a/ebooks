@@ -1,5 +1,6 @@
 import {Category} from "../categories/category.model";
 import { User } from "../users/user.model";
+import { Language } from "../languages/language.model";
 
 export class Ebook {
     public id: number;
@@ -12,6 +13,7 @@ export class Ebook {
     public mime: string;
     public category: Category;
     public user: User;
+    public language: Language;
 
     constructor(
         title: string,
@@ -23,6 +25,7 @@ export class Ebook {
         thumbnailPath: string,
         mime: string,
         user: User,
+        language: Language,
     ) {
         this.title = title;
         this.author = author;
@@ -33,5 +36,6 @@ export class Ebook {
         this.category = category;
         this.filename = filename;
         this.user = user;
+        this.language = language;
     }
 }

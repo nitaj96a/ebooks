@@ -8,6 +8,9 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/auth/_services/authentication.service';
+import { Language } from 'src/app/languages/language.model';
+import { LanguagesService } from 'src/app/languages/languages.service';
+import { ErrorInterceptor } from 'src/app/auth/_helpers/error.interceptor';
 
 @Component({
     selector: "app-ebooks-add",
@@ -16,6 +19,7 @@ import { AuthenticationService } from 'src/app/auth/_services/authentication.ser
 })
 export class EbooksAddComponent implements OnInit {
     categories: Category[] = [];
+    languages: Language[] = [];
     addEbookForm: FormGroup;
     uploadFileForm: FormGroup;
     ebook: Ebook;
@@ -25,6 +29,7 @@ export class EbooksAddComponent implements OnInit {
     file: File;
     imgFile: File;
     filename: String;
+    language: Language;
 
 
     public imagePath;
@@ -37,6 +42,7 @@ export class EbooksAddComponent implements OnInit {
         private router: Router,
         private http: HttpClient,
         private authService: AuthenticationService,
+        private langService: LanguagesService,
     ) {
     }
 
@@ -68,6 +74,15 @@ export class EbooksAddComponent implements OnInit {
             (categories: any[]) => {
                 //console.log(categories);
                 this.categories = categories;
+                console.log(this.categories);
+            },
+            error => console.log(error)
+        );
+
+        this.langService.getLanguages().subscribe(
+            (languages: Language[]) => {
+                this.languages = languages;
+                console.log(this.languages);
             },
             error => console.log(error)
         );
@@ -77,6 +92,7 @@ export class EbooksAddComponent implements OnInit {
             inputAuthor: new FormControl(null, Validators.required),
             inputYear: new FormControl(null),
             inputCategory: new FormControl(),
+            inputLanguage: new FormControl(),
             inputKeywords: new FormControl(),
             inputThumbnail: new FormControl()
         });
@@ -124,6 +140,9 @@ export class EbooksAddComponent implements OnInit {
         let categoryId = Number(this.addEbookForm.controls.inputCategory.value);
         this.category = this.categories.filter(x => x.id == categoryId)[0];
         console.log("chosen category id: "+ categoryId);
+        let languageId = Number(this.addEbookForm.controls.inputLanguage.value);
+        this.language = this.languages.filter(x => x.id == languageId)[0];
+        console.log("chosen language id: "+ languageId);
         let keywords: string = this.addEbookForm.controls.inputKeywords.value;
         let filename: string = this.uploadFileForm.controls.inputFile.value;
         filename = filename.split('\\')[2]; // c:\fakepath\{filename}
@@ -138,7 +157,7 @@ export class EbooksAddComponent implements OnInit {
         this.http.post('/api/ebooks/thumbnail', formData).subscribe();
 
         let user = {id: this.authService.currentUserValue.id};
-        let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime, user);
+        let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime, user, this.language);
         console.log(ebook);
         this.ebookService.addEbook(ebook)
             .subscribe(
