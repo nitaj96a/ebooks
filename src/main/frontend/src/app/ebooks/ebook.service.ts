@@ -77,6 +77,10 @@ export class EbookService {
         return this.http.post<any>("/api/ebooks/"+ id + "/file", formdata)//.pipe(map(response => response.json()));
     }
 
+    downloadEbookThumbnail(id: number) {
+        return this.http.get('/api/ebooks/' + id + '/cover', {responseType: 'blob'});
+    }
+
     uploadEbookThumbnail() {
 
     }

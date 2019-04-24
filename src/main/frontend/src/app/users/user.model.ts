@@ -1,10 +1,10 @@
 export class User {
     public id: number;
-    public firstName: string;
-    public lastName: string;
-    public username: string;
-    public type: string;
-    public category: string;
+    public firstName?: string;
+    public lastName?: string;
+    public username?: string;
+    public type?: string;
+    public category?: string;
     public token?: string;
 
     constructor(firstName: string, lastName: string, userName: string, type: string, category: string, token: string) {

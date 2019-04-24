@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from "@angular/forms";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-ebooks-search',
@@ -15,7 +15,13 @@ export class EbooksSearchComponent implements OnInit {
 
     ngOnInit() {
 
-        this.searchEbookForm = new FormGroup({});
+        this.searchEbookForm = new FormGroup({
+            inputTitle: new FormControl(),
+            inputAuthor: new FormControl(),
+            inputKeyword: new FormControl(),
+            inputContent: new FormControl(),
+            inputLanguage: new FormControl(),
+        });
     }
 
 }

@@ -136,6 +136,29 @@ public class FileController {
     }
 
     @CrossOrigin()
+    @GetMapping("/api/ebooks/{id}/cover")
+    public ResponseEntity<Resource> downloadCover(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Ebook ebook = ebookService.findOne(id);
+
+        Resource resource = fileStorageService.loadThumbnailAsResource(ebook.getThumbnailPath());
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (Exception e) {
+            //logger.info("Could not determine file type");
+        }
+
+        if (contentType == null) {
+            contentType = ebook.getMIME();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .body(resource);
+
+    }
+
+    @CrossOrigin()
     @GetMapping("/api/ebooks/{id}/index")
     public ResponseEntity<Boolean> indexTheBook(@PathVariable("id") Integer id, HttpServletRequest request) {
         Ebook ebook = ebookService.findOne(id);

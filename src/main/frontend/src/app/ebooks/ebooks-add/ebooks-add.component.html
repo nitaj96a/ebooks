@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="inputThumbnail"class="font-weight-bold">Ebook thumbnail</label>
             <span style="color:red;" *ngIf="message">{{message}}</span>
-            <input #imgFile accept="image/*" (change)="preview(file.files)" formControlName="inputThumbnail" type="file" class="form-control-file " id="inputThumbnail">
+            <input #imgFile accept="image/*" (change)="preview(imgFile.files)" formControlName="inputThumbnail" type="file" class="form-control-file " id="inputThumbnail">
             <img [src]="imgURL" height="250" *ngIf="imgURL">
         </div>
     </div>

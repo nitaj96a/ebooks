@@ -66,7 +66,6 @@ public class FileStorageService {
         }
     }
 
-    //thumbnails can be downloaded anyway by right-clicking in the browser
     public Resource loadFileAsResource(String fileName) {
         try {
             Path filePath = this.ebookFilesLocation.resolve(fileName).normalize();
@@ -81,6 +80,23 @@ public class FileStorageService {
         }
         return null; // get rid of this...
     }
+
+    public Resource loadThumbnailAsResource(String fileName) {
+        try {
+            Path filePath = this.thumbnailFilesLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                //throw some exception
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null; // get rid of this...
+    }
+
+
 
     public File getFile(String fileName) {
         try {

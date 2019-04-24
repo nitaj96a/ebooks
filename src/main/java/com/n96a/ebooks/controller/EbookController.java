@@ -65,6 +65,8 @@ public class EbookController {
                 ebook.setThumbnailPath("default.jpg");
             }
             ebook.setMIME("application/pdf");
+            User user = userService.findOne(ebook.getUser().getId());
+            ebook.setUser(user);
 //        Ebook ebook = new Ebook();
 //        ebook.setTitle(ebookDTO.getTitle());
 //        ebook.setAuthor(ebookDTO.getAuthor());

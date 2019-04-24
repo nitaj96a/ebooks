@@ -1,4 +1,5 @@
 import {Category} from "../categories/category.model";
+import { User } from "../users/user.model";
 
 export class Ebook {
     public id: number;
@@ -10,6 +11,7 @@ export class Ebook {
     public filename: string;
     public mime: string;
     public category: Category;
+    public user: User;
 
     constructor(
         title: string,
@@ -20,6 +22,7 @@ export class Ebook {
         filename: string,
         thumbnailPath: string,
         mime: string,
+        user: User,
     ) {
         this.title = title;
         this.author = author;
@@ -29,5 +32,6 @@ export class Ebook {
         this.mime = mime;
         this.category = category;
         this.filename = filename;
+        this.user = user;
     }
 }

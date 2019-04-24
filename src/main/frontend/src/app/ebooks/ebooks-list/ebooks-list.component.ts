@@ -12,6 +12,8 @@ import {EbookService} from "../ebook.service";
 export class EbooksListComponent implements OnInit {
     ebooks: Ebook[] = [];
     currentUser: User;
+    images: Map<number, any> = new Map<number, any>();
+    imagesToShow: any[] = [];
 
     constructor(private ebookService: EbookService, private authenticationService: AuthenticationService,) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -22,9 +24,34 @@ export class EbooksListComponent implements OnInit {
             .subscribe(
                 (ebooks: any[]) => {
                     this.ebooks = ebooks;
+                    this.downloadCovers();
                 },
-                (error) => console.log(error)
-            )
+                (error) => console.log(error),
+                () => {
+                    console.log(this.images);
+                }
+            );
+    }
+
+    downloadCovers() {
+        this.ebooks.forEach(ebook => {
+            this.ebookService.downloadEbookThumbnail(ebook.id).subscribe(thumb => {
+                this.createImageFromBlob(thumb);
+                console.log(thumb);
+                this.images.set(ebook.id, thumb);
+            });
+        });
+    }
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.imagesToShow.push(reader.result);
+        });
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
     getCategoryById(id: number) {
