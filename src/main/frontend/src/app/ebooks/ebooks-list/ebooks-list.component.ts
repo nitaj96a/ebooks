@@ -11,6 +11,7 @@ import {EbookService} from "../ebook.service";
 })
 export class EbooksListComponent implements OnInit {
     ebooks: Ebook[] = [];
+    allEbooks: Ebook[] = [];
     currentUser: User;
     images: Map<number, any> = new Map<number, any>();
     imagesToShow: Map<number, any> = new Map<number, any>();
@@ -26,6 +27,7 @@ export class EbooksListComponent implements OnInit {
             .subscribe(
                 (ebooks: any[]) => {
                     this.ebooks = ebooks;
+                    this.allEbooks = ebooks;
                 },
                 (error) => console.log(error),
                 () => {
@@ -77,7 +79,11 @@ export class EbooksListComponent implements OnInit {
     }
 
     updateEbooks(ebooks: Ebook[]) {
+        if (ebooks.length == 0) {
+            this.ebooks = this.allEbooks;
+        } else {
         this.ebooks = ebooks;
         console.log(this.ebooks);
+        }
     }
 }

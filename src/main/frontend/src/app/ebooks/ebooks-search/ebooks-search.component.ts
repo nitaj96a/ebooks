@@ -59,6 +59,13 @@ export class EbooksSearchComponent implements OnInit {
 
         if (!this.expanded) {
             let valueQuery: string = this.searchEbookForm.controls.inputValue.value;
+
+            if (valueQuery == '' || null) {
+                var empty : Ebook[] = [];
+                this.ebookEmitter.emit(empty);
+                return;
+            }
+
             let valueQueryPhrase: boolean = this.searchEbookForm.controls.inputValuePhrase.value;
             let valueQueryFuzzy: boolean = this.searchEbookForm.controls.inputValueFuzzy.value;
             let fieldValue: string = this.searchEbookForm.controls.inputField.value.toLowerCase();
