@@ -1,19 +1,43 @@
 <form [formGroup]="searchEbookForm">
+
+    <div *ngIf="!expanded" class="form-row mt-3">
+        <div class="form-group col-md-6"> 
+            <label for="inputValue">Search Value:</label>
+            <input formControlName="inputValue" class="form-control" type="text" id="inputValue" name="inputValue">
+            <input formControlName="inputValuePhrase" type="checkbox" value="Phrase" name="ValuePhrase">
+            <label for="ValuePhrase"> Phrase </label> &nbsp;
+            <input formControlName="inputValueFuzzy" type="checkbox" value="Fuzzy" name="TitleFuzzy">
+            <label for="ValueFuzzy"> Fuzzy </label> &nbsp;
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputField">Select Field:</label>
+             <select formControlName="inputField" class="form-control" id="inputField">
+                <option [ngValue]="null" disabled selected hidden>Select a Field</option>
+                <option *ngFor="let field of fields" value="{{ field }}">{{field}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <button class="btn btn-primary " type="submit" (click)="search()"><i class="fa fa-search"></i> Search</button>
+            <button class="btn btn-secondary " type="submit" (click)="toggleExpand()"><i class="fa fa-angle-double-down"></i>Advanced</button>
+        </div>
+    </div>
+
+    <div *ngIf="expanded">
     <div class="form-row">
         <div class="form-group col-md-6"> 
             <label for="inputTitle">By Title</label>
             <input formControlName="inputTitle" class="form-control" type="text" id="inputTitle" name="inputTitle">
-            <input type="checkbox" value="Phrase" name="TitlePhrase">
+            <input formControlName="inputTitlePhrase" type="checkbox" value="Phrase" name="TitlePhrase">
             <label for="TitlePhrase"> Phrase </label> &nbsp;
-            <input type="checkbox" value="Fuzzy" name="TitleFuzzy">
+            <input formControlName="inputTitleFuzzy" type="checkbox" value="Fuzzy" name="TitleFuzzy">
             <label for="TitleFuzzy"> Fuzzy </label> &nbsp;
         </div>
         <div class="form-group col-md-6">
             <label for="inputAuthor">By Author</label>
             <input formControlName="inputAuthor" class="form-control" type="text" id="inputAuthor" name="inputAuthor">
-            <input type="checkbox" value="Phrase" name="AuthorPhrase">
+            <input formControlName="inputAuthorPhrase" type="checkbox" value="Phrase" name="AuthorPhrase">
             <label for="AuthorPhrase"> Phrase </label> &nbsp;
-            <input type="checkbox" value="Fuzzy" name="AuthorFuzzy">
+            <input formControlName="inputAuthorFuzzy" type="checkbox" value="Fuzzy" name="AuthorFuzzy">
             <label for="AuthorFuzzy"> Fuzzy </label> &nbsp;
         </div>
     </div>
@@ -21,29 +45,38 @@
         <div class="form-group col-md-6">
             <label for="inputKeyword">By Keyword</label>
             <input formControlName="inputKeyword" class="form-control" type="text" id="inputKeyword" name="inputKeyword">
-            <input type="checkbox" value="Phrase" name="KeywordPhrase">
+            <input formControlName="inputKeywordPhrase" type="checkbox" value="Phrase" name="KeywordPhrase">
             <label for="KeywordPhrase"> Phrase </label> &nbsp;
-            <input type="checkbox" value="Fuzzy" name="KeywordFuzzy">
+            <input formControlName="inputKeywordFuzzy" type="checkbox" value="Fuzzy" name="KeywordFuzzy">
             <label for="KeywordFuzzy"> Fuzzy </label> &nbsp;
         </div>
         <div class="form-group col-md-6">
             <label for="inputContent">By Content</label>
             <input formControlName="inputContent" class="form-control" type="text" id="inputContent" name="inputContent">
-            <input type="checkbox" value="Phrase" name="ContentPhrase">
+            <input formControlName="inputContentPhrase"type="checkbox" value="Phrase" name="ContentPhrase">
             <label for="ContentPhrase"> Phrase </label> &nbsp;
-            <input type="checkbox" value="Fuzzy" name="ContentFuzzy">
+            <input formControlName="inputContentFuzzy" type="checkbox" value="Fuzzy" name="ContentFuzzy">
             <label for="ContentFuzzy"> Fuzzy </label> &nbsp;
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
+            <label for="inputLanguage">By Language</label>
             <select formControlName="inputLanguage" class="form-control" id="inputLanguage">
                 <option [ngValue]="null" disabled selected hidden>Filter By Language</option>
-                <!-- <option *ngFor="let language of languages" value="{{ language.id }}">{{language.name}}</option> -->
+                <option [ngValue]="null">Any</option>
+                <option *ngFor="let language of languages" value="{{ language.id }}">{{language.name}}</option>
             </select>
         </div>
         <div class="form-group col-md-6 float">
-            <button class="btn btn-primary float-right" type="submit"><i class="fa fa-search"></i> Search</button>
+            <label>Boolean Search</label> 
+            <input formControlName="BooleanAND"type="checkbox" value="AND" name="BooleanAND">
+            <label for="BooleanAND"> AND </label> &nbsp;
+            <input formControlName="BooleanOR" type="checkbox" value="OR" name="BooleanOR">
+            <label for="BooleanOR"> OR </label> &nbsp;
+            <button class="btn btn-primary btn-lg" type="submit" (click)="search()"><i class="fa fa-search"></i> Search</button>
+            <button class="btn btn-secondary ml-2" type="submit" (click)="toggleExpand()"><i class="fa fa-angle-double-up"></i>Simple</button>
         </div>
+    </div>
     </div>  
 </form>

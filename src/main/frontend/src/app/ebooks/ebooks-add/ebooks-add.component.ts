@@ -164,7 +164,7 @@ export class EbooksAddComponent implements OnInit {
                 (ebook: any) => {
                     this.ebook = ebook;
                     console.log(ebook);
-                    this.ebookService.indexEbook(ebook.id).subscribe();
+                    //this.ebookService.indexEbook(ebook.id).subscribe();
                     this.router.navigate(['ebooks']);
                 },
                 (error) => console.log(error)

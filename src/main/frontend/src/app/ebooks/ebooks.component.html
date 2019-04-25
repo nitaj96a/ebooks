@@ -10,9 +10,9 @@
         </div>
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
-                <app-ebooks-search class="justify-content-center"></app-ebooks-search>
+                <app-ebooks-search (ebookEmitter)="updateEbookList($event)" class="justify-content-center"></app-ebooks-search>
             </div>
         </div>
     </div>
 </div>
-<app-ebooks-list></app-ebooks-list>
+<app-ebooks-list [ebookResults]="ebooks"></app-ebooks-list>

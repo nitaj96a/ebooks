@@ -1,6 +1,7 @@
 package com.n96a.ebooks.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.n96a.ebooks.DTO.CategoryDTO;
@@ -44,6 +45,11 @@ public class EbookController {
     @GetMapping(value = {"", "/"}) // decide on a type
     public ResponseEntity<List<Ebook>> getAllUsers() {
         List<Ebook> ebooks = ebookService.findAll();
+//        List<EbookDTO> ebookDTOs = new ArrayList<EbookDTO>();
+
+//        for (Ebook e : ebooks) {
+//            ebookDTOs.add(new EbookDTO(e));
+//        }
 
         return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
     }

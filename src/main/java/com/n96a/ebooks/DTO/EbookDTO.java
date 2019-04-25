@@ -12,9 +12,9 @@ public class EbookDTO {
     private String filename;
     private String thumbnailPath;
     private String mime;
-    private LanguageDTO languageDTO;
+    private LanguageDTO language;
     private Category category;
-    private UserDTO userDTO;
+    private UserDTO user;
     private String highlight;
 
     public EbookDTO() {
@@ -29,9 +29,9 @@ public class EbookDTO {
         this.filename = filename;
         this.thumbnailPath = thumbnailPath;
         this.mime = mIME;
-        this.languageDTO = languageDTO;
+        this.language = languageDTO;
         this.category = category;
-        this.userDTO = userDTO;
+        this.user = userDTO;
         this.highlight = highlight;
     }
 
@@ -133,11 +133,11 @@ public class EbookDTO {
     }
 
     public LanguageDTO getLanguageDTO() {
-        return languageDTO;
+        return language;
     }
 
     public void setLanguageDTO(LanguageDTO languageDTO) {
-        this.languageDTO = languageDTO;
+        this.language = languageDTO;
     }
 
     public Category getCategoryDTO() {
@@ -149,11 +149,11 @@ public class EbookDTO {
     }
 
     public UserDTO getUserDTO() {
-        return userDTO;
+        return user;
     }
 
     public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+        this.user = userDTO;
     }
 
     public String getHighlight() {
@@ -175,9 +175,9 @@ public class EbookDTO {
                 ", filename='" + filename + '\'' +
                 ", thumbnailPath='" + thumbnailPath + '\'' +
                 ", mime='" + mime + '\'' +
-                ", languageDTO=" + languageDTO +
+                ", languageDTO=" + language +
                 ", category=" + category +
-                ", userDTO=" + userDTO +
+                ", userDTO=" + user +
                 ", highlight='" + highlight + '\'' +
                 '}';
     }

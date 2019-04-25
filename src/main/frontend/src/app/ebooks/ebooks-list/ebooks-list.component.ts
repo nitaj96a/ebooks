@@ -1,6 +1,6 @@
 import { User } from './../../users/user.model';
 import { AuthenticationService } from './../../auth/_services/authentication.service';
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {Ebook} from "../ebook.model";
 import {EbookService} from "../ebook.service";
 
@@ -14,6 +14,8 @@ export class EbooksListComponent implements OnInit {
     currentUser: User;
     images: Map<number, any> = new Map<number, any>();
     imagesToShow: Map<number, any> = new Map<number, any>();
+
+    @Input() ebookResults: Ebook[];
 
     constructor(private ebookService: EbookService, private authenticationService: AuthenticationService,) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -72,5 +74,10 @@ export class EbooksListComponent implements OnInit {
                 }
               }
         });
+    }
+
+    updateEbooks(ebooks: Ebook[]) {
+        this.ebooks = ebooks;
+        console.log(this.ebooks);
     }
 }

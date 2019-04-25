@@ -101,4 +101,10 @@ export class EbookService {
         console.log('in e-service');
         return this.http.delete<any>('/api/ebooks/' + id).pipe();
     }
+
+    // ----------- SEARCH --------------
+
+    termSearch(value: string, field: string) {
+        return this.http.post<Ebook[]>('/api/search/term', {value: value, field: field});
+    }
 }
