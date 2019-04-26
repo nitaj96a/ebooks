@@ -62,6 +62,10 @@ export class EbooksSearchComponent implements OnInit {
 
             if (valueQuery == '' || null) {
                 var empty : Ebook[] = [];
+                var eb1 = new Ebook('fake', 'fake', 0, {id:1, name:'fake'}, 'none', 'fake', 'fake', 'fake', {id: 1, username:'fake'}, {id:1, name: 'english'}, null);
+                let eb: Ebook;
+                eb1.id = -1;
+                empty.push(eb1);
                 this.ebookEmitter.emit(empty);
                 return;
             }
@@ -73,6 +77,7 @@ export class EbooksSearchComponent implements OnInit {
             if (!valueQueryPhrase && !valueQueryFuzzy) {
                 this.ebookService.termSearch(valueQuery, fieldValue).subscribe(ebooks => {
                     this.ebooks = ebooks;
+                    if (this.ebooks.length == 0) {}
                     console.log(ebooks);
                     this.ebookEmitter.emit(this.ebooks);
                 });

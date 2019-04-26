@@ -14,6 +14,7 @@ export class Ebook {
     public category: Category;
     public user: User;
     public language: Language;
+    public highlight?: string;
 
     constructor(
         title: string,
@@ -26,6 +27,7 @@ export class Ebook {
         mime: string,
         user: User,
         language: Language,
+        highlight: string,
     ) {
         this.title = title;
         this.author = author;
@@ -37,5 +39,6 @@ export class Ebook {
         this.filename = filename;
         this.user = user;
         this.language = language;
+        this.highlight = highlight;
     }
 }

@@ -157,7 +157,7 @@ export class EbooksAddComponent implements OnInit {
         this.http.post('/api/ebooks/thumbnail', formData).subscribe();
 
         let user = {id: this.authService.currentUserValue.id};
-        let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime, user, this.language);
+        let ebook = new Ebook(title, author, year, this.category, keywords, filename, thumbnailPath, mime, user, this.language, null);
         console.log(ebook);
         this.ebookService.addEbook(ebook)
             .subscribe(

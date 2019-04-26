@@ -78,7 +78,7 @@ public class ResultRetreiver {
                     hl = new Highlighter(new QueryScorer(query, reader, rh.getFieldName()));
                     try {
                         highlight += hl.getBestFragment(sa, rh.getFieldName(),"" + getDocumentText(location));
-                        //highlight += hl.getBestFragment(stda, rh.getFieldName(),"" + getDocumentText(location));
+//                        highlight += hl.getBestFragment(stda, rh.getFieldName(),"" + getDocumentText(location));
                     } catch (InvalidTokenOffsetsException e) {
 
                     }

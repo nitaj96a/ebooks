@@ -12,6 +12,7 @@
                 <p>{{ebook.author}}, {{ebook.publicationYear}}. <span class="badge badge-info"> <a class="text-white"
                                                                                                    [routerLink]="[ '/ebooks/category/'+ ebook.category.id ]">{{ebook.category.name}}</a></span>
                 </p>
+                <h5>{{ebook?.highlight}}</h5>
                 <p>Keywords: {{ebook.keywords}}</p>
                 <p>MIME type: {{ebook.mime}}</p>
 

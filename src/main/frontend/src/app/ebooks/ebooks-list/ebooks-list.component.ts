@@ -80,10 +80,16 @@ export class EbooksListComponent implements OnInit {
 
     updateEbooks(ebooks: Ebook[]) {
         if (ebooks.length == 0) {
-            this.ebooks = this.allEbooks;
+            var empty : Ebook[] = [];
+            this.ebooks = empty;
+            return;
         } else {
-        this.ebooks = ebooks;
-        console.log(this.ebooks);
+            if (ebooks[0].id == -1) {
+                this.ebooks = this.allEbooks;
+                return;
+            }
+            this.ebooks = ebooks;
+            console.log(this.ebooks);
         }
     }
 }

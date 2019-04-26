@@ -2,16 +2,10 @@ package com.n96a.ebooks.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "ebooks")
@@ -57,6 +51,10 @@ public class Ebook implements Serializable {
     @ManyToOne // Ebook 0..n -> 1..1 User
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @JsonInclude
+    @Transient
+    private String highlight;
 
     public Ebook() {
         super();
@@ -206,7 +204,15 @@ public class Ebook implements Serializable {
         this.user = user;
     }
 
-//    @Override
+    public String getHighlight() {
+        return highlight;
+    }
+
+    public void setHighlight(String highlight) {
+        this.highlight = highlight;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "Ebook{" +
 //                "id=" + id +
