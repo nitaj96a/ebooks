@@ -66,5 +66,13 @@ public class SearchController {
          return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/simple")
+    public ResponseEntity<List<Ebook>> simpleSearch(@RequestBody SimpleQuery simpleQuery) {
 
+    }
+
+    @PostMapping(value = "/advanced")
+    public ResponseEntity<List<Ebook>> advancedSearch(@RequestBody AdvancedQuery advancedQuery) {
+
+    }
 }

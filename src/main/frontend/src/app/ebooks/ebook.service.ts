@@ -107,4 +107,9 @@ export class EbookService {
     termSearch(value: string, field: string) {
         return this.http.post<Ebook[]>('/api/search/term', {value: value, field: field});
     }
+
+    advancedSearch(searchParams: any) {
+        console.log(searchParams);
+        return this.http.post<Ebook[]>('/api/search/advanced', searchParams);
+    }
 }

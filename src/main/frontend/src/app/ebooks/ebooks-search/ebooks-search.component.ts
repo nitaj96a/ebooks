@@ -78,32 +78,35 @@ export class EbooksSearchComponent implements OnInit {
             }
 
         } else {
+            let titleQuery: string = this.searchEbookForm.controls.inputTitle.value;
+            let titleQueryType = this.searchEbookForm.controls.titleSearchType.value;
+            let authorQuery: string = this.searchEbookForm.controls.inputAuthor.value;
+            let authorQueryType = this.searchEbookForm.controls.authorSearchType.value;
+            let keywordQuery: string = this.searchEbookForm.controls.inputKeyword.value;
+            let keywordQueryType = this.searchEbookForm.controls.keywordSearchType.value;
+            let contentQuery: string = this.searchEbookForm.controls.inputContent.value;
+            let contentQueryType = this.searchEbookForm.controls.contentSearchType.value;
+            let selectedLangId: number = this.searchEbookForm.controls.inputLanguage.value;
+            let selectedLang: Language = this.languages.filter(x => x.id == selectedLangId)[0];
+            let booleanSearchOpt = this.searchEbookForm.controls.booleanSearchOption.value;
 
-        let titleQuery: string = this.searchEbookForm.controls.inputTitle.value;
-
-        console.log(this.searchEbookForm.controls.inputTitlePhrase.value);
-
-        let authorQuery: string = this.searchEbookForm.controls.inputAuthor.value;
-
-
-        let keywordQuery: string = this.searchEbookForm.controls.inputKeyword.value;
-
-
-        let contentQuery: string = this.searchEbookForm.controls.inputContent.value;
-
-
-        let selectedLangId: number = this.searchEbookForm.controls.inputLanguage.value;
-        let selectedLang: Language = this.languages.filter(x => x.id == selectedLangId)[0];
-
-        let booleanSearchOpt = this.searchEbookForm.controls.booleanSearchOption.value;
-
-        if (booleanSearchOpt == 'AND') {}
-
-        if (booleanSearchOpt == 'OR') {}
+            let advancedQuery = {
+                title : titleQuery,
+                titleType: titleQueryType,
+                author: authorQuery,
+                authorType: authorQueryType,
+                keyword: keywordQuery,
+                keywordType: keywordQueryType,
+                content: contentQuery,
+                contentType: contentQueryType,
+                language: selectedLangId,
+                boolean: booleanSearchOpt,
+            }
+            this.ebookService.advancedSearch(advancedQuery).subscribe(ebooks => {
+                this.ebooks = ebooks;
+                this.ebookEmitter.emit(this.ebooks);
+            });
         }
-        
-        
-
     }
 
     toggleExpand() {
