@@ -4,10 +4,14 @@
         <div class="form-group col-md-6"> 
             <label for="inputValue">Search Value:</label>
             <input formControlName="inputValue" class="form-control" type="text" id="inputValue" name="inputValue">
-            <input formControlName="inputValuePhrase" type="checkbox" value="Phrase" name="ValuePhrase">
-            <label for="ValuePhrase"> Phrase </label> &nbsp;
-            <input formControlName="inputValueFuzzy" type="checkbox" value="Fuzzy" name="TitleFuzzy">
-            <label for="ValueFuzzy"> Fuzzy </label> &nbsp;
+            <div class="btn-group" btnRadioGroup formControlName="valueSearchType">
+                <label btnRadio="Term" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Term</label>
+                <label btnRadio="Phrase" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Phrase</label>
+                <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Fuzzy</label>
+            </div>
         </div>
         <div class="form-group col-md-4">
             <label for="inputField">Select Field:</label>
@@ -27,36 +31,52 @@
         <div class="form-group col-md-6"> 
             <label for="inputTitle">By Title</label>
             <input formControlName="inputTitle" class="form-control" type="text" id="inputTitle" name="inputTitle">
-            <input formControlName="inputTitlePhrase" type="checkbox" value="Phrase" name="TitlePhrase">
-            <label for="TitlePhrase"> Phrase </label> &nbsp;
-            <input formControlName="inputTitleFuzzy" type="checkbox" value="Fuzzy" name="TitleFuzzy">
-            <label for="TitleFuzzy"> Fuzzy </label> &nbsp;
+            <div class="btn-group" btnRadioGroup formControlName="titleSearchType">
+                <label btnRadio="Term" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Term</label>
+                <label btnRadio="Phrase" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Phrase</label>
+                <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Fuzzy</label>
+            </div>
         </div>
         <div class="form-group col-md-6">
             <label for="inputAuthor">By Author</label>
             <input formControlName="inputAuthor" class="form-control" type="text" id="inputAuthor" name="inputAuthor">
-            <input formControlName="inputAuthorPhrase" type="checkbox" value="Phrase" name="AuthorPhrase">
-            <label for="AuthorPhrase"> Phrase </label> &nbsp;
-            <input formControlName="inputAuthorFuzzy" type="checkbox" value="Fuzzy" name="AuthorFuzzy">
-            <label for="AuthorFuzzy"> Fuzzy </label> &nbsp;
+            <div class="btn-group" btnRadioGroup formControlName="authorSearchType">
+                <label btnRadio="Term" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Term</label>
+                <label btnRadio="Phrase" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Phrase</label>
+                <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Fuzzy</label>
+            </div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputKeyword">By Keyword</label>
             <input formControlName="inputKeyword" class="form-control" type="text" id="inputKeyword" name="inputKeyword">
-            <input formControlName="inputKeywordPhrase" type="checkbox" value="Phrase" name="KeywordPhrase">
-            <label for="KeywordPhrase"> Phrase </label> &nbsp;
-            <input formControlName="inputKeywordFuzzy" type="checkbox" value="Fuzzy" name="KeywordFuzzy">
-            <label for="KeywordFuzzy"> Fuzzy </label> &nbsp;
+            <div class="btn-group" btnRadioGroup formControlName="keywordSearchType">
+                <label btnRadio="Term" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Term</label>
+                <label btnRadio="Phrase" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Phrase</label>
+                <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Fuzzy</label>
+            </div>
         </div>
         <div class="form-group col-md-6">
             <label for="inputContent">By Content</label>
             <input formControlName="inputContent" class="form-control" type="text" id="inputContent" name="inputContent">
-            <input formControlName="inputContentPhrase"type="checkbox" value="Phrase" name="ContentPhrase">
-            <label for="ContentPhrase"> Phrase </label> &nbsp;
-            <input formControlName="inputContentFuzzy" type="checkbox" value="Fuzzy" name="ContentFuzzy">
-            <label for="ContentFuzzy"> Fuzzy </label> &nbsp;
+            <div class="btn-group" btnRadioGroup formControlName="contentSearchType">
+                <label btnRadio="Term" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Term</label>
+                <label btnRadio="Phrase" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Phrase</label>
+                <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
+                       tabindex="0" role="button">Fuzzy</label>
+            </div>
         </div>
     </div>
     <div class="form-row">
@@ -68,15 +88,19 @@
                 <option *ngFor="let language of languages" value="{{ language.id }}">{{language.name}}</option>
             </select>
         </div>
-        <div class="form-group col-md-6 float">
-            <label>Boolean Search</label> 
-            <input formControlName="BooleanAND"type="checkbox" value="AND" name="BooleanAND">
-            <label for="BooleanAND"> AND </label> &nbsp;
-            <input formControlName="BooleanOR" type="checkbox" value="OR" name="BooleanOR">
-            <label for="BooleanOR"> OR </label> &nbsp;
-            <button class="btn btn-primary btn-lg" type="submit" (click)="search()"><i class="fa fa-search"></i> Search</button>
-            <button class="btn btn-secondary ml-2" type="submit" (click)="toggleExpand()"><i class="fa fa-angle-double-up"></i>Simple</button>
+        <div class="form-group col-md-3 text-center">
+            <label for="booleanSearchOption">Boolean Search</label> 
+            <div class="btn-group mr-2" btnRadioGroup formControlName="booleanSearchOption" id="booleanSearchOption">
+                <label btnRadio="AND" class="btn btn-info"
+                       uncheckable tabindex="0" role="button">AND</label>
+                <label btnRadio="OR" class="btn btn-info"
+                       uncheckable tabindex="0" role="button">OR</label>
+            </div>
         </div>
+        <div class="col-md-2 offset-md-1 form-group">
+            <button class="btn btn-secondary " type="submit" (click)="toggleExpand()"><i class="fa fa-angle-double-up"></i> Simple</button>
+            <button class="btn btn-primary" type="submit" (click)="search()"><i class="fa fa-search"></i> Search</button>
+        </div>    
     </div>
     </div>  
 </form>

@@ -40,7 +40,7 @@ import { AuthGuard } from './auth/_guards/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EbooksEditComponent } from './ebooks/ebooks-edit/ebooks-edit.component';
-import {PaginationModule} from 'node_modules/ngx-bootstrap';
+import {PaginationModule, ButtonsModule} from 'node_modules/ngx-bootstrap';
 import { CategoriesEditComponent } from './categories/categories-edit/categories-edit.component';
 
 @NgModule({
@@ -74,7 +74,8 @@ import { CategoriesEditComponent } from './categories/categories-edit/categories
         HttpClientModule,
         PaginationModule.forRoot(),
         CollapseModule.forRoot(),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ButtonsModule,
     ],
     providers: [UserService, EbookService, CategoryService, AuthenticationService,
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

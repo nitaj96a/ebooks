@@ -29,24 +29,18 @@ export class EbooksSearchComponent implements OnInit {
 
         this.searchEbookForm = new FormGroup({
             inputValue: new FormControl(),
-            inputValuePhrase: new FormControl(),
-            inputValueFuzzy: new FormControl(),
+            valueSearchType: new FormControl('Term'),
             inputField: new FormControl(),
             inputTitle: new FormControl(),
-            inputTitlePhrase: new FormControl(),
-            inputTitleFuzzy: new FormControl(),
+            titleSearchType: new FormControl('Term'),
             inputAuthor: new FormControl(),
-            inputAuthorPhrase: new FormControl(),
-            inputAuthorFuzzy: new FormControl(),
+            authorSearchType: new FormControl('Term'),
             inputKeyword: new FormControl(),
-            inputKeywordPhrase: new FormControl(),
-            inputKeywordFuzzy: new FormControl(),
+            keywordSearchType: new FormControl('Term'),
             inputContent: new FormControl(),
-            inputContentPhrase: new FormControl(),
-            inputContentFuzzy: new FormControl(),
+            contentSearchType: new FormControl('Term'),
             inputLanguage: new FormControl(),
-            BooleanOR: new FormControl(),
-            BooleanAND: new FormControl(),
+            booleanSearchOption: new FormControl(),
         });
         this.langService.getLanguages().subscribe(
             languages => {
@@ -70,11 +64,11 @@ export class EbooksSearchComponent implements OnInit {
                 return;
             }
 
-            let valueQueryPhrase: boolean = this.searchEbookForm.controls.inputValuePhrase.value;
-            let valueQueryFuzzy: boolean = this.searchEbookForm.controls.inputValueFuzzy.value;
+            let searchType = this.searchEbookForm.controls.valueSearchType.value;
+
             let fieldValue: string = this.searchEbookForm.controls.inputField.value.toLowerCase();
 
-            if (!valueQueryPhrase && !valueQueryFuzzy) {
+            if (searchType == 'Term') {
                 this.ebookService.termSearch(valueQuery, fieldValue).subscribe(ebooks => {
                     this.ebooks = ebooks;
                     if (this.ebooks.length == 0) {}
@@ -86,31 +80,26 @@ export class EbooksSearchComponent implements OnInit {
         } else {
 
         let titleQuery: string = this.searchEbookForm.controls.inputTitle.value;
-        let titleQueryPhrase: boolean = this.searchEbookForm.controls.inputTitlePhrase.value;
-        let titleQueryFuzzy: boolean = this.searchEbookForm.controls.inputTitleFuzzy.value;
+
         console.log(this.searchEbookForm.controls.inputTitlePhrase.value);
 
         let authorQuery: string = this.searchEbookForm.controls.inputAuthor.value;
-        let authorQueryPhrase: boolean = this.searchEbookForm.controls.inputAuthorPhrase.value;
-        let authorQueryFuzzy: boolean = this.searchEbookForm.controls.inputAuthorFuzzy.value;
+
 
         let keywordQuery: string = this.searchEbookForm.controls.inputKeyword.value;
-        let keywordQueryPhrase: boolean = this.searchEbookForm.controls.inputKeywordPhrase.value;
-        let keywordQueryFuzzy: boolean = this.searchEbookForm.controls.inputKeywordFuzzy.value;
+
 
         let contentQuery: string = this.searchEbookForm.controls.inputContent.value;
-        let contentQueryPhrase: boolean = this.searchEbookForm.controls.inputContentPhrase.value;
-        let contentQueryFuzzy: boolean = this.searchEbookForm.controls.inputContentFuzzy.value;
+
 
         let selectedLangId: number = this.searchEbookForm.controls.inputLanguage.value;
         let selectedLang: Language = this.languages.filter(x => x.id == selectedLangId)[0];
 
-        let booleanOr: boolean = this.searchEbookForm.controls.BooleanOR.value;
-        let booleanAnd: boolean = this.searchEbookForm.controls.BooleanAND.value;
+        let booleanSearchOpt = this.searchEbookForm.controls.booleanSearchOption.value;
 
-        if (booleanAnd) {}
+        if (booleanSearchOpt == 'AND') {}
 
-        if (booleanOr) {}
+        if (booleanSearchOpt == 'OR') {}
         }
         
         
