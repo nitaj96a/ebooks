@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <h4 class="display-4">Edit language</h4>
+</div>
+<form
+  [formGroup]="editLanguageForm"
+  class="col-md-8 offset-md-2 needs-validation"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="form-group">
+      <label for="inputName" class="font-weight-bold">Name</label>
+      <input
+          formControlName="inputName"
+          type="text"
+          class="form-control"
+          id="inputName"
+          placeholder="Name"
+          [ngClass]="
+          editLanguageForm.get('inputName').errors &&
+          editLanguageForm.get('inputName').touched
+                  ? 'is-invalid'
+                  : editLanguageForm.get('inputName').errors == null &&
+                  editLanguageForm.get('inputName').touched
+                  ? 'is-valid'
+                  : ''
+          "
+      />
+      <div
+          class="invalid-feedback"
+          *ngIf="
+          editLanguageForm.get('inputName').hasError('required') &&
+          editLanguageForm.get('inputName').touched
+          "
+      >
+          You must enter a name
+      </div>
+  </div>
+  <div class="row">
+      <button type="submit" class="btn btn-success btn-lg ml-3">
+          Save
+      </button>
+      <button
+          class="btn btn-secondary btn-lg ml-auto mr-3"
+          [routerLink]="['/languages']"
+      >
+          Cancel
+      </button>
+  </div>
+</form>

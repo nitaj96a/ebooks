@@ -38,7 +38,7 @@ export class CategoriesEditComponent implements OnInit {
     const name: string = this.editCategoryForm.controls.inputName.value;
     this.category.name = name;
     this.categoryService.editCategory(this.category).subscribe(() => {
-      this.router.navigateByUrl('/categories')
+      this.router.navigateByUrl('/categories');
     });
   }
 

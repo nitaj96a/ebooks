@@ -42,6 +42,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EbooksEditComponent } from './ebooks/ebooks-edit/ebooks-edit.component';
 import {PaginationModule, ButtonsModule} from 'node_modules/ngx-bootstrap';
 import { CategoriesEditComponent } from './categories/categories-edit/categories-edit.component';
+import { LanguagesEditComponent } from './languages/languages-edit/languages-edit.component';
 
 @NgModule({
     declarations: [
@@ -55,6 +56,7 @@ import { CategoriesEditComponent } from './categories/categories-edit/categories
         LanguagesComponent,
         LanguagesListComponent,
         LanguagesAddComponent,
+        LanguagesEditComponent,
         LanguagesSearchComponent,
         CategoriesComponent,
         CategoriesListComponent,

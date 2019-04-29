@@ -36,8 +36,7 @@ export class CategoriesAddComponent implements OnInit {
         const name: string = this.addCategoryForm.controls.inputName.value;
         this.category = new Category(name);
         this.categoryService.addCategory(this.category).subscribe(() => {
-            this.router.navigateByUrl('/categories')
+            this.router.navigateByUrl('/categories');
         });
     }
-    
 }

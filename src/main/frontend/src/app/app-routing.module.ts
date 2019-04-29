@@ -10,6 +10,9 @@ import { CategoriesListComponent } from './categories/categories-list/categories
 import { CategoriesAddComponent } from './categories/categories-add/categories-add.component';
 import { CategoriesEditComponent } from './categories/categories-edit/categories-edit.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { LanguagesComponent } from './languages/languages.component';
+import { LanguagesAddComponent } from './languages/languages-add/languages-add.component';
+import { LanguagesEditComponent } from './languages/languages-edit/languages-edit.component';
 
 const routes: Routes = [
     {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
@@ -19,6 +22,9 @@ const routes: Routes = [
     {path: 'categories', component: CategoriesComponent , canActivate: [AuthGuard]},
     {path: 'categories/add', component: CategoriesAddComponent , canActivate: [AuthGuard]},
     {path: 'categories/edit/:id', component: CategoriesEditComponent , canActivate: [AuthGuard]},
+    {path: 'languages', component: LanguagesComponent , canActivate: [AuthGuard]},
+    {path: 'languages/add', component: LanguagesAddComponent , canActivate: [AuthGuard]},
+    {path: 'languages/edit/:id', component: LanguagesEditComponent , canActivate: [AuthGuard]},
     {path: '', component: EbooksComponent},
     {path: 'login', component: LoginComponent},
     {path: '**', redirectTo: ''}

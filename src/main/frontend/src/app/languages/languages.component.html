@@ -1,3 +1,25 @@
-<p>
-    languages works!
-</p>
+<div class="row">
+    <!-- <div class="col-md-2"></div> -->
+    <div class="col-md-12">
+        <div id="languagesCard" class="card">
+            <div class="card-header">
+                <h4 class="display-4">Languages</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-8 offset-1">
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-success btn-lg" [routerLink]="['/languages/add']"><i class="fa fa-plus"></i> Add a new Language</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-languages-list></app-languages-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

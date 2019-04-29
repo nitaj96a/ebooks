@@ -1,3 +1,18 @@
-<p>
-    languages-list works!
-</p>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let lang of languages">
+        <th scope="row">{{lang.id}}</th>   
+        <td>{{lang.name}}</td>
+        <td class="h5"><a class="badge badge-primary"  [routerLink]="['/languages/edit', lang.id]"> <i class="fa fa-edit"></i> Edit</a></td>
+        <td class="h5"><a class="badge badge-danger text-white" (click)="delete(lang.id)" style="cursor: pointer"> <i class="fa fa-trash"></i> Delete</a></td>
+    </tr>
+    </tbody>
+  </table>

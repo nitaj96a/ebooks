@@ -10,4 +10,9 @@ public interface LanguageServiceInterface {
 
     List<Language> findAll();
 
+    Language create(Language l);
+
+    Language update(Language l);
+
+    void delete(Integer id);
 }

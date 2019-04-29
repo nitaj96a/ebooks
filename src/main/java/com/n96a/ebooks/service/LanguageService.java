@@ -24,5 +24,17 @@ public class LanguageService implements LanguageServiceInterface {
         return languageRepository.getOne(id);
     }
 
+    @Override
+    public Language create(Language lang) {
+        return languageRepository.save(lang);
+    }
+    @Override
+    public Language update(Language lang) {
+        return languageRepository.save(lang);
+    }
+    @Override
+    public void delete(Integer id) {
+        languageRepository.deleteById(id);
+    }
 
 }
