@@ -29,7 +29,7 @@ INSERT INTO categories(name) VALUES('History');
 INSERT INTO categories(name) VALUES('For Kids');
 INSERT INTO categories(name) VALUES('Philosophy');
 
-INSERT INTO ebooks(title, author, publicationyear, keywords, filename, mime, thumbnailpath, user_id, category_id, language_id) VALUES('Pro Git', 'Scott Chacon, Ben Straub', 2018,'Git, Version control, Workflow' ,'progit_v2.1.3.pdf','application/pdf','progit2.png',1, 3, 1);
+-- INSERT INTO ebooks(title, author, publicationyear, keywords, filename, mime, thumbnailpath, user_id, category_id, language_id) VALUES('Pro Git', 'Scott Chacon, Ben Straub', 2018,'Git, Version control, Workflow' ,'progit_v2.1.3.pdf','application/pdf','progit2.png',1, 3, 1);
 -- INSERT INTO ebooks(title, author, publicationyear, keywords,filename, mime,thumbnailpath, user_id, category_id, language_id) VALUES('A First Course in Electrical and Computer Engineering', 'Louis Scharf', 2009, 'Complex numbers, Phasors, Linear Algebra, Vector graphics, Filtering','a-first-course-in-electrical-and-computer-engineering-2.3.pdf', 'application/pdf','a-first-course-in-electrical-and-computer-engineering.jpg',3, 1, 1);
 -- INSERT INTO ebooks(title, author, publicationyear, keywords,filename, mime,thumbnailpath, user_id, category_id, language_id) VALUES('Erewhon', 'Samuel Butler', 1872, 'Machines, Evolution, AI, Utopia','erewhon.txt', 'text/plain;charset=utf-8','Erewhon_Cover.jpg',2, 2, 1);
 -- INSERT INTO ebooks(title, author, publicationyear, keywords,filename, mime,thumbnailpath, user_id, category_id, language_id) VALUES('The Island of Doctor Moreau', 'H. G. Wells', 1896, 'Mad Scientist, Shipwrecked, Genetic Engineering','islandofdoctormoreau.txt', 'text/plain;charset=utf-8','IslandOfDrMoreau.jpg',3, 2, 1);
