@@ -104,8 +104,8 @@ export class EbookService {
 
     // ----------- SEARCH --------------
 
-    termSearch(value: string, field: string) {
-        return this.http.post<Ebook[]>('/api/search/term', {value: value, field: field});
+    simpleSearch(value: string, field: string, type: string) {
+        return this.http.post<Ebook[]>('/api/search/simple', {value: value, field: field, type: type});
     }
 
     advancedSearch(searchParams: any) {

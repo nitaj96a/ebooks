@@ -38,9 +38,17 @@ public class SearchController {
     @Autowired
     private UserServiceInterface userService;
 
-    @PostMapping(value = "/term")
-    public ResponseEntity<List<Ebook>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception{
-         Query query = QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
+    @PostMapping(value = "/simple")
+    public ResponseEntity<List<Ebook>> simpleSearch(@RequestBody SimpleQuery simpleQuery) throws Exception{
+        Query query = null;
+        if (simpleQuery.getType().equals("Term")) {
+            query = QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
+        } else if (simpleQuery.getType().equals("Phrase")) {
+            query= QueryBuilder.buildQuery(SearchType.phrase, simpleQuery.getField(), simpleQuery.getValue());
+        } else if (simpleQuery.getType().equals("Fuzzy")) {
+            query= QueryBuilder.buildQuery(SearchType.fuzzy, simpleQuery.getField(), simpleQuery.getValue());
+        }
+
          List<RequiredHighlight> requiredHighlights = new ArrayList<RequiredHighlight>();
          requiredHighlights.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
          List<ResultData> results = ResultRetreiver.getResults(query, requiredHighlights);
@@ -63,13 +71,9 @@ public class SearchController {
          return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/simple")
-    public ResponseEntity<List<Ebook>> simpleSearch(@RequestBody SimpleQuery simpleQuery) {
-        return null;
-    }
-
     @PostMapping(value = "/advanced")
     public ResponseEntity<List<Ebook>> advancedSearch(@RequestBody AdvancedQuery advancedQuery) {
+
 //        Query query = QueryBuilder
 
                 return null;

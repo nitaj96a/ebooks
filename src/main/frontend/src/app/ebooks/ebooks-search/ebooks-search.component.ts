@@ -68,14 +68,10 @@ export class EbooksSearchComponent implements OnInit {
 
             let fieldValue: string = this.searchEbookForm.controls.inputField.value.toLowerCase();
 
-            if (searchType == 'Term') {
-                this.ebookService.termSearch(valueQuery, fieldValue).subscribe(ebooks => {
-                    this.ebooks = ebooks;
-                    if (this.ebooks.length == 0) {}
-                    console.log(ebooks);
-                    this.ebookEmitter.emit(this.ebooks);
-                });
-            }
+            this.ebookService.simpleSearch(valueQuery, fieldValue, searchType).subscribe(ebooks => {
+                this.ebooks = ebooks;
+                this.ebookEmitter.emit(this.ebooks);
+            });
 
         } else {
             let titleQuery: string = this.searchEbookForm.controls.inputTitle.value;

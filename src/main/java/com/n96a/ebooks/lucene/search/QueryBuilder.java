@@ -5,6 +5,8 @@ import com.n96a.ebooks.lucene.model.SearchType;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.FuzzyQuery;
+import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
 
@@ -41,6 +43,17 @@ public class QueryBuilder {
         if (queryType.equals(SearchType.regular)) {
             Term term = new Term(field, value);
             query = new TermQuery(term);
+        } else if (queryType.equals(SearchType.phrase)) {
+            String[] values = value.split(" ");
+            PhraseQuery.Builder builder = new PhraseQuery.Builder();
+            for (String word : values) {
+                Term term = new Term(field, word);
+                builder.add(term);
+            }
+            query = builder.build();
+        } else if (queryType.equals(SearchType.fuzzy)) {
+            Term term = new Term(field, value);
+            query = new FuzzyQuery(term, maxEdits);
         }
 
         return parser.parse(query.toString(field));
