@@ -14,6 +14,18 @@ export class CategoryService {
     }
 
     getCategoryById(id: number) {
-        return this.http.get<Category>("/api/categories/" + id)//.pipe(map(response => response.json()));
+        return this.http.get<Category>("/api/categories/" + id);//.pipe(map(response => response.json()));
+    }
+
+    addCategory(category: Category) {
+        return this.http.post<Category>("/api/categories", category);
+    }
+
+    editCategory(cat: Category) {
+        return this.http.put<Category>("/api/categories/", cat);
+    }
+
+    deleteCategory(id: number) {
+        return this.http.delete("/api/categories/" + id);
     }
 }

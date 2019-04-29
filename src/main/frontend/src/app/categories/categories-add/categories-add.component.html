@@ -1,3 +1,48 @@
-<p>
-    categories-add works!
-</p>
+<div class="row justify-content-center">
+    <h4 class="display-4">Add category</h4>
+</div>
+<form
+    [formGroup]="addCategoryForm"
+    class="col-md-8 offset-md-2 needs-validation"
+    (ngSubmit)="onSubmit()"
+>
+    <div class="form-group">
+        <label for="inputName" class="font-weight-bold">Naziv</label>
+        <input
+            formControlName="inputName"
+            type="text"
+            class="form-control"
+            id="inputName"
+            placeholder="Name"
+            [ngClass]="
+            addCategoryForm.get('inputName').errors &&
+            addCategoryForm.get('inputName').touched
+                    ? 'is-invalid'
+                    : addCategoryForm.get('inputName').errors == null &&
+                      addCategoryForm.get('inputName').touched
+                    ? 'is-valid'
+                    : ''
+            "
+        />
+        <div
+            class="invalid-feedback"
+            *ngIf="
+            addCategoryForm.get('inputName').hasError('required') &&
+            addCategoryForm.get('inputName').touched
+            "
+        >
+            You must enter a name
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-success btn-lg ml-3">
+            Save
+        </button>
+        <button
+            class="btn btn-secondary btn-lg ml-auto mr-3"
+            [routerLink]="['/categories']"
+        >
+            Cancel
+        </button>
+    </div>
+</form>

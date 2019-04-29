@@ -27,14 +27,12 @@ public class CategoryService implements CategoryServiceInterface {
 
     @Override
     public Category create(Category category) {
-        // TODO Auto-generated method stub
-        return null;
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category update(Category category) {
-        // TODO Auto-generated method stub
-        return null;
+        return categoryRepository.save(category);
     }
 
     @Override
@@ -45,8 +43,7 @@ public class CategoryService implements CategoryServiceInterface {
 
     @Override
     public void remove(Integer id) {
-        // TODO Auto-generated method stub
-
+        categoryRepository.deleteById(id);
     }
 
 }

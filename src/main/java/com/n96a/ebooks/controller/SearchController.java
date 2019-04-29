@@ -4,11 +4,8 @@ import com.n96a.ebooks.DTO.CategoryDTO;
 import com.n96a.ebooks.DTO.EbookDTO;
 import com.n96a.ebooks.DTO.LanguageDTO;
 import com.n96a.ebooks.DTO.UserDTO;
+import com.n96a.ebooks.lucene.model.*;
 import com.n96a.ebooks.model.Ebook;
-import com.n96a.ebooks.lucene.model.RequiredHighlight;
-import com.n96a.ebooks.lucene.model.ResultData;
-import com.n96a.ebooks.lucene.model.SearchType;
-import com.n96a.ebooks.lucene.model.SimpleQuery;
 import com.n96a.ebooks.lucene.search.QueryBuilder;
 import com.n96a.ebooks.lucene.search.ResultRetreiver;
 import com.n96a.ebooks.model.Language;
@@ -68,11 +65,14 @@ public class SearchController {
 
     @PostMapping(value = "/simple")
     public ResponseEntity<List<Ebook>> simpleSearch(@RequestBody SimpleQuery simpleQuery) {
-
+        return null;
     }
 
     @PostMapping(value = "/advanced")
     public ResponseEntity<List<Ebook>> advancedSearch(@RequestBody AdvancedQuery advancedQuery) {
+//        Query query = QueryBuilder
 
+                return null;
+//        return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
     }
 }

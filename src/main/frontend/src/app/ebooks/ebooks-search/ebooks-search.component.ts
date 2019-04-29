@@ -100,7 +100,7 @@ export class EbooksSearchComponent implements OnInit {
                 content: contentQuery,
                 contentType: contentQueryType,
                 language: selectedLangId,
-                boolean: booleanSearchOpt,
+                booleanSearch: booleanSearchOpt,
             }
             this.ebookService.advancedSearch(advancedQuery).subscribe(ebooks => {
                 this.ebooks = ebooks;

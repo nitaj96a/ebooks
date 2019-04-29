@@ -20,6 +20,12 @@ export class CategoriesListComponent implements OnInit {
     }
 
     delete(id: number) {
-        //this.categoryService.deleteCategory(id);
+        this.categoryService.deleteCategory(id).subscribe(() => {
+            for (let i = 0; i < this.categories.length; i++) {
+                if (this.categories[i].id === id) {
+                    this.categories.splice(i, 1);
+                }
+            }
+        });
     }
 }

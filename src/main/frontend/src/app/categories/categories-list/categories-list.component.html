@@ -12,7 +12,7 @@
     <tr *ngFor="let cat of categories">
         <th scope="row">{{cat.id}}</th>   
         <td>{{cat.name}}</td>
-        <td class="h5"><a class="badge badge-primary"  [routerLink]="['/category/edit', cat.id]"> <i class="fa fa-edit"></i> Edit</a></td>
+        <td class="h5"><a class="badge badge-primary"  [routerLink]="['/categories/edit', cat.id]"> <i class="fa fa-edit"></i> Edit</a></td>
         <td class="h5"><a class="badge badge-danger text-white" (click)="delete(cat.id)" style="cursor: pointer"> <i class="fa fa-trash"></i> Delete</a></td>
     </tr>
     </tbody>
