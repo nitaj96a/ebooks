@@ -13,7 +13,7 @@ import org.apache.lucene.search.TermQuery;
 public class QueryBuilder {
 
     private static SerbianAnalyzer analyzer = new SerbianAnalyzer();
-    private static int maxEdits = 3;
+    private static int maxEdits = 2;
 
     public static int getMaxEdits() {
         return maxEdits;
