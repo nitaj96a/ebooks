@@ -30,6 +30,7 @@ export class EbooksAddComponent implements OnInit {
     imgFile: File;
     filename: String;
     language: Language;
+    loading = false;
 
 
     public imagePath;
@@ -117,6 +118,7 @@ export class EbooksAddComponent implements OnInit {
 
     uploadFile() {
         console.log(this.file);
+        this.loading = true;
         this.ebookService.uploadEbookFile(this.file)
             .subscribe((ebook: Ebook) => {
                 this.ebook = ebook;
@@ -124,6 +126,7 @@ export class EbooksAddComponent implements OnInit {
                 console.log(this.filename);
                 console.log(this.ebook);
                 this.uploadedFile = true;
+                this.loading = false;
                 this.addEbookForm.controls.inputTitle.setValue(ebook.title);
                 this.addEbookForm.controls.inputAuthor.setValue(ebook.author);
                 this.addEbookForm.controls.inputKeywords.setValue(ebook.keywords);
@@ -133,6 +136,8 @@ export class EbooksAddComponent implements OnInit {
     }
 
     onSubmit() {
+
+        this.loading = true;
 
         let title: string = this.addEbookForm.controls.inputTitle.value;
         let author: string = this.addEbookForm.controls.inputAuthor.value;
@@ -164,6 +169,7 @@ export class EbooksAddComponent implements OnInit {
                 (ebook: any) => {
                     this.ebook = ebook;
                     console.log(ebook);
+                    this.loading = false;
                     //this.ebookService.indexEbook(ebook.id).subscribe();
                     this.router.navigate(['ebooks']);
                 },

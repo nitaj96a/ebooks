@@ -40,7 +40,7 @@ import { AuthGuard } from './auth/_guards/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EbooksEditComponent } from './ebooks/ebooks-edit/ebooks-edit.component';
-import {PaginationModule, ButtonsModule} from 'node_modules/ngx-bootstrap';
+import {PaginationModule, ButtonsModule, BsDropdownModule} from 'node_modules/ngx-bootstrap';
 import { CategoriesEditComponent } from './categories/categories-edit/categories-edit.component';
 import { LanguagesEditComponent } from './languages/languages-edit/languages-edit.component';
 
@@ -74,6 +74,7 @@ import { LanguagesEditComponent } from './languages/languages-edit/languages-edi
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
+        BsDropdownModule.forRoot(),
         PaginationModule.forRoot(),
         CollapseModule.forRoot(),
         ReactiveFormsModule,
