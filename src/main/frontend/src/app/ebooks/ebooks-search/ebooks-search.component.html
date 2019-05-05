@@ -83,7 +83,7 @@
         <div class="form-group col-md-6">
             <label for="inputLanguage">By Language</label>
             <select formControlName="inputLanguage" class="form-control" id="inputLanguage">
-                <option [ngValue]="null" disabled selected hidden>Filter By Language</option>
+                <!-- <option [ngValue]="null" disabled selected hidden>Filter By Language</option> -->
                 <option [ngValue]="null">Any</option>
                 <option *ngFor="let language of languages" value="{{ language.id }}">{{language.name}}</option>
             </select>

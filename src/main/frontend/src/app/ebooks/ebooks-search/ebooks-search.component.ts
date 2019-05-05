@@ -82,7 +82,11 @@ export class EbooksSearchComponent implements OnInit {
             let keywordQueryType = this.searchEbookForm.controls.keywordSearchType.value;
             let contentQuery: string = this.searchEbookForm.controls.inputContent.value;
             let contentQueryType = this.searchEbookForm.controls.contentSearchType.value;
-            let selectedLangId: number = this.searchEbookForm.controls.inputLanguage.value;
+            console.log(this.searchEbookForm.controls.inputLanguage.value);
+            let selectedLangId: number = Number(this.searchEbookForm.controls.inputLanguage.value);
+            if (selectedLangId == 0) {
+                selectedLangId = null;
+            }
             let selectedLang: Language = this.languages.filter(x => x.id == selectedLangId)[0];
             let booleanSearchOpt = this.searchEbookForm.controls.booleanSearchOption.value;
 

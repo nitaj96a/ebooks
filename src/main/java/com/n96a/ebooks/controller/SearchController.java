@@ -149,14 +149,14 @@ public class SearchController {
             queries.add(textQuery);
         }
 
-        BooleanClause.Occur occur = null;
-        if (advancedQuery.getBooleanSearch().equals("AND")) {
+        BooleanClause.Occur occur = BooleanClause.Occur.SHOULD;
+        if (advancedQuery.getBooleanSearch() != null && advancedQuery.getBooleanSearch().equals("AND")) {
             occur = BooleanClause.Occur.MUST;
-        } else if (advancedQuery.getBooleanSearch().equals("OR")) {
+        } else if (advancedQuery.getBooleanSearch() != null && advancedQuery.getBooleanSearch().equals("OR")) {
             occur = BooleanClause.Occur.SHOULD;
         }
-        if (advancedQuery.getBooleanSearch().equals("AND")
-                || advancedQuery.getBooleanSearch().equals("OR")) {
+//        if (advancedQuery.getBooleanSearch().equals("AND")
+//                || advancedQuery.getBooleanSearch().equals("OR")) {
             for (Query query: queries) {
                 bqBuilder.add(query, occur);
             }
@@ -165,21 +165,43 @@ public class SearchController {
 
             List<ResultData> results = ResultRetreiver.getResults(q, requiredHighlights);
             List<Ebook> ebooks = new ArrayList<Ebook>();
-            for (ResultData rd : results) {
-                String locationRaw = rd.getLocation();
-                String[] locationSplit = locationRaw.split("\\\\");
-                String location = locationSplit[locationSplit.length-1];
-                Ebook ebook = ebookService.findByFilename(location);
-                String highlight = rd.getHighlight();
-                ebook.setHighlight(highlight);
-                ebooks.add(ebook);
-            }
+            populateEbooksFromResults(results, ebooks, advancedQuery.getLanguage());
+//            for (Ebook ebook : ebooks) {
+//                if (ebook.getLanguage().getId() != advancedQuery.getLanguage()) {
+//                    ebooks.remove(ebook);
+//                }
+//            }
+//            //filterByLanguage(ebooks, advancedQuery.getLanguage());
+
             return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
+//        }
 
+
+
+        //return null;
+    }
+    private void populateEbooksFromResults(List<ResultData> results, List<Ebook> ebooks, Integer langId) {
+        for (ResultData rd : results) {
+            String locationRaw = rd.getLocation();
+            String[] locationSplit = locationRaw.split("\\\\");
+            String location = locationSplit[locationSplit.length-1];
+            Ebook ebook = ebookService.findByFilename(location);
+            System.out.println(langId);
+            if (langId != 0 && ebook.getLanguage().getId() != langId){
+                continue;
+            }
+            String highlight = rd.getHighlight();
+            ebook.setHighlight(highlight);
+            ebooks.add(ebook);
         }
+    }
 
-
-        return null;
+    private void filterByLanguage(List<Ebook> ebooks, Integer langId) {
+        for (Ebook ebook : ebooks) {
+            if (ebook.getLanguage().getId() != langId) {
+                ebooks.remove(ebook);
+            }
+        }
     }
 
     private String createQueryString(AdvancedQuery advancedQuery) {
