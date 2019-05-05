@@ -23,4 +23,6 @@ public interface EbookServiceInterface {
 
     Ebook findByFilename(String filename);
 
+    List<Ebook> findAllByCategoryId(Integer id);
+
 }

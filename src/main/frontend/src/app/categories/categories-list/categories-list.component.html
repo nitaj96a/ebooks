@@ -4,16 +4,18 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>View Ebooks</th>
+        <th *ngIf="currentUser.type == 'admin'">Edit</th>
+        <th *ngIf="currentUser.type == 'admin'">Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let cat of categories">
         <th scope="row">{{cat.id}}</th>   
         <td>{{cat.name}}</td>
-        <td class="h5"><a class="badge badge-primary"  [routerLink]="['/categories/edit', cat.id]"> <i class="fa fa-edit"></i> Edit</a></td>
-        <td class="h5"><a class="badge badge-danger text-white" (click)="delete(cat.id)" style="cursor: pointer"> <i class="fa fa-trash"></i> Delete</a></td>
+        <td class="h5"><a class="badge badge-secondary"  [routerLink]="['/ebooks/category/', cat.id]"> <i class="fa fa-list"></i> View Ebooks</a></td>
+        <td *ngIf="currentUser.type == 'admin'" class="h5"><a class="badge badge-primary"  [routerLink]="['/categories/edit', cat.id]"> <i class="fa fa-edit"></i> Edit</a></td>
+        <td *ngIf="currentUser.type == 'admin'" class="h5"><a class="badge badge-danger text-white" (click)="delete(cat.id)" style="cursor: pointer"> <i class="fa fa-trash"></i> Delete</a></td>
     </tr>
     </tbody>
   </table>

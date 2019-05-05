@@ -11,7 +11,7 @@
                         
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-success btn-lg" [routerLink]="['/categories/add']"><i class="fa fa-plus"></i> Add a new Category</button>
+                        <button class="btn btn-success btn-lg" *ngIf="currentUser.type == 'admin'" [routerLink]="['/categories/add']"><i class="fa fa-plus"></i> Add a new Category</button>
                     </div>
                 </div>
                 <div class="row">

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import { Language } from 'src/app/languages/language.model';
 import { LanguagesService } from 'src/app/languages/languages.service';
@@ -15,6 +15,7 @@ export class EbooksSearchComponent implements OnInit {
     searchEbookForm: FormGroup;
     languages: Language[] = [];
     fields = ['Text', 'Keywords', 'Title', 'Author', 'Filename'];
+    @Input() categoryId: number;
 
     @Output() ebookEmitter = new EventEmitter<Ebook[]>();
 
@@ -68,10 +69,19 @@ export class EbooksSearchComponent implements OnInit {
 
             let fieldValue: string = this.searchEbookForm.controls.inputField.value.toLowerCase();
 
-            this.ebookService.simpleSearch(valueQuery, fieldValue, searchType).subscribe(ebooks => {
-                this.ebooks = ebooks;
-                this.ebookEmitter.emit(this.ebooks);
-            });
+            if (this.categoryId) {
+                this.ebookService.simpleSearch(valueQuery, fieldValue, searchType, this.categoryId).subscribe(ebooks => {
+                    this.ebooks = ebooks;
+                    this.ebookEmitter.emit(this.ebooks);
+                });
+            } else {
+                this.ebookService.simpleSearch(valueQuery, fieldValue, searchType).subscribe(ebooks => {
+                    this.ebooks = ebooks;
+                    this.ebookEmitter.emit(this.ebooks);
+                });
+            }
+
+            
 
         } else {
             let titleQuery: string = this.searchEbookForm.controls.inputTitle.value;
@@ -101,6 +111,7 @@ export class EbooksSearchComponent implements OnInit {
                 contentType: contentQueryType,
                 language: selectedLangId,
                 booleanSearch: booleanSearchOpt,
+                categoryId: this.categoryId,
             }
             this.ebookService.advancedSearch(advancedQuery).subscribe(ebooks => {
                 this.ebooks = ebooks;

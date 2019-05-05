@@ -21,6 +21,10 @@ export class EbookService {
         return this.http.get<Ebook[]>("/api/ebooks")//.pipe(map(response => response.json()));
     }
 
+    getEbooksByCategory(categoryId: number) {
+        return this.http.get<Ebook[]>("/api/ebooks/category/" + categoryId);
+    }
+
     addEbook(ebook: Ebook) {
         console.log(ebook);
         return this.http.post<Ebook>("/api/ebooks", ebook)//.pipe(map(response => response.json()));
@@ -104,8 +108,14 @@ export class EbookService {
 
     // ----------- SEARCH --------------
 
-    simpleSearch(value: string, field: string, type: string) {
-        return this.http.post<Ebook[]>('/api/search/simple', {value: value, field: field, type: type});
+    simpleSearch(value: string, field: string, type: string, categoryId?: number) {
+        var body;
+        if (categoryId) {
+            body = {value: value, field: field, type: type, categoryId: categoryId};
+        } else {
+            body = {value: value, field: field, type: type};
+        }
+        return this.http.post<Ebook[]>('/api/search/simple', body);
     }
 
     advancedSearch(searchParams: any) {

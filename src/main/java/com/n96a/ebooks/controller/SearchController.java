@@ -5,6 +5,7 @@ import com.n96a.ebooks.DTO.EbookDTO;
 import com.n96a.ebooks.DTO.LanguageDTO;
 import com.n96a.ebooks.DTO.UserDTO;
 import com.n96a.ebooks.lucene.model.*;
+import com.n96a.ebooks.model.Category;
 import com.n96a.ebooks.model.Ebook;
 import com.n96a.ebooks.lucene.search.QueryBuilder;
 import com.n96a.ebooks.lucene.search.ResultRetreiver;
@@ -54,19 +55,25 @@ public class SearchController {
             query= QueryBuilder.buildQuery(SearchType.fuzzy, simpleQuery.getField(), simpleQuery.getValue());
         }
 
+        Category category = null;
+        if (simpleQuery.getCategoryId() != null) {
+            System.out.println(simpleQuery.getCategoryId());
+            category = categoryService.findOne(simpleQuery.getCategoryId());
+        }
+
          List<RequiredHighlight> requiredHighlights = new ArrayList<RequiredHighlight>();
          requiredHighlights.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
          List<ResultData> results = ResultRetreiver.getResults(query, requiredHighlights);
 //         List<EbookDTO> ebookDTOs = new ArrayList<EbookDTO>();
-        List<Ebook> ebooks = new ArrayList<Ebook>();
+         List<Ebook> ebooks = new ArrayList<Ebook>();
          for (ResultData rd : results) {
              String locationRaw = rd.getLocation();
              String[] locationSplit = locationRaw.split("\\\\");
              String location = locationSplit[locationSplit.length-1];
              Ebook ebook = ebookService.findByFilename(location);
-//             LanguageDTO langDTO = new LanguageDTO(ebook.getLanguage());
-//             CategoryDTO catDTO = new CategoryDTO(ebook.getCategory());
-//             UserDTO userDTO = new UserDTO(ebook.getUser());
+             if ((category != null) && ebook.getCategory().getId() != category.getId()) {
+                 continue;
+             }
              String highlight = rd.getHighlight();
              ebook.setHighlight(highlight);
 //             EbookDTO ebookDTO = new EbookDTO(ebook, langDTO, ebook.getCategory(), userDTO, highlight);
@@ -102,6 +109,12 @@ public class SearchController {
         }
         if (advancedQuery.getContent() != null) {
             text = advancedQuery.getContent();
+        }
+
+        Category category = null;
+        if (advancedQuery.getCategoryId() != null) {
+            System.out.println(advancedQuery.getCategoryId());
+            category = categoryService.findOne(advancedQuery.getCategoryId());
         }
 
         if (title != null) {
@@ -165,7 +178,7 @@ public class SearchController {
 
             List<ResultData> results = ResultRetreiver.getResults(q, requiredHighlights);
             List<Ebook> ebooks = new ArrayList<Ebook>();
-            populateEbooksFromResults(results, ebooks, advancedQuery.getLanguage());
+            populateEbooksFromResults(results, ebooks, advancedQuery.getLanguage(), category);
 //            for (Ebook ebook : ebooks) {
 //                if (ebook.getLanguage().getId() != advancedQuery.getLanguage()) {
 //                    ebooks.remove(ebook);
@@ -180,7 +193,7 @@ public class SearchController {
 
         //return null;
     }
-    private void populateEbooksFromResults(List<ResultData> results, List<Ebook> ebooks, Integer langId) {
+    private void populateEbooksFromResults(List<ResultData> results, List<Ebook> ebooks, Integer langId, Category category) {
         for (ResultData rd : results) {
             String locationRaw = rd.getLocation();
             String[] locationSplit = locationRaw.split("\\\\");
@@ -188,6 +201,9 @@ public class SearchController {
             Ebook ebook = ebookService.findByFilename(location);
             System.out.println(langId);
             if (langId != 0 && ebook.getLanguage().getId() != langId){
+                continue;
+            }
+            if (category != null && ebook.getCategory().getId() != category.getId()) {
                 continue;
             }
             String highlight = rd.getHighlight();

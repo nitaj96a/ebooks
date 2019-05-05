@@ -5,6 +5,7 @@ public class SimpleQuery {
     private String field;
     private String value;
     private String type;
+    private Integer categoryId;
 
     public SimpleQuery() {
     }
@@ -31,5 +32,13 @@ public class SimpleQuery {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }

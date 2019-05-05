@@ -43,7 +43,7 @@ public class EbookController {
     private FileController fileController;
 
     @GetMapping(value = {"", "/"}) // decide on a type
-    public ResponseEntity<List<Ebook>> getAllUsers() {
+    public ResponseEntity<List<Ebook>> getAllEbooks() {
         List<Ebook> ebooks = ebookService.findAll();
 //        List<EbookDTO> ebookDTOs = new ArrayList<EbookDTO>();
 
@@ -54,12 +54,20 @@ public class EbookController {
         return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
     }
 
+    @GetMapping(value = {"/category/{categoryId}"})
+    public ResponseEntity<List<Ebook>> getEbooksByCategoryId(@PathVariable("categoryId") Integer categoryId) {
+        List<Ebook> ebooks = ebookService.findAllByCategoryId(categoryId);
+
+        return new ResponseEntity<List<Ebook>>(ebooks, HttpStatus.OK);
+    }
     @GetMapping(value = {"{id}", "/{id}"}) // decide on a type
-    public ResponseEntity<Ebook> getUserById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Ebook> getEbookById(@PathVariable("id") Integer id) {
         Ebook ebook = ebookService.findOne(id);
 
         return new ResponseEntity<Ebook>(ebook, HttpStatus.OK);
     }
+
+
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Ebook> create(@RequestBody Ebook ebook) {

@@ -3,6 +3,9 @@ import { AuthenticationService } from './../../auth/_services/authentication.ser
 import {Component, OnInit, Input} from "@angular/core";
 import {Ebook} from "../ebook.model";
 import {EbookService} from "../ebook.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from 'src/app/categories/category.service';
+import { Category } from 'src/app/categories/category.model';
 
 @Component({
     selector: "app-ebooks-list",
@@ -10,6 +13,8 @@ import {EbookService} from "../ebook.service";
     styleUrls: ["./ebooks-list.component.css"]
 })
 export class EbooksListComponent implements OnInit {
+    catId: number;
+    category
     ebooks: Ebook[] = [];
     allEbooks: Ebook[] = [];
     currentUser: User;
@@ -18,13 +23,41 @@ export class EbooksListComponent implements OnInit {
 
     @Input() ebookResults: Ebook[];
 
-    constructor(private ebookService: EbookService, private authenticationService: AuthenticationService,) {
+    constructor(
+        private ebookService: EbookService,
+        private authenticationService: AuthenticationService,
+        private route: ActivatedRoute,
+        private categoryService: CategoryService,
+        private router: Router,
+    ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     ngOnInit() {
-        this.ebookService.getEbooks()
-            .subscribe(
+        this.route.params.subscribe(params => {
+            this.catId = params['catId'];
+            if (this.catId) {
+                this.catId = this.catId;
+                this.categoryService.getCategoryById(this.catId).subscribe((c: Category) => {
+                    this.category = c;
+                    if (this.category) {
+                        this.ebookService.getEbooksByCategory(this.catId).subscribe(
+                            (ebooks: any[]) => {
+                                this.ebooks = ebooks;
+                                this.allEbooks = ebooks;
+                            }, error => console.log(error),
+                            () => {
+                                this.downloadCovers();
+                            }
+                        );
+                    } else {
+                        this.router.navigateByUrl('/ebooks');
+                    }
+                    
+                });
+            } else {
+                this.ebookService.getEbooks()
+                .subscribe(
                 (ebooks: any[]) => {
                     this.ebooks = ebooks;
                     this.allEbooks = ebooks;
@@ -34,6 +67,8 @@ export class EbooksListComponent implements OnInit {
                     this.downloadCovers();
                 },
             );
+            }
+        });
     }
 
     downloadCovers() {

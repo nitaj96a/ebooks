@@ -11,6 +11,7 @@ public class AdvancedQuery {
     private String contentType;
     private int language;
     private String booleanSearch;
+    private Integer categoryId;
 
     public AdvancedQuery() {
     }
@@ -93,5 +94,13 @@ public class AdvancedQuery {
 
     public void setBooleanSearch(String booleanSearch) {
         this.booleanSearch = booleanSearch;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }

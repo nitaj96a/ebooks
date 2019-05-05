@@ -58,4 +58,9 @@ public class EbookService implements EbookServiceInterface {
     public Ebook findByFilename(String filename) {
         return ebookRepository.findByFilename(filename);
     }
+
+    @Override
+    public List<Ebook> findAllByCategoryId(Integer id) {
+        return ebookRepository.findAllByCategory_Id(id);
+    }
 }
