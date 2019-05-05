@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {first} from 'rxjs/operators';
+import { Role } from 'src/app/users/role.enum';
 
 
 @Component({
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          console.log(Role.admin);
           this.router.navigate([this.returnUrl]);
         },
         error => {

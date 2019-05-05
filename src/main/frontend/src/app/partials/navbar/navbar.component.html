@@ -21,13 +21,13 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/ebooks">E-books</a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="currentUser.type == 'admin'" class="nav-item">
                     <a class="nav-link" routerLink="/users">Users</a>
                 </li>
-                <li *ngIf="currentUser" class="nav-item">
+                <li *ngIf="currentUser.type == 'admin'" class="nav-item">
                     <a class="nav-link" routerLink="/languages">Languages</a>
                 </li>
-                <li *ngIf="currentUser" class="nav-item">
+                <li *ngIf="currentUser.type == 'admin'" class="nav-item">
                     <a class="nav-link" routerLink="/categories">Categories</a>
                 </li>
 
@@ -36,9 +36,9 @@
             <!-- <button *ngIf="currentUser" (click)="logout()" class="btn btn-primary my-2 my-sm-0">Logout</button> -->
             <ul *ngIf="currentUser" class="navbar-nav ml-auto">
                   <li class="nav-item dropdown" dropdown >
-                  <a class="btn nav-link dropdown-toggle" style="cursor: pointer" dropdownToggle>Welcome {{currentUser.username | titlecase}} <span class="caret"></span></a>
+                  <a class="btn nav-link dropdown-toggle" style="cursor: pointer" dropdownToggle>Welcome {{currentUser.username}} <span class="caret"></span></a>
                   <ul class="dropdown-menu" *dropdownMenu>
-                    <li><a [routerLink]="['/user/edit/', currentUser.id]" class="dropdown-item"><i class="fa fa-user"></i> Edit Profile</a></li>
+                    <li><a [routerLink]="['/user/edit/', currentUser.id]" class="dropdown-item"><i class="fa fa-user"></i> Edit Account</a></li>
                     <div class="dropdown-divider"></div>
                     <li ><a class="dropdown-item"(click)="logout()" style="cursor: pointer"><i class="fa fa-sign-out"></i> Logout</a></li>
                   </ul>

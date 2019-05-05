@@ -20,6 +20,7 @@ export class UsersListComponent implements OnInit {
             .subscribe(
                 (users: any[]) => {
                     this.users = users;
+                    console.log(this.users);
                 },
                 (error) => console.log(error)
             );

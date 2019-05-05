@@ -43,12 +43,14 @@ import { EbooksEditComponent } from './ebooks/ebooks-edit/ebooks-edit.component'
 import {PaginationModule, ButtonsModule, BsDropdownModule} from 'node_modules/ngx-bootstrap';
 import { CategoriesEditComponent } from './categories/categories-edit/categories-edit.component';
 import { LanguagesEditComponent } from './languages/languages-edit/languages-edit.component';
+import { UsersEditComponent } from './users/users-edit/users-edit.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         UsersComponent,
         UsersAddComponent,
+        UsersEditComponent,
         UsersListComponent,
         HeaderComponent,
         FooterComponent,
