@@ -30,5 +30,13 @@ public class UserService implements UserServiceInterface {
         return userRepository.findAll();
     }
 
+    @Override
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
 
+    @Override
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
 }

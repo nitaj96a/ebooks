@@ -3,15 +3,13 @@ package com.n96a.ebooks.controller;
 import java.security.Principal;
 import java.util.List;
 
+import com.n96a.ebooks.model.Ebook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.n96a.ebooks.model.User;
 import com.n96a.ebooks.service.UserServiceInterface;
@@ -33,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
         User user = userService.findOne(id);
 
@@ -46,4 +44,30 @@ public class UserController {
         User user = userService.findByUsername(userPrincipal.getName());
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
+
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User user, Principal userPrincipal) {
+        User currentUser = userService.findByUsername(userPrincipal.getName());
+
+        if (!currentUser.getType().equals("admin") && user.getId() != currentUser.getId())
+            return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+
+        User userFromRepo = userService.findOne(user.getId());
+        if (userFromRepo == null)
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+
+        if (user.getPassword() == null) {
+            userFromRepo.setFirstName(user.getFirstName());
+            userFromRepo.setLastName(user.getLastName());
+            userFromRepo.setType(user.getType());
+            userFromRepo.setUsername(user.getUsername());
+            userFromRepo = userService.updateUser(userFromRepo);
+        } else {
+            userFromRepo = userService.updateUser(user);
+        }
+
+
+        return new ResponseEntity<User>(userFromRepo, HttpStatus.OK);
+    }
+
 }

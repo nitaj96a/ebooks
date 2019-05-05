@@ -1,3 +1,39 @@
-<p>
-  users-edit works!
-</p>
+<div class="row justify-content-center">
+  <h4 class="display-4">Edit User</h4>
+</div>
+<form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="inputUsername"class="font-weight-bold">Username</label>
+        <input formControlName="inputUsername" type="text" class="form-control" id="inputUsername" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="inputFirstName"class="font-weight-bold">First Name</label>
+        <input formControlName="inputFirstName" type="text" class="form-control" id="inputFirstName" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="inputLastName"class="font-weight-bold">Last Name</label>
+        <input formControlName="inputLastName" type="text" class="form-control" id="inputLastName" placeholder="">
+    </div>
+    <div class="form-group" *ngIf="currentUser.type =='admin'">
+        <label for="inputType"class="font-weight-bold"></label>
+        <select formControlName="inputType" class="form-control" id="inputType">
+            <option value="regular">Regular</option> 
+            <option value="admin">Administrator</option> 
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword"class="font-weight-bold">Password</label>
+        <input formControlName="inputPassword" type="password" class="form-control" id="inputPassword" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="inputConfirmPassword"class="font-weight-bold">Confirm Password</label>
+        <input formControlName="inputConfirmPassword" type="password" class="form-control" id="inputConfirmPassword" placeholder="">
+    </div>
+    <!-- <div class="form-group">
+        <label for="inputThumbnail"class="font-weight-bold">User thumbnail <small>current: </small><span id="currentThumbnailSpan">{{user.thumbnailPath}}</span></label>
+        <input #imgFile accept="image/*" (change)="preview(imgFile.files)" formControlName="inputThumbnail" type="file" class="form-control-file " id="inputThumbnail">
+        <img [src]="imgURL" height="250" class="mt-3" id="thumbImg" *ngIf="imgURL">
+    </div> -->
+    
+   <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
