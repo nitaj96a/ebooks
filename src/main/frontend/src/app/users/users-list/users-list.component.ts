@@ -28,6 +28,16 @@ export class UsersListComponent implements OnInit {
 
     }
 
+    toggleEnabled(id: number) {
+        this.userService.toggleEnabled(id).subscribe(user => {
+            for (let i = 0; i < this.users.length; i++) {
+                if (this.users[i].id === id) {
+                    this.users[i].enabled = user.enabled;
+                }
+            }
+        });
+    }
+
     getIfUserPromoted(user: User) {
         return user.type === "admin" ? 'badge-success' : 'badge-primary';
     }

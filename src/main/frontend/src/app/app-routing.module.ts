@@ -15,11 +15,13 @@ import { LanguagesAddComponent } from './languages/languages-add/languages-add.c
 import { LanguagesEditComponent } from './languages/languages-edit/languages-edit.component';
 import { Role } from './users/role.enum';
 import { UsersEditComponent } from './users/users-edit/users-edit.component';
+import { UsersAddComponent } from './users/users-add/users-add.component';
 
 const routes: Routes = [
     {path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
     {path: 'users/me', component: UsersEditComponent, canActivate: [AuthGuard]},
     {path: 'users/edit/:id', component: UsersEditComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
+    {path: 'users/add', component: UsersAddComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
     {path: 'ebooks', component: EbooksComponent},
     {path: 'ebooks/category/:catId', component: EbooksComponent},
     {path: 'ebooks/add', component: EbooksAddComponent , canActivate: [AuthGuard], data: {roles: [Role.Admin]}},

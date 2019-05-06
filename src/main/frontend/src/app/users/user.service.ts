@@ -19,7 +19,16 @@ export class UserService {
         return this.http.get<User>("api/users/"+id);
     }
 
+    createUser(user: UserForEdit) {
+        console.log(user);
+        return this.http.post<User>("/api/users", user);
+    }
+
     updateUser(user: UserForEdit) {
         return this.http.put<User>("/api/users/", user);
+    }
+
+    toggleEnabled(id: number) {
+        return this.http.post<User>('/api/users/enable/' + id, {});
     }
 }

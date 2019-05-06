@@ -1,8 +1,13 @@
 package com.n96a.ebooks.service;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.n96a.ebooks.model.Authority;
+import com.n96a.ebooks.repository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.n96a.ebooks.model.User;
@@ -14,6 +19,9 @@ public class UserService implements UserServiceInterface {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AuthorityRepository authorityRepository;
 
     @Override
     public User findByUsername(String username) {
@@ -32,6 +40,12 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User updateUser(User user) {
+        if (user.getType().equals("admin")) {
+            user.getAuthorities().add(authorityRepository.getByName("ROLE_ADMIN"));
+            user.getAuthorities().add(authorityRepository.getByName("ROLE_USER"));
+        } else {
+            user.getAuthorities().add(authorityRepository.getByName("ROLE_USER"));
+        }
         return userRepository.save(user);
     }
 

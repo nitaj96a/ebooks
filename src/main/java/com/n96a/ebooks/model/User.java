@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,7 +29,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "username", columnDefinition = "VARCHAR(10)", length = 10, unique = true, nullable = false)
     private String username; // varchar(10) ??
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", unique = false, nullable = false)
     private String password; // varchar(10) ??
 
@@ -145,13 +146,18 @@ public class User implements Serializable, UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public List<Authority> getAuthorities() {
         return this.authorities;
     }
 
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @JsonIgnore
@@ -179,6 +185,8 @@ public class User implements Serializable, UserDetails {
     public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
+
+
 
     @Override
     public String toString() {

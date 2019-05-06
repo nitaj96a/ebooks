@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import com.n96a.ebooks.model.Ebook;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,6 +46,18 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user, Principal userPrincipal) {
+        User currentUser = userService.findByUsername(userPrincipal.getName());
+
+        if (!currentUser.getType().equals("admin"))
+            return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+
+        User createdUser = userService.createUser(user);
+
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user, Principal userPrincipal) {
         User currentUser = userService.findByUsername(userPrincipal.getName());
@@ -68,6 +81,16 @@ public class UserController {
 
 
         return new ResponseEntity<User>(userFromRepo, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/enable/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<User> userEnabledToggle(@PathVariable("id") Integer id) {
+        User user = userService.findOne(id);
+        user.setEnabled(!user.isEnabled());
+        user = userService.updateUser(user);
+
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
 }

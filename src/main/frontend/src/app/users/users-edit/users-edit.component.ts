@@ -36,7 +36,8 @@ export class UsersEditComponent implements OnInit {
           this.editUserForm.controls.inputLastName.setValue(user.lastName);
           this.editUserForm.controls.inputUsername.setValue(user.username);
           this.editUserForm.controls.inputType.setValue(user.type);
-          this.editUserForm.controls.inputPassword.setValue(null);
+          this.editUserForm.controls.inputPassword.setValue('');
+          this.editUserForm.controls.inputConfirmPassword.setValue('');
           this.userForEdit = user;
         });
       }

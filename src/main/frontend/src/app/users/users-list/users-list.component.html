@@ -7,6 +7,7 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Username</th>
+        <th>Enabled</th>
         <th>Type</th>
         <th>Edit</th>
         <!-- <th>Promote</th> -->
@@ -18,8 +19,9 @@
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.username}}</td>
-        <td><span class="badge {{getIfUserPromoted(user)}}">{{user.type}}</span></td>
-        <td><a [routerLink]="['/users/edit/', user.id]">edit</a></td>
+        <td class="h5"><a style="cursor: pointer" (click)="toggleEnabled(user.id)" class="badge text-white" [ngClass]="user.enabled ? 'badge-success' : 'badge-danger'">{{user.enabled ? 'enabled' : 'disabled'}}</a></td>
+        <td class="h5"><span class="badge {{getIfUserPromoted(user)}}">{{user.type}}</span></td>
+        <td class="h5"><a [routerLink]="['/users/edit/', user.id]">edit</a></td>
     </tr>
     </tbody>
 </table>
