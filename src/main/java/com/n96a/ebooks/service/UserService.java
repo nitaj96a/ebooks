@@ -1,5 +1,6 @@
 package com.n96a.ebooks.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,16 +42,30 @@ public class UserService implements UserServiceInterface {
     @Override
     public User updateUser(User user) {
         if (user.getType().equals("admin")) {
-            user.getAuthorities().add(authorityRepository.getByName("ROLE_ADMIN"));
-            user.getAuthorities().add(authorityRepository.getByName("ROLE_USER"));
+            List<Authority> authorities = new ArrayList<Authority>();
+            authorities.add(authorityRepository.getByName("ROLE_ADMIN"));
+            authorities.add(authorityRepository.getByName("ROLE_USER"));
+            user.setAuthorities(authorities);
         } else {
-            user.getAuthorities().add(authorityRepository.getByName("ROLE_USER"));
+            List<Authority> authorities = new ArrayList<Authority>();
+            authorities.add(authorityRepository.getByName("ROLE_USER"));
+            user.setAuthorities(authorities);
         }
         return userRepository.save(user);
     }
 
     @Override
     public User createUser(User user) {
+        if (user.getType().equals("admin")) {
+            List<Authority> authorities = new ArrayList<Authority>();
+            authorities.add(authorityRepository.getByName("ROLE_ADMIN"));
+            authorities.add(authorityRepository.getByName("ROLE_USER"));
+            user.setAuthorities(authorities);
+        } else {
+            List<Authority> authorities = new ArrayList<Authority>();
+            authorities.add(authorityRepository.getByName("ROLE_USER"));
+            user.setAuthorities(authorities);
+        }
         return userRepository.save(user);
     }
 }

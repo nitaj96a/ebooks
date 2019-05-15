@@ -117,7 +117,10 @@ public class SearchController {
             category = categoryService.findOne(advancedQuery.getCategoryId());
         }
 
-        if (title != null) {
+        if (title != null && title != "") {
+            if (advancedQuery.isTitleNot()) {
+                title = "-" + title;
+            }
             if (advancedQuery.getTitleType().equals("Term")) {
                 titleQuery = QueryBuilder.buildQuery(SearchType.regular, "title", title);
             } else if (advancedQuery.getTitleType().equals("Phrase")) {
@@ -128,7 +131,10 @@ public class SearchController {
             requiredHighlights.add(new RequiredHighlight("title", title));
             queries.add(titleQuery);
         }
-        if (author != null) {
+        if (author != null && author != "") {
+            if (advancedQuery.isAuthorNot()) {
+                author = "-" + author;
+            }
             if (advancedQuery.getAuthorType().equals("Term")) {
                 authorQuery = QueryBuilder.buildQuery(SearchType.regular, "author", author);
             } else if (advancedQuery.getAuthorType().equals("Phrase")) {
@@ -139,7 +145,10 @@ public class SearchController {
             requiredHighlights.add(new RequiredHighlight("author", author));
             queries.add(authorQuery);
         }
-        if (keyword != null) {
+        if (keyword != null && keyword != "") {
+            if (advancedQuery.isKeywordNot()) {
+                keyword = "-" + keyword;
+            }
             if (advancedQuery.getKeywordType().equals("Term")) {
                 keywordQuery = QueryBuilder.buildQuery(SearchType.regular, "keyword", keyword);
             } else if (advancedQuery.getKeywordType().equals("Phrase")) {
@@ -150,7 +159,10 @@ public class SearchController {
             requiredHighlights.add(new RequiredHighlight("keyword", keyword));
             queries.add(keywordQuery);
         }
-        if (text != null) {
+        if (text != null && text != "") {
+            if (advancedQuery.isContentNot()) {
+                text = "-" + text;
+            }
             if (advancedQuery.getContentType().equals("Term")) {
                 textQuery = QueryBuilder.buildQuery(SearchType.regular, "text", text);
             } else if (advancedQuery.getContentType().equals("Phrase")) {
@@ -168,10 +180,11 @@ public class SearchController {
         } else if (advancedQuery.getBooleanSearch() != null && advancedQuery.getBooleanSearch().equals("OR")) {
             occur = BooleanClause.Occur.SHOULD;
         }
-//        if (advancedQuery.getBooleanSearch().equals("AND")
-//                || advancedQuery.getBooleanSearch().equals("OR")) {
+
             for (Query query: queries) {
                 bqBuilder.add(query, occur);
+                query.toString();
+
             }
             Query q = bqBuilder.build();
             System.out.println(q.toString());

@@ -150,6 +150,10 @@ public class User implements Serializable, UserDetails {
         return this.authorities;
     }
 
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public boolean isEnabled() {
         return enabled;

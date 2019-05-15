@@ -12,6 +12,10 @@ public class AdvancedQuery {
     private int language;
     private String booleanSearch;
     private Integer categoryId;
+    private boolean titleNot;
+    private boolean authorNot;
+    private boolean keywordNot;
+    private boolean contentNot;
 
     public AdvancedQuery() {
     }
@@ -102,5 +106,37 @@ public class AdvancedQuery {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public boolean isTitleNot() {
+        return titleNot;
+    }
+
+    public void setTitleNot(boolean titleNot) {
+        this.titleNot = titleNot;
+    }
+
+    public boolean isAuthorNot() {
+        return authorNot;
+    }
+
+    public void setAuthorNot(boolean authorNot) {
+        this.authorNot = authorNot;
+    }
+
+    public boolean isKeywordNot() {
+        return keywordNot;
+    }
+
+    public void setKeywordNot(boolean keywordNot) {
+        this.keywordNot = keywordNot;
+    }
+
+    public boolean isContentNot() {
+        return contentNot;
+    }
+
+    public void setContentNot(boolean contentNot) {
+        this.contentNot = contentNot;
     }
 }

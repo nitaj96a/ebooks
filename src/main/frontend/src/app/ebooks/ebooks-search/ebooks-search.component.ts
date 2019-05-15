@@ -33,12 +33,20 @@ export class EbooksSearchComponent implements OnInit {
             valueSearchType: new FormControl('Term'),
             inputField: new FormControl(),
             inputTitle: new FormControl(),
+            inputTitleBoolean: new FormControl('OR'),
+            titleNot: new FormControl(),
             titleSearchType: new FormControl('Term'),
             inputAuthor: new FormControl(),
+            inputAuthorBoolean: new FormControl('OR'),
+            authorNot: new FormControl(),
             authorSearchType: new FormControl('Term'),
             inputKeyword: new FormControl(),
+            inputKeywordBoolean: new FormControl('OR'),
+            keywordNot: new FormControl(),
             keywordSearchType: new FormControl('Term'),
             inputContent: new FormControl(),
+            inputContentBoolean: new FormControl('OR'),
+            contentNot: new FormControl(),
             contentSearchType: new FormControl('Term'),
             inputLanguage: new FormControl(),
             booleanSearchOption: new FormControl(),
@@ -99,6 +107,15 @@ export class EbooksSearchComponent implements OnInit {
             }
             let selectedLang: Language = this.languages.filter(x => x.id == selectedLangId)[0];
             let booleanSearchOpt = this.searchEbookForm.controls.booleanSearchOption.value;
+            let titleNot = this.searchEbookForm.controls.titleNot.value;
+            titleNot == null ? titleNot = false : titleNot = true;
+            let authorNot = this.searchEbookForm.controls.authorNot.value;
+            authorNot == null ? authorNot = false : authorNot = true;
+            let keywordNot = this.searchEbookForm.controls.keywordNot.value;
+            keywordNot == null ? keywordNot = false : keywordNot = true;
+            let contentNot = this.searchEbookForm.controls.contentNot.value;
+            contentNot == null ? contentNot = false : contentNot = true;
+            //console.log(titleNot);
 
             let advancedQuery = {
                 title : titleQuery,
@@ -112,6 +129,10 @@ export class EbooksSearchComponent implements OnInit {
                 language: selectedLangId,
                 booleanSearch: booleanSearchOpt,
                 categoryId: this.categoryId,
+                titleNot: titleNot,
+                authorNot: authorNot,
+                keywordNot: keywordNot,
+                contentNot: contentNot,
             }
             this.ebookService.advancedSearch(advancedQuery).subscribe(ebooks => {
                 this.ebooks = ebooks;

@@ -31,6 +31,7 @@
         <div class="form-group col-md-6"> 
             <label for="inputTitle">By Title</label>
             <input formControlName="inputTitle" class="form-control" type="text" id="inputTitle" name="inputTitle">
+            
             <div class="btn-group" btnRadioGroup formControlName="titleSearchType">
                 <label btnRadio="Term" class="btn btn-light btn-sm"
                        tabindex="0" role="button">Term</label>
@@ -39,7 +40,18 @@
                 <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
                        tabindex="0" role="button">Fuzzy</label>
             </div>
+            <div class="btn-group ml-5" btnRadioGroup formControlName="titleNot">
+                <label btnRadio="NOT" class="btn btn-light btn-sm"
+                       uncheckable tabindex="0" role="button">NOT</label>  
+            </div>
         </div>
+        <!-- <div class="form-group col-md-1">
+                <label for="inputTitleBoolean">Boolean</label>
+            <select formControlName="inputTitleBoolean" class="form-control form-control-sm" id="inputTitleBoolean">
+                <option value="OR" selected>OR</option>
+                <option value="AND">AND</option>
+            </select>
+        </div> -->
         <div class="form-group col-md-6">
             <label for="inputAuthor">By Author</label>
             <input formControlName="inputAuthor" class="form-control" type="text" id="inputAuthor" name="inputAuthor">
@@ -51,7 +63,18 @@
                 <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
                        tabindex="0" role="button">Fuzzy</label>
             </div>
+            <div class="btn-group ml-5" btnRadioGroup formControlName="authorNot">
+                    <label btnRadio="NOT" class="btn btn-light btn-sm"
+                           uncheckable tabindex="0" role="button">NOT</label>  
+                </div>
         </div>
+        <!-- <div class="form-group col-md-1">
+                <label for="inputAuthorBoolean">Boolean</label>
+            <select formControlName="inputAuthorBoolean" class="form-control form-control-sm" id="inputAuthorBoolean">
+                <option value="OR" selected>OR</option>
+                <option value="AND">AND</option>
+            </select>
+        </div> -->
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -65,7 +88,18 @@
                 <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
                        tabindex="0" role="button">Fuzzy</label>
             </div>
+            <div class="btn-group ml-5" btnRadioGroup formControlName="keywordNot">
+                    <label btnRadio="NOT" class="btn btn-light btn-sm"
+                           uncheckable tabindex="0" role="button">NOT</label>  
+                </div>
         </div>
+        <!-- <div class="form-group col-md-1">
+                <label for="inputKeywordBoolean">Boolean</label>
+            <select formControlName="inputKeywordBoolean" class="form-control form-control-sm" id="inputKeywordBoolean">
+                <option value="OR" selected>OR</option>
+                <option value="AND">AND</option>
+            </select>
+        </div> -->
         <div class="form-group col-md-6">
             <label for="inputContent">By Content</label>
             <input formControlName="inputContent" class="form-control" type="text" id="inputContent" name="inputContent">
@@ -77,7 +111,18 @@
                 <label btnRadio="Fuzzy" class="btn btn-light btn-sm"
                        tabindex="0" role="button">Fuzzy</label>
             </div>
+            <div class="btn-group ml-5" btnRadioGroup formControlName="contentNot">
+                    <label btnRadio="NOT" class="btn btn-light btn-sm"
+                           uncheckable tabindex="0" role="button">NOT</label>  
+                </div>
         </div>
+        <!-- <div class="form-group col-md-1">
+                <label for="inputContentBoolean">Boolean</label>
+            <select formControlName="inputContentBoolean" class="form-control form-control-sm" id="inputContentBoolean">
+                <option value="OR" selected>OR</option>
+                <option value="AND">AND</option>
+            </select>
+        </div> -->
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">

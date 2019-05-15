@@ -32,7 +32,7 @@ export class UsersListComponent implements OnInit {
         this.userService.toggleEnabled(id).subscribe(user => {
             for (let i = 0; i < this.users.length; i++) {
                 if (this.users[i].id === id) {
-                    this.users[i].enabled = user.enabled;
+                    this.users[i]['enabled'] = user['enabled'];
                 }
             }
         });

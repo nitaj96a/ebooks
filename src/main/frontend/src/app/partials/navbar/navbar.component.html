@@ -21,10 +21,10 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/ebooks">E-books</a>
                 </li>
-                <li *ngIf="currentUser.type == 'admin'" class="nav-item">
+                <li *ngIf="currentUser && currentUser.type == 'admin'" class="nav-item">
                     <a class="nav-link" routerLink="/users">Users</a>
                 </li>
-                <li *ngIf="currentUser.type == 'admin'" class="nav-item">
+                <li *ngIf="currentUser && currentUser.type == 'admin'" class="nav-item">
                     <a class="nav-link" routerLink="/languages">Languages</a>
                 </li>
                 <li *ngIf="currentUser" class="nav-item">
